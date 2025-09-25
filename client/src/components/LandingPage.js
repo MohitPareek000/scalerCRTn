@@ -74,9 +74,17 @@ const LandingPage = ({ onComplete }) => {
 
   const fetchSkills = async (targetRole) => {
     try {
+      // Prefer curated suggestions (All High + 3 Medium + 3 Low) for SE and DevOps
+      const curatedUrl = `${API_BASE_URL}/suggested-skills/${encodeURIComponent(targetRole)}`;
+      const curatedRes = await axios.get(curatedUrl);
+      if (Array.isArray(curatedRes.data) && curatedRes.data.length) {
+        setSkills(curatedRes.data);
+        return;
+      }
+
+      // Fallback to full skills list
       const response = await axios.get(`${API_BASE_URL}/skills/${encodeURIComponent(targetRole)}`);
       const data = response.data;
-      // Accept both array and category->skills object shapes
       if (Array.isArray(data)) {
         setSkills(data.length ? data : getDefaultSkills(targetRole));
       } else if (data && typeof data === 'object') {

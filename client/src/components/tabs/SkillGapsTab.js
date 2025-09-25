@@ -51,6 +51,29 @@ const SkillGapsTab = ({ userData }) => {
   const missingSkills = userData.analysis?.missingSkills || [];
   const prioritizedMissing = userData.analysis?.prioritizedMissing || [];
 
+  const tiers = React.useMemo(() => {
+    if (!prioritizedMissing.length) return null;
+    const high = [];
+    const medium = [];
+    const low = [];
+    prioritizedMissing.forEach(item => {
+      const priority = item.priority || 'Low';
+      if (priority === 'High') high.push(item);
+      else if (priority === 'Medium') medium.push(item);
+      else low.push(item);
+    });
+    return {
+      high,
+      medium,
+      low,
+      counts: {
+        high: high.length,
+        medium: medium.length,
+        low: low.length
+      }
+    };
+  }, [prioritizedMissing]);
+
   return (
     <div className="space-y-8">
 
@@ -71,40 +94,117 @@ const SkillGapsTab = ({ userData }) => {
                 transition={{ delay: index * 0.1 }}
                 className="skill-chip existing"
               >
-                {skill}
+                <span className="mr-1 text-xs px-1 py-0.5 rounded bg-success-100 border border-success-200">{index + 1}</span>
+                <span className="font-medium">{skill}</span>
               </motion.div>
             ))}
           </div>
         </div>
 
-        {/* Missing Skills (Prioritized) */}
+        {/* Missing Skills */}
         <div className="space-y-3">
           <h3 className="text-xl font-semibold text-gray-900 flex items-center space-x-2">
             <BookOpen className="w-6 h-6 text-danger-500" />
-            <span>Skills to Learn (prioritized)</span>
+            <span>Skills to Learn</span>
           </h3>
-          <p className="text-sm text-gray-600">Click a skill to learn more about it.</p>
-          <div className="flex flex-wrap gap-2">
-            {(prioritizedMissing.length ? prioritizedMissing.map(p => p.skill) : missingSkills).map((skill, index) => (
-              <motion.button
-                key={skill}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 }}
-                onClick={() => handleSkillClick(skill)}
-                className="skill-chip missing shadow-sm bg-white border-danger-200 text-danger-700 hover:shadow"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="mr-1 text-xs px-1 py-0.5 rounded bg-danger-100 border border-danger-200">{index + 1}</span>
-                <span className="font-medium">{skill}</span>
-              </motion.button>
-            ))}
-          </div>
+          <p className="text-sm text-gray-600">Click on the Skill to Learn More</p>
 
-          {prioritizedMissing.length > 0 && (
-            <div className="mt-1 text-xs text-gray-500">
-              Ranked by impact for your target role.
+          {tiers ? (
+            <div className="space-y-4">
+              {/* High Priority */}
+              {tiers.high.length > 0 && (
+                <div>
+                  <div className="text-sm font-semibold text-gray-700 mb-2">High Priority ({tiers.counts.high})</div>
+                  <div className="flex flex-wrap gap-2">
+                    {tiers.high.map((item, index) => (
+                      <motion.button
+                        key={item.skill}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: index * 0.05 }}
+                        onClick={() => handleSkillClick(item.skill)}
+                        className="skill-chip missing shadow-sm bg-white border-gray-300 text-gray-800 hover:shadow"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        title={item.reason}
+                      >
+                        <span className="mr-1 text-xs px-1 py-0.5 rounded bg-gray-100 border border-gray-200">{index + 1}</span>
+                        <span className="font-medium">{item.skill}</span>
+                      </motion.button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Medium Priority */}
+              {tiers.medium.length > 0 && (
+                <div>
+                  <div className="text-sm font-semibold text-gray-700 mb-2">Medium Priority ({tiers.counts.medium})</div>
+                  <div className="flex flex-wrap gap-2">
+                    {tiers.medium.map((item, index) => (
+                      <motion.button
+                        key={item.skill}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: index * 0.05 }}
+                        onClick={() => handleSkillClick(item.skill)}
+                        className="skill-chip missing shadow-sm bg-white border-gray-300 text-gray-800 hover:shadow"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        title={item.reason}
+                      >
+                        <span className="mr-1 text-xs px-1 py-0.5 rounded bg-gray-100 border border-gray-200">{index + 1}</span>
+                        <span className="font-medium">{item.skill}</span>
+                      </motion.button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Low Priority */}
+              {tiers.low.length > 0 && (
+                <div>
+                  <div className="text-sm font-semibold text-gray-700 mb-2">Low Priority ({tiers.counts.low})</div>
+                  <div className="flex flex-wrap gap-2">
+                    {tiers.low.map((item, index) => (
+                      <motion.button
+                        key={item.skill}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: index * 0.05 }}
+                        onClick={() => handleSkillClick(item.skill)}
+                        className="skill-chip missing shadow-sm bg-white border-gray-300 text-gray-800 hover:shadow"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        title={item.reason}
+                      >
+                        <span className="mr-1 text-xs px-1 py-0.5 rounded bg-gray-100 border border-gray-200">{index + 1}</span>
+                        <span className="font-medium">{item.skill}</span>
+                      </motion.button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="mt-1 text-xs text-gray-500">Ranked by impact for your target role.</div>
+            </div>
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              {missingSkills.map((skill, index) => (
+                <motion.button
+                  key={skill}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1 }}
+                  onClick={() => handleSkillClick(skill)}
+                  className="skill-chip missing shadow-sm bg-white border-danger-200 text-danger-700 hover:shadow"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="mr-1 text-xs px-1 py-0.5 rounded bg-danger-100 border border-danger-200">{index + 1}</span>
+                  <span className="font-medium">{skill}</span>
+                </motion.button>
+              ))}
             </div>
           )}
         </div>
@@ -144,7 +244,7 @@ const SkillGapsTab = ({ userData }) => {
                   </div>
                 ) : skillDetails ? (
                   <div className="space-y-6">
-                    {/* Definition */}
+                    {/* What is */}
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900 mb-2">What is {selectedSkill}?</h3>
                       <p className="text-gray-600 leading-relaxed">
@@ -158,6 +258,21 @@ const SkillGapsTab = ({ userData }) => {
                       <p className="text-gray-600 leading-relaxed">
                         {skillDetails.whyItMatters}
                       </p>
+                    </div>
+
+                    {/* Most Asked Questions */}
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">Most Asked Questions</h3>
+                      <div className="space-y-3">
+                        {skillDetails.mostAskedQuestions?.map((question, index) => (
+                          <div key={index} className="flex items-start space-x-3">
+                            <div className="flex-shrink-0 w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mt-0.5">
+                              <span className="text-xs font-semibold text-blue-600">Q</span>
+                            </div>
+                            <p className="text-gray-600">{question}</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
 
                     {/* Starter Tasks */}

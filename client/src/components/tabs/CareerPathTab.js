@@ -49,12 +49,22 @@ function TopicModal({ topic, onClose, onSetStatus, onOpenAI }) {
         </div>
         <div className="p-6 space-y-6 overflow-y-auto h-[calc(100%-64px-140px)]">
           <div>
-            <h3 className="text-sm font-semibold text-gray-700 mb-2">Why to learn</h3>
+            <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center space-x-2">
+              <span className="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center">
+                <span className="text-xs font-semibold text-primary-600">1</span>
+              </span>
+              <span>Why to learn</span>
+            </h3>
             <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{topic.why || topic.detailedContent}</p>
           </div>
           {Array.isArray(topic.topicsList) && topic.topicsList.length > 0 && (
             <div>
-              <h3 className="text-sm font-semibold text-gray-700 mb-2">Topics</h3>
+              <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center space-x-2">
+                <span className="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center">
+                  <span className="text-xs font-semibold text-primary-600">2</span>
+                </span>
+                <span>What to learn ?</span>
+              </h3>
               <ul className="list-disc pl-5 space-y-1 text-gray-700 text-sm">
                 {topic.topicsList.map((it, i) => (
                   <li key={i}>{it}</li>
@@ -64,7 +74,12 @@ function TopicModal({ topic, onClose, onSetStatus, onOpenAI }) {
           )}
           {topic.milestone && (
             <div>
-              <h3 className="text-sm font-semibold text-gray-700 mb-2">Milestone</h3>
+              <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center space-x-2">
+                <span className="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center">
+                  <span className="text-xs font-semibold text-primary-600">3</span>
+                </span>
+                <span>Milestone</span>
+              </h3>
               <p className="text-gray-700 text-sm">{topic.milestone}</p>
             </div>
           )}

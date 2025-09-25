@@ -3,7 +3,7 @@
     {
       "id": "se-01",
       "title": "Programming Language Fundamentals",
-      "why": "Every software engineering journey begins with mastering a programming language. This step lays the foundation for all your coding skills, helping you build problem-solving confidence and understand the syntax, logic, and structure that will support everything you do later. The goal is to get comfortable writing programs independently and thinking like a programmer.",
+      "why": "Every software engineering journey begins with mastering a programming language. This step lays the foundation for all your coding skills, helping you build problem-solving confidence and understand the syntax, logic, and structure that will support everything you do later.",
       "topicsList": [
         "Variables",
         "Data types",

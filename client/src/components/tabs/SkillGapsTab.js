@@ -254,7 +254,7 @@ const SkillGapsTab = ({ userData }) => {
 
                     {/* Why it matters */}
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Why it matters for your career</h3>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Why it matters for your career ?</h3>
                       <p className="text-gray-600 leading-relaxed">
                         {skillDetails.whyItMatters}
                       </p>
@@ -275,36 +275,15 @@ const SkillGapsTab = ({ userData }) => {
                       </div>
                     </div>
 
-                    {/* Starter Tasks */}
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-3">Get started with these tasks</h3>
-                      <div className="space-y-3">
-                        {skillDetails.starterTasks.map((task, index) => (
-                          <div key={index} className="flex items-start space-x-3">
-                            <div className="flex-shrink-0 w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center mt-0.5">
-                              <span className="text-xs font-semibold text-primary-600">{index + 1}</span>
-                            </div>
-                            <p className="text-gray-600">{task}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
                     {/* CTA */}
                     <div className="pt-6 border-t border-gray-200">
-                      <div className="flex flex-col sm:flex-row gap-3">
-                        <button
-                          onClick={() => setShowLLMAssistant(true)}
-                          className="btn-primary flex-1 flex items-center justify-center space-x-2"
-                        >
-                          <MessageCircle className="w-5 h-5" />
-                          <span>AI Learning Assistant</span>
-                        </button>
-                        <button className="btn-secondary flex-1 flex items-center justify-center space-x-2">
-                          <ExternalLink className="w-5 h-5" />
-                          <span>Find Resources</span>
-                        </button>
-                      </div>
+                      <button
+                        onClick={() => setShowLLMAssistant(true)}
+                        className="w-full btn-primary flex items-center justify-center space-x-2"
+                      >
+                        <MessageCircle className="w-5 h-5" />
+                        <span>AI Learning Assistant</span>
+                      </button>
                     </div>
                   </div>
                 ) : (
@@ -325,6 +304,7 @@ const SkillGapsTab = ({ userData }) => {
           targetRole={userData.targetRole}
           userExperience={userData.yearsExperience}
           onClose={() => setShowLLMAssistant(false)}
+          quickQuestions={skillDetails?.mostAskedQuestions || []}
         />
       )}
     </div>

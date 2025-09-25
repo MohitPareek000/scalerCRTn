@@ -689,64 +689,664 @@ app.post('/api/skill-details', (req, res) => {
 
 function getSkillInfo(skill, targetRole) {
   const skillDefinitions = {
+    // ========================= SOFTWARE ENGINEERING =========================
     'Programming Languages (C++, C, Java, Python)': {
-      definition: 'Programming languages are the fundamental tools for writing software. They provide syntax, rules, and structures that allow developers to create applications, websites, and systems. Each language has its strengths: Python for data science, Java for enterprise applications, C++ for performance-critical systems, and C for system programming.',
-      whyItMatters: 'Mastering programming languages is essential for any software development role. It enables you to build applications, solve problems, and communicate with computers effectively. Strong programming skills are the foundation for all other technical skills and are highly valued by employers.',
+      definition: 'Languages such as Python, Java, C++, and Go provide the syntax and semantics to create software systems.',
+      whyItMatters: 'Foundation for all software engineering tasks including application development, problem solving, and system programming.',
       mostAskedQuestions: [
-        'What are the key differences between compiled and interpreted languages?',
-        'How do you choose the right programming language for a project?',
-        'What are the best practices for writing clean, maintainable code?',
-        'How do you handle memory management in different languages?'
+        'How do you choose a programming language for a project?',
+        'What are the trade-offs between compiled and interpreted languages?',
+        'How do you handle memory management in C/C++ compared to Java or Python?',
+        'Best practices for writing clean, maintainable code?'
       ]
     },
     'Data structures': {
-      definition: 'Data structures are ways of organizing and storing data in a computer so that it can be accessed and modified efficiently. They include arrays, linked lists, stacks, queues, trees, graphs, and hash tables. Each structure has specific use cases and performance characteristics.',
-      whyItMatters: 'Understanding data structures is crucial for writing efficient algorithms and solving complex problems. It helps you choose the right structure for specific tasks, optimize performance, and pass technical interviews. This knowledge is fundamental for system design and software architecture.',
+      definition: 'Methods of organizing and storing data such as arrays, linked lists, stacks, queues, trees, graphs, and hash tables.',
+      whyItMatters: 'Core to algorithm efficiency and technical interviews.',
       mostAskedQuestions: [
-        'What is the time complexity of different data structure operations?',
-        'How do you choose between an array and a linked list?',
-        'What are the advantages of using hash tables?',
-        'How do you implement a binary search tree?'
+        'Time complexity of different data structure operations?',
+        'Array vs linked list trade-offs?',
+        'How to implement a balanced binary search tree?',
+        'Advantages of hash tables?'
       ]
     },
     'Algorithms': {
-      definition: 'Algorithms are step-by-step procedures for solving problems or performing tasks. They include sorting algorithms (quicksort, mergesort), searching algorithms (binary search), graph algorithms (BFS, DFS), and dynamic programming solutions. Algorithms are the building blocks of efficient software.',
-      whyItMatters: 'Algorithm knowledge is essential for writing efficient code and solving complex problems. It helps you optimize performance, reduce computational costs, and approach problems systematically. Strong algorithmic thinking is highly valued in technical interviews and system design.',
+      definition: 'Step-by-step procedures for solving problems such as sorting, searching, graph traversal, and dynamic programming.',
+      whyItMatters: 'Determines performance and scalability of software systems.',
       mostAskedQuestions: [
-        'What is the difference between time and space complexity?',
-        'How do you optimize an algorithm for better performance?',
-        'What are the trade-offs between different sorting algorithms?',
-        'How do you approach dynamic programming problems?'
+        'Explain Big-O complexity.',
+        'Compare quicksort and mergesort.',
+        'How to optimize a slow algorithm?',
+        'Approach to dynamic programming problems?'
       ]
     },
-    'CI/CD': {
-      definition: 'CI/CD (Continuous Integration/Continuous Deployment) is a set of practices that automate the software development lifecycle. CI involves automatically building and testing code changes, while CD automates the deployment of code to production environments. It includes tools like Jenkins, GitLab CI, GitHub Actions, and Docker.',
-      whyItMatters: 'CI/CD is essential for modern software development as it enables faster, more reliable releases. It reduces manual errors, improves code quality, and allows teams to deploy changes frequently and safely. This skill is highly valued in DevOps and cloud engineering roles.',
+    'Object-oriented design': {
+      definition: 'Programming paradigm using classes and objects with principles like encapsulation, inheritance, and polymorphism.',
+      whyItMatters: 'Supports modular, reusable, and maintainable code.',
       mostAskedQuestions: [
-        'How do you set up a CI/CD pipeline from scratch?',
-        'What are the best practices for automated testing in CI/CD?',
-        'How do you handle rollbacks in a CI/CD environment?',
-        'What are the security considerations for CI/CD pipelines?'
+        'Explain SOLID principles.',
+        'Difference between composition and inheritance?',
+        'How to design a class hierarchy?',
+        'Advantages of encapsulation?'
       ]
     },
+    'Version control (Git)': {
+      definition: 'Tooling to track and manage code changes across teams.',
+      whyItMatters: 'Enables collaboration, rollback, and controlled releases.',
+      mostAskedQuestions: [
+        'Branching vs merging strategies?',
+        'Difference between rebase and merge?',
+        'How to resolve merge conflicts?',
+        'Best practices for commit messages?'
+      ]
+    },
+    'Debugging': {
+      definition: 'Identifying and fixing defects using breakpoints, logs, and analyzers.',
+      whyItMatters: 'Ensures correctness and reliability of software.',
+      mostAskedQuestions: [
+        'How to debug a segmentation fault?',
+        'Strategies for intermittent bugs?',
+        'Role of logging in debugging?',
+        'How to use IDE debuggers effectively?'
+      ]
+    },
+    'Testing': {
+      definition: 'Verification of code correctness via unit, integration, and end-to-end tests.',
+      whyItMatters: 'Prevents regressions and improves code quality.',
+      mostAskedQuestions: [
+        'Difference between unit and integration tests?',
+        'Explain test-driven development.',
+        'How to mock dependencies?',
+        'Strategies for high coverage?'
+      ]
+    },
+    'Problem solving': {
+      definition: 'Ability to analyze complex issues, design solutions, and evaluate trade-offs.',
+      whyItMatters: 'Core to engineering practice and interviews.',
+      mostAskedQuestions: [
+        'Describe a time you solved a production outage.',
+        'How do you approach incomplete requirements?',
+        'Explain your debugging methodology.',
+        'How do you prioritize solutions?'
+      ]
+    },
+    'Critical thinking': {
+      definition: 'Logical evaluation of information to guide decisions.',
+      whyItMatters: 'Informs design trade-offs and risk assessment.',
+      mostAskedQuestions: [
+        'How do you evaluate architectural options?',
+        'Describe a time you uncovered a hidden assumption.',
+        'What metrics guide your decisions?',
+        'How do you validate a technical hypothesis?'
+      ]
+    },
+    'Communication': {
+      definition: 'Clear exchange of technical concepts in verbal and written form.',
+      whyItMatters: 'Essential for teamwork, design reviews, and documentation.',
+      mostAskedQuestions: [
+        'How do you explain technical topics to non-technical stakeholders?',
+        'Describe a challenging team communication scenario.',
+        'Best practices for technical documentation?',
+        'How to give constructive code review feedback?'
+      ]
+    },
+    'Teamwork': {
+      definition: 'Collaboration with peers, designers, and product managers.',
+      whyItMatters: 'Software is built collectively; collaboration ensures quality and velocity.',
+      mostAskedQuestions: [
+        'Describe a time you resolved a team conflict.',
+        'How do you handle code ownership in shared repositories?',
+        'Approach to pair programming?',
+        'How to align cross-functional teams?'
+      ]
+    },
+    // ---------- Medium SE ----------
+    'Databases (SQL/NoSQL)': {
+      definition: 'Systems for persistent data storage and querying.',
+      whyItMatters: 'Most applications require structured data management.',
+      mostAskedQuestions: [
+        'Normalize vs denormalize trade-offs?',
+        'When to use NoSQL over SQL?',
+        'How does indexing improve performance?',
+        'Design a schema for a social network?'
+      ]
+    },
+    'Operating systems': {
+      definition: 'Core software controlling hardware resources and processes.',
+      whyItMatters: 'Understanding OS behavior helps debug performance and concurrency issues.',
+      mostAskedQuestions: [
+        'Difference between process and thread?',
+        'Explain virtual memory.',
+        'How does context switching work?',
+        'What is a deadlock?'
+      ]
+    },
+    'Networking': {
+      definition: 'Protocols and concepts such as TCP/IP, HTTP, DNS, and sockets.',
+      whyItMatters: 'Vital for distributed applications and web services.',
+      mostAskedQuestions: [
+        'Difference between TCP and UDP?',
+        'How does HTTPS provide security?',
+        'Explain the three-way handshake.',
+        'What is DNS resolution?'
+      ]
+    },
+    'Build tools': {
+      definition: 'Automation of compilation and packaging using tools like Maven or Gradle.',
+      whyItMatters: 'Ensures reproducible builds and dependency management.',
+      mostAskedQuestions: [
+        'How to optimize build times?',
+        'Static vs dynamic linking?',
+        'Strategies for dependency management?',
+        'How to integrate build tools with CI?'
+      ]
+    },
+    'Continuous integration': {
+      definition: 'Automated build and test process for every code change.',
+      whyItMatters: 'Detects integration issues early and supports rapid iteration.',
+      mostAskedQuestions: [
+        'How to configure a CI pipeline?',
+        'Role of automated testing?',
+        'How to manage secrets in CI?',
+        'Branching model best practices?'
+      ]
+    },
+    'Deployment': {
+      definition: 'Process of releasing software to staging or production.',
+      whyItMatters: 'Ensures reliable and repeatable releases.',
+      mostAskedQuestions: [
+        'Explain blue-green deployment.',
+        'How to implement canary releases?',
+        'Rollback strategies?',
+        'How to monitor post-deployment issues?'
+      ]
+    },
+    'System design': {
+      definition: 'Designing scalable architectures with databases, caches, and distributed systems.',
+      whyItMatters: 'Needed for senior roles and large applications.',
+      mostAskedQuestions: [
+        'Design a URL shortener.',
+        'How to scale a chat application?',
+        'Monolith vs microservices trade-offs?',
+        'Caching strategies for high traffic?'
+      ]
+    },
+    'Distributed systems': {
+      definition: 'Systems operating across multiple nodes while appearing as a single service.',
+      whyItMatters: 'Enables high availability and scalability.',
+      mostAskedQuestions: [
+        'Explain CAP theorem.',
+        'What is eventual consistency?',
+        'Handling network partitions?',
+        'Leader election techniques?'
+      ]
+    },
+    'Code review': {
+      definition: 'Peer review of code for quality and correctness.',
+      whyItMatters: 'Improves maintainability and knowledge sharing.',
+      mostAskedQuestions: [
+        'How to give constructive feedback?',
+        'Common code review checklists?',
+        'Handling large pull requests?',
+        'Tools for automated static analysis?'
+      ]
+    },
+    'Documentation': {
+      definition: 'Written explanations of code, APIs, and design decisions.',
+      whyItMatters: 'Improves onboarding and maintenance.',
+      mostAskedQuestions: [
+        'Best practices for API documentation?',
+        'Maintaining living design docs?',
+        'Automated doc generation tools?',
+        'Balancing detail and readability?'
+      ]
+    },
+    'API design': {
+      definition: 'Creating clear, stable interfaces for communication between software components.',
+      whyItMatters: 'Ensures scalability and maintainability of services.',
+      mostAskedQuestions: [
+        'REST vs GraphQL trade-offs?',
+        'How to version APIs?',
+        'Best practices for error handling?',
+        'How to design idempotent endpoints?'
+      ]
+    },
+    'Automation': {
+      definition: 'Creation of scripts and tools to reduce manual work.',
+      whyItMatters: 'Improves productivity and reduces errors.',
+      mostAskedQuestions: [
+        'Common tasks to automate?',
+        'Scheduling automated jobs?',
+        'Custom vs off-the-shelf tools?',
+        'Handling failures in automation scripts?'
+      ]
+    },
+    'Scripting': {
+      definition: 'Lightweight programming for automation using languages like Python or Bash.',
+      whyItMatters: 'Speeds up repetitive tasks and system administration.',
+      mostAskedQuestions: [
+        'Shell scripting vs Python?',
+        'How to write portable scripts?',
+        'Common pitfalls in Bash scripting?',
+        'Scheduling cron jobs safely?'
+      ]
+    },
+    'Time management': {
+      definition: 'Planning and prioritizing work to meet deadlines.',
+      whyItMatters: 'Ensures steady progress in fast-paced environments.',
+      mostAskedQuestions: [
+        'Techniques for estimating timelines?',
+        'Handling competing priorities?',
+        'Tracking personal productivity?',
+        'Balancing coding with meetings?'
+      ]
+    },
+    'Adaptability': {
+      definition: 'Ability to adjust to new tools, requirements, or team changes.',
+      whyItMatters: 'Keeps skills relevant in evolving tech environments.',
+      mostAskedQuestions: [
+        'Describe learning a new language quickly.',
+        'Handling shifting requirements?',
+        'Approach to unfamiliar technologies?',
+        'Staying current with industry changes?'
+      ]
+    },
+    'Attention to detail': {
+      definition: 'Careful focus on correctness and precision.',
+      whyItMatters: 'Prevents subtle bugs and improves quality.',
+      mostAskedQuestions: [
+        'Examples of catching critical issues early?',
+        'Avoiding off-by-one errors?',
+        'Maintaining accuracy under deadlines?',
+        'Double-checking deployments?'
+      ]
+    },
+    // ---------- Low SE ----------
     'Containerization (Docker)': {
-      definition: 'Containerization is a lightweight virtualization technology that packages applications and their dependencies into portable containers. Docker is the most popular containerization platform, allowing applications to run consistently across different environments. Containers include everything needed to run an application.',
-      whyItMatters: 'Containerization skills are crucial for modern software deployment and DevOps practices. It enables consistent environments, easier scaling, and simplified deployment processes. Docker knowledge is essential for cloud-native applications and microservices architecture.',
+      definition: 'Packaging applications and dependencies into portable containers.',
+      whyItMatters: 'Useful for consistent deployments and microservices.',
       mostAskedQuestions: [
-        'What is the difference between containers and virtual machines?',
-        'How do you optimize Docker images for production?',
-        'What are Docker volumes and when should you use them?',
-        'How do you secure Docker containers?'
+        'Containers vs virtual machines?',
+        'How to create minimal Docker images?',
+        'Role of Docker Compose?',
+        'How to secure containers?'
+      ]
+    },
+    'Kubernetes': {
+      definition: 'Container orchestration platform for scaling and managing containers.',
+      whyItMatters: 'Valuable for cloud and DevOps but optional for basic SE roles.',
+      mostAskedQuestions: [
+        'Explain Kubernetes architecture.',
+        'Deployment vs StatefulSet?',
+        'How to set up auto-scaling?',
+        'Secret management approaches?'
       ]
     },
     'Cloud platforms (AWS/Azure/GCP)': {
-      definition: 'Cloud platforms provide on-demand computing resources over the internet. AWS, Azure, and GCP offer services for computing, storage, databases, networking, and more. These platforms enable scalable, cost-effective solutions without managing physical infrastructure.',
-      whyItMatters: 'Cloud skills are essential for modern software development and DevOps roles. They enable you to build scalable applications, manage infrastructure as code, and leverage cloud services for better performance and cost optimization. Cloud certifications are highly valued by employers.',
+      definition: 'On-demand compute, storage, and networking services.',
+      whyItMatters: 'Needed for cloud-native applications.',
       mostAskedQuestions: [
-        'What are the key differences between AWS, Azure, and GCP?',
-        'How do you design a scalable cloud architecture?',
-        'What are the best practices for cloud security?',
-        'How do you optimize cloud costs?'
+        'Key differences between AWS, Azure, and GCP?',
+        'Designing a scalable cloud architecture?',
+        'Best practices for cloud security?',
+        'Cost control techniques?'
+      ]
+    },
+    'Microservices': {
+      definition: 'Architectural style splitting applications into small, independent services.',
+      whyItMatters: 'Useful for large systems but not required for every project.',
+      mostAskedQuestions: [
+        'Monolith vs microservices trade-offs?',
+        'Service discovery patterns?',
+        'Inter-service communication?',
+        'Handling distributed transactions?'
+      ]
+    },
+    'Caching': {
+      definition: 'Temporary data storage for faster retrieval.',
+      whyItMatters: 'Improves performance in high-traffic systems.',
+      mostAskedQuestions: [
+        'Cache eviction policies?',
+        'Redis vs Memcached?',
+        'Maintaining cache consistency?',
+        'Preventing cache stampede?'
+      ]
+    },
+    'Load balancing': {
+      definition: 'Distributing traffic across multiple servers.',
+      whyItMatters: 'Ensures availability and scalability.',
+      mostAskedQuestions: [
+        'Layer 4 vs Layer 7 load balancers?',
+        'Round-robin implementation?',
+        'Sticky session techniques?',
+        'Detecting and handling server failures?'
+      ]
+    },
+    'Discrete mathematics': {
+      definition: 'Mathematical foundations such as sets, graphs, and logic.',
+      whyItMatters: 'Helpful for algorithms and cryptography but not daily coding.',
+      mostAskedQuestions: [
+        'Applications of graph theory?',
+        'Explain combinatorics basics.',
+        'Role of logic in circuit design?',
+        'Set theory in algorithms?'
+      ]
+    },
+    'Logic': {
+      definition: 'Formal reasoning and boolean algebra.',
+      whyItMatters: 'Supports algorithmic thinking and correctness proofs.',
+      mostAskedQuestions: [
+        'Explain truth tables.',
+        'Propositional vs predicate logic?',
+        'Logic in query optimization?',
+        'Logic in compiler design?'
+      ]
+    },
+    'Probability': {
+      definition: 'Mathematical study of randomness and uncertainty.',
+      whyItMatters: 'Useful for algorithms and AI applications.',
+      mostAskedQuestions: [
+        'How to compute conditional probability?',
+        'Applications in randomized algorithms?',
+        'Explain Bayes’ theorem.',
+        'Modeling events in probability space?'
+      ]
+    },
+    'Statistics': {
+      definition: 'Collection and analysis of numerical data.',
+      whyItMatters: 'Helps with metrics and data-driven decisions.',
+      mostAskedQuestions: [
+        'Difference between mean and median?',
+        'Explain standard deviation.',
+        'Interpreting confidence intervals?',
+        'Hypothesis testing in experiments?'
+      ]
+    },
+    'Mobile development': {
+      definition: 'Building applications for Android or iOS platforms.',
+      whyItMatters: 'Required for mobile product teams only.',
+      mostAskedQuestions: [
+        'Native vs cross-platform development?',
+        'Android activity lifecycle?',
+        'Optimizing app performance?',
+        'App store deployment steps?'
+      ]
+    },
+    'Machine learning basics': {
+      definition: 'Algorithms that learn patterns from data.',
+      whyItMatters: 'Useful for AI products but not core to most SE roles.',
+      mostAskedQuestions: [
+        'Supervised vs unsupervised learning?',
+        'Avoiding overfitting?',
+        'Explain gradient descent.',
+        'What is feature engineering?'
+      ]
+    },
+    'Data engineering': {
+      definition: 'Building pipelines to move and process large datasets.',
+      whyItMatters: 'Essential for analytics and ML teams but optional elsewhere.',
+      mostAskedQuestions: [
+        'What is ETL?',
+        'Batch vs stream processing?',
+        'Designing a data warehouse?',
+        'Common tools for data pipelines?'
+      ]
+    },
+    'UI/UX awareness': {
+      definition: 'Understanding user interface and experience design principles.',
+      whyItMatters: 'Improves collaboration with designers and front-end quality.',
+      mostAskedQuestions: [
+        'Difference between UX and UI?',
+        'Applying usability heuristics?',
+        'Responsive design basics?',
+        'Accessibility considerations?'
+      ]
+    },
+
+    // ========================= DEVOPS =========================
+    // ---------- High ----------
+    'Linux/Unix administration': {
+      definition: 'Managing servers, processes, file systems, and permissions in Linux or Unix environments.',
+      whyItMatters: 'Most production systems and cloud services run on Linux. Core for DevOps engineers.',
+      mostAskedQuestions: [
+        'How do you manage services and processes?',
+        'Explain file permissions and ownership.',
+        'Common performance tuning commands?',
+        'Steps to secure a Linux server?'
+      ]
+    },
+    'Scripting (Bash/Python)': {
+      definition: 'Writing scripts to automate tasks and system administration.',
+      whyItMatters: 'Reduces manual work and enables infrastructure automation.',
+      mostAskedQuestions: [
+        'Difference between Bash and Python scripting?',
+        'How to write portable scripts?',
+        'Common pitfalls in shell scripting?',
+        'Scheduling jobs using cron?'
+      ]
+    },
+    'CI/CD': {
+      definition: 'Automating build, test, and deployment using pipelines.',
+      whyItMatters: 'Enables frequent and reliable software releases.',
+      mostAskedQuestions: [
+        'Setting up a CI/CD pipeline from scratch?',
+        'Rollback strategies for failed deployments?',
+        'Security considerations in CI/CD?',
+        'Integrating automated testing?'
+      ]
+    },
+    'Containerization (Docker) [DevOps]': {
+      definition: 'Packaging applications and dependencies into portable containers for consistent deployment.',
+      whyItMatters: 'Simplifies deployment and scaling in cloud environments.',
+      mostAskedQuestions: [
+        'Containers vs virtual machines?',
+        'Optimizing Docker images?',
+        'Docker volumes and their use?',
+        'Securing containerized applications?'
+      ]
+    },
+    'Cloud platforms (AWS/Azure/GCP) [DevOps]': {
+      definition: 'On-demand compute, storage, and networking services provided by major cloud vendors.',
+      whyItMatters: 'Backbone of modern infrastructure and DevOps pipelines.',
+      mostAskedQuestions: [
+        'Differences between AWS, Azure, and GCP?',
+        'Designing a scalable cloud architecture?',
+        'Best practices for cloud security?',
+        'Cost optimization techniques?'
+      ]
+    },
+    'Networking basics': {
+      definition: 'Understanding of TCP/IP, HTTP/HTTPS, DNS, and routing.',
+      whyItMatters: 'Essential for configuring and troubleshooting infrastructure.',
+      mostAskedQuestions: [
+        'Explain TCP three-way handshake.',
+        'Difference between TCP and UDP?',
+        'How does DNS resolution work?',
+        'How to secure network communications?'
+      ]
+    },
+    'Security fundamentals': {
+      definition: 'Practices like encryption, authentication, and access control.',
+      whyItMatters: 'Protects systems from breaches and ensures compliance.',
+      mostAskedQuestions: [
+        'Difference between symmetric and asymmetric encryption?',
+        'How to implement least privilege access?',
+        'Best practices for API key management?',
+        'Steps to secure CI/CD pipelines?'
+      ]
+    },
+    'Monitoring and logging (Grafana/ELK)': {
+      definition: 'Tools to collect metrics, visualize data, and detect anomalies.',
+      whyItMatters: 'Ensures system reliability and quick incident response.',
+      mostAskedQuestions: [
+        'How to set up alerts for service downtime?',
+        'Difference between metrics and logs?',
+        'Visualizing application performance?',
+        'Root-cause analysis using logs?'
+      ]
+    },
+
+    // ---------- Medium ----------
+    'Kubernetes [DevOps]': {
+      definition: 'Container orchestration platform for managing clusters.',
+      whyItMatters: 'Industry standard for running production workloads at scale.',
+      mostAskedQuestions: [
+        'Explain Kubernetes architecture.',
+        'Difference between Deployment and StatefulSet?',
+        'How to implement auto-scaling?',
+        'Managing secrets securely?'
+      ]
+    },
+    'Load balancing [DevOps]': {
+      definition: 'Distributing network traffic across multiple servers.',
+      whyItMatters: 'Ensures high availability and scalability.',
+      mostAskedQuestions: [
+        'Layer 4 vs Layer 7 load balancing?',
+        'How to implement round-robin balancing?',
+        'Techniques for sticky sessions?',
+        'Detecting and handling server failures?'
+      ]
+    },
+    'High availability design': {
+      definition: 'Architecting systems to remain operational despite failures.',
+      whyItMatters: 'Minimizes downtime and improves reliability.',
+      mostAskedQuestions: [
+        'Strategies for redundancy?',
+        'Active-active vs active-passive setups?',
+        'Designing for failover?',
+        'Disaster recovery planning?'
+      ]
+    },
+    'Build automation tools (Jenkins/GitLab CI)': {
+      definition: 'Platforms for automating builds, tests, and deployments.',
+      whyItMatters: 'Core of CI/CD pipelines in DevOps.',
+      mostAskedQuestions: [
+        'Setting up Jenkins pipelines?',
+        'Difference between Jenkins and GitLab CI?',
+        'Managing build artifacts?',
+        'Integrating automated tests?'
+      ]
+    },
+    'System troubleshooting': {
+      definition: 'Diagnosing and fixing infrastructure or application issues.',
+      whyItMatters: 'Critical for maintaining uptime and performance.',
+      mostAskedQuestions: [
+        'Steps to isolate a production outage?',
+        'Using logs for root-cause analysis?',
+        'Handling intermittent network failures?',
+        'Performance tuning methods?'
+      ]
+    },
+    'Agile/Scrum': {
+      definition: 'Iterative development methodology for planning and delivering software.',
+      whyItMatters: 'Improves collaboration and delivery speed.',
+      mostAskedQuestions: [
+        'Explain Scrum ceremonies.',
+        'Difference between Agile and Waterfall?',
+        'Handling changing requirements?',
+        'Role of a DevOps engineer in Scrum?'
+      ]
+    },
+    'Serverless architecture': {
+      definition: 'Building applications without managing servers using services like AWS Lambda.',
+      whyItMatters: 'Reduces operational overhead and scales automatically.',
+      mostAskedQuestions: [
+        'Benefits and limitations of serverless?',
+        'Cold start issues and mitigation?',
+        'When to use serverless over containers?',
+        'Cost management in serverless environments?'
+      ]
+    },
+    'Cloud databases (SQL/NoSQL) [DevOps]': {
+      definition: 'Managed database services such as Amazon RDS or Google Cloud Firestore.',
+      whyItMatters: 'Simplifies database operations and scaling.',
+      mostAskedQuestions: [
+        'Difference between managed and self-hosted databases?',
+        'How to implement automated backups?',
+        'High availability configurations?',
+        'Security considerations for cloud databases?'
+      ]
+    },
+    'Compliance (GDPR, HIPAA)': {
+      definition: 'Legal standards for handling data privacy and security.',
+      whyItMatters: 'Ensures adherence to regulatory requirements.',
+      mostAskedQuestions: [
+        'Key GDPR principles?',
+        'How to achieve HIPAA compliance?',
+        'Data retention best practices?',
+        'Handling user consent and data deletion?'
+      ]
+    },
+
+    // ---------- Low ----------
+    'Service mesh (Istio/Linkerd)': {
+      definition: 'Layer for managing service-to-service communication in microservices.',
+      whyItMatters: 'Adds observability, security, and traffic control.',
+      mostAskedQuestions: [
+        'What is a service mesh?',
+        'When to use Istio vs Linkerd?',
+        'How to implement mTLS in a service mesh?',
+        'Impact on performance and complexity?'
+      ]
+    },
+    'Edge computing': {
+      definition: 'Processing data closer to the source rather than a central cloud.',
+      whyItMatters: 'Reduces latency for real-time applications.',
+      mostAskedQuestions: [
+        'Use cases for edge computing?',
+        'Challenges in edge deployment?',
+        'Security considerations at the edge?',
+        'Tools for edge orchestration?'
+      ]
+    },
+    'Hybrid cloud strategies': {
+      definition: 'Combining on-premise and public cloud infrastructure.',
+      whyItMatters: 'Provides flexibility and risk mitigation.',
+      mostAskedQuestions: [
+        'Benefits of hybrid cloud?',
+        'Common networking challenges?',
+        'Data synchronization methods?',
+        'Cost management approaches?'
+      ]
+    },
+    'Multi-cloud federation': {
+      definition: 'Coordinating resources across multiple cloud providers.',
+      whyItMatters: 'Avoids vendor lock-in and increases redundancy.',
+      mostAskedQuestions: [
+        'Challenges of multi-cloud deployments?',
+        'Techniques for cross-cloud networking?',
+        'Handling identity across clouds?',
+        'Cost optimization strategies?'
+      ]
+    },
+    'Advanced scripting (Go/Ruby/Perl)': {
+      definition: 'Writing complex automation in less common scripting languages.',
+      whyItMatters: 'Useful for specific environments but not a core requirement.',
+      mostAskedQuestions: [
+        'When to choose Go for scripting?',
+        'Maintaining older Perl automation scripts?',
+        'Performance differences between Go and Python?',
+        'Interoperability with system libraries?'
+      ]
+    },
+    'AI/ML for operations': {
+      definition: 'Using machine learning to predict failures and optimize infrastructure.',
+      whyItMatters: 'Emerging field for proactive operations management.',
+      mostAskedQuestions: [
+        'Examples of predictive maintenance using ML?',
+        'Data requirements for training ops models?',
+        'How to integrate ML into monitoring pipelines?',
+        'Challenges in real-time anomaly detection?'
+      ]
+    },
+    'Quantum cloud services': {
+      definition: 'Cloud-based quantum computing platforms.',
+      whyItMatters: 'Highly specialized and experimental at present.',
+      mostAskedQuestions: [
+        'What is quantum computing?',
+        'Current quantum cloud providers?',
+        'Practical use cases today?',
+        'Limitations of quantum hardware?'
       ]
     }
   };

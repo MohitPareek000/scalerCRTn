@@ -17,7 +17,7 @@ const LLMLearningAssistant = ({ skill, targetRole, userExperience, onClose, init
       {
         id: 1,
         type: 'bot',
-        content: `Hi! I'm your AI learning assistant for ${skill}. I'm here to help you master this skill for your ${targetRole} career path. What would you like to know about ${skill}?`,
+        content: `Hi! I'm your AI learning assistant, Choose any question from above and get a detailed explanation.`,
         timestamp: new Date()
       }
     ]);

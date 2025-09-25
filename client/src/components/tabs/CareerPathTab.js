@@ -49,9 +49,25 @@ function TopicModal({ topic, onClose, onSetStatus, onOpenAI }) {
         </div>
         <div className="p-6 space-y-6 overflow-y-auto h-[calc(100%-64px-140px)]">
           <div>
-            <h3 className="text-sm font-semibold text-gray-700 mb-2">Overview</h3>
-            <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{topic.detailedContent}</p>
+            <h3 className="text-sm font-semibold text-gray-700 mb-2">Why to learn</h3>
+            <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{topic.why || topic.detailedContent}</p>
           </div>
+          {Array.isArray(topic.topicsList) && topic.topicsList.length > 0 && (
+            <div>
+              <h3 className="text-sm font-semibold text-gray-700 mb-2">Topics</h3>
+              <ul className="list-disc pl-5 space-y-1 text-gray-700 text-sm">
+                {topic.topicsList.map((it, i) => (
+                  <li key={i}>{it}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {topic.milestone && (
+            <div>
+              <h3 className="text-sm font-semibold text-gray-700 mb-2">Milestone</h3>
+              <p className="text-gray-700 text-sm">{topic.milestone}</p>
+            </div>
+          )}
           <div>
             <h3 className="text-sm font-semibold text-gray-700 mb-2">Need a quick summary?</h3>
             <button
@@ -137,12 +153,8 @@ function CareerPathInner({ targetRole }) {
                   <StatusBadge status={t.status} />
                 </div>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  <button onClick={() => setActive(t)} className="btn-secondary">Open details</button>
-                  <button
-                    onClick={() => setAiTopic(t)}
-                    className="btn-primary inline-flex items-center gap-2"
-                  >
-                    <BookOpen className="w-4 h-4" /> Learn here
+                  <button onClick={() => setActive(t)} className="btn-primary inline-flex items-center gap-2">
+                    <BookOpen className="w-4 h-4" /> Learn More
                   </button>
                 </div>
               </motion.div>

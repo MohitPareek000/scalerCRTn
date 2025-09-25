@@ -118,7 +118,7 @@ const companies = [
     name: 'Google',
     logo: 'https://logo.clearbit.com/google.com',
     role: 'Senior Software Engineer',
-    salaryBand: '$150k - $250k',
+    salaryBand: '₹20L - ₹70L',
     source: 'LinkedIn',
     interviewProcess: [
       'Phone Screen (45 min)',
@@ -139,7 +139,7 @@ const companies = [
     name: 'Microsoft',
     logo: 'https://logo.clearbit.com/microsoft.com',
     role: 'Software Engineer II',
-    salaryBand: '$120k - $180k',
+    salaryBand: 'Upto ₹45L',
     source: 'Company Website',
     interviewProcess: [
       'Initial Screening (30 min)',
@@ -159,7 +159,7 @@ const companies = [
     name: 'Amazon',
     logo: 'https://logo.clearbit.com/amazon.com',
     role: 'SDE II',
-    salaryBand: '$130k - $200k',
+    salaryBand: 'Upto ₹40L',
     source: 'Indeed',
     interviewProcess: [
       'Online Assessment (90 min)',
@@ -172,6 +172,96 @@ const companies = [
       'How do you prioritize tasks when everything is urgent?',
       'Explain the CAP theorem',
       'Describe your experience with microservices'
+    ]
+  }
+  ,
+  // DevOps & Cloud role-specific additions
+  {
+    id: 101,
+    targetRole: 'DevOps & Cloud Computing',
+    name: 'Microsoft',
+    logo: 'https://logo.clearbit.com/microsoft.com',
+    role: 'DevOps / Cloud Engineer',
+    salaryBand: '₹17.5L - ₹34.8L',
+    source: 'Indeed / Levels.fyi',
+    interviewProcess: [
+      'Recruiter / HR screening',
+      'Technical phone/video screening (coding, cloud)',
+      'Deep technical rounds (system design, architecture)',
+      'Leadership / behavioral / team fit',
+      'Final decision / offer'
+    ],
+    commonQuestions: [
+      'Design a fault‑tolerant system across multiple Azure regions',
+      'How does Kubernetes scheduling work?',
+      'Terraform vs ARM templates – differences and trade‑offs',
+      'Secrets management and identity in cloud (Key Vault / Managed Identities)'
+    ]
+  },
+  {
+    id: 102,
+    targetRole: 'DevOps & Cloud Computing',
+    name: 'Accenture',
+    logo: 'https://logo.clearbit.com/accenture.com',
+    role: 'DevOps Engineer',
+    salaryBand: ' Base : ₹5L – ₹10.4L',
+    source: 'Glassdoor / Levels.fyi / Indeed',
+    interviewProcess: [
+      'HR / recruiter screening',
+      'Technical screening (programming, DevOps tools)',
+      'Technical rounds (cloud, infra, scripting)',
+      'Managerial / behavioral round',
+      'Final HR / offer'
+    ],
+    commonQuestions: [
+      'Explain CI/CD implementation and rollback strategies',
+      'How to monitor distributed services and set alerts',
+      'Blue/green deployments and canary releases',
+      'Infrastructure as Code and drift management'
+    ]
+  },
+  {
+    id: 103,
+    targetRole: 'DevOps & Cloud Computing',
+    name: 'Cisco',
+    logo: 'https://logo.clearbit.com/cisco.com',
+    role: 'Senior DevOps Engineer',
+    salaryBand: '₹9L - ₹48.7L+',
+    source: 'Glassdoor / Indeed / Levels.fyi',
+    interviewProcess: [
+      'HR / recruiter screening',
+      'Technical phone/video round',
+      'Virtual onsite: multiple technical panels',
+      'System design / architecture round',
+      'Behavioral / culture fit',
+      'Final HR'
+    ],
+    commonQuestions: [
+      'Design a scalable microservices platform (auto‑scaling, load balancer)',
+      'Kubernetes node roles and scheduling',
+      'Disaster recovery and failover strategy in cloud',
+      'Securing network, IAM, and inter‑service comms'
+    ]
+  },
+  {
+    id: 104,
+    targetRole: 'DevOps & Cloud Computing',
+    name: 'Oracle',
+    logo: 'https://logo.clearbit.com/oracle.com',
+    role: 'DevOps Engineer',
+    salaryBand: '₹7L – ₹38.8L',
+    source: 'Glassdoor / Indeed / Levels.fyi',
+    interviewProcess: [
+      'HR / recruiter screening',
+      'Technical rounds – coding, DevOps tools',
+      'Managerial / domain round',
+      'HR / offer discussion'
+    ],
+    commonQuestions: [
+      'Describe your CI/CD pipeline and rollback mechanism',
+      'Deep‑dive on Docker, Kubernetes, Terraform used in projects',
+      'Architecture: failover, scaling, observability',
+      'Biggest production incident and your resolution'
     ]
   }
 ];
@@ -378,11 +468,9 @@ app.post('/api/analyze-skills', async (req, res) => {
     // Find missing skills specific to target role
     const missingSkills = targetRoleSkills.filter(skill => !currentSkills.includes(skill));
 
-    // Calculate match score based on experience and skill overlap
-    const baseScore = Math.min(20 + (yearsExperience * 8), 70); // Base score from experience
+    // Calculate coverage and set Career Match Score equal to Skill Coverage (as percent)
     const skillCoverage = targetRoleSkills.length > 0 ? (existingSkills.length / targetRoleSkills.length) : 0;
-    const skillBonus = skillCoverage * 30; // Skill bonus up to 30 points
-    const matchScore = Math.min(Math.round(baseScore + skillBonus), 95);
+    const matchScore = Math.round(skillCoverage * 100);
 
     // Prioritize skills for the target role
     const prioritizedMissing = prioritizeSkills(missingSkills, targetRole);
@@ -423,10 +511,8 @@ app.post('/api/analyze-skills', async (req, res) => {
     const targetRoleSkills = skillTaxonomy[targetRole] ? Object.values(skillTaxonomy[targetRole]).flat() : [];
     const existingSkills = currentSkills.filter(skill => targetRoleSkills.includes(skill));
     const missingSkills = targetRoleSkills.filter(skill => !currentSkills.includes(skill));
-    const baseScore = Math.min(20 + (yearsExperience * 8), 70);
     const skillCoverage = targetRoleSkills.length > 0 ? (existingSkills.length / targetRoleSkills.length) : 0;
-    const skillBonus = skillCoverage * 30;
-    const matchScore = Math.min(Math.round(baseScore + skillBonus), 95);
+    const matchScore = Math.round(skillCoverage * 100);
 
     const recommendations = missingSkills.slice(0, 5).map(skill => ({
       skill,

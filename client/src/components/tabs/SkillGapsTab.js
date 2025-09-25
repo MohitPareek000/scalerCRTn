@@ -15,10 +15,10 @@ const SkillGapsTab = ({ userData }) => {
   const handleSkillClick = async (skill) => {
     setSelectedSkill(skill);
     setIsLoading(true);
-    
+
     try {
-      const response = await axios.post(`${API_BASE_URL}/skill-details`, { 
-        skill, 
+      const response = await axios.post(`${API_BASE_URL}/skill-details`, {
+        skill,
         targetRole: userData.targetRole,
         userExperience: userData.yearsExperience
       });
@@ -53,40 +53,6 @@ const SkillGapsTab = ({ userData }) => {
 
   return (
     <div className="space-y-8">
-      {/* Match Score Ring */}
-      <div className="flex justify-center">
-        <div className="relative w-48 h-48">
-          <svg className="w-48 h-48 transform -rotate-90" viewBox="0 0 100 100" aria-label={`Skill coverage ${coveragePercent}%`}>
-            <circle
-              cx="50"
-              cy="50"
-              r="40"
-              stroke="#e5e7eb"
-              strokeWidth="8"
-              fill="none"
-            />
-            <circle
-              cx="50"
-              cy="50"
-              r="40"
-              stroke="#3b82f6"
-              strokeWidth="8"
-              fill="none"
-              strokeDasharray={`${2 * Math.PI * 40}`}
-              strokeDashoffset={`${2 * Math.PI * 40 * (1 - coveragePercent / 100)}`}
-              className="animate-draw-circle"
-              style={{
-                strokeDasharray: `${2 * Math.PI * 40}`,
-                strokeDashoffset: `${2 * Math.PI * 40 * (1 - coveragePercent / 100)}`
-              }}
-            />
-          </svg>
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <div className="text-4xl font-bold text-primary-600">{coveragePercent}%</div>
-            <div className="text-sm text-gray-500">Skill Coverage</div>
-          </div>
-        </div>
-      </div>
 
       {/* Skills Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -112,11 +78,12 @@ const SkillGapsTab = ({ userData }) => {
         </div>
 
         {/* Missing Skills (Prioritized) */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           <h3 className="text-xl font-semibold text-gray-900 flex items-center space-x-2">
             <BookOpen className="w-6 h-6 text-danger-500" />
             <span>Skills to Learn (prioritized)</span>
           </h3>
+          <p className="text-sm text-gray-600">Click a skill to learn more about it.</p>
           <div className="flex flex-wrap gap-2">
             {(prioritizedMissing.length ? prioritizedMissing.map(p => p.skill) : missingSkills).map((skill, index) => (
               <motion.button
@@ -125,18 +92,19 @@ const SkillGapsTab = ({ userData }) => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.1 }}
                 onClick={() => handleSkillClick(skill)}
-                className="skill-chip missing"
+                className="skill-chip missing shadow-sm bg-white border-danger-200 text-danger-700 hover:shadow"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span className="mr-1">{index + 1}.</span> {skill}
+                <span className="mr-1 text-xs px-1 py-0.5 rounded bg-danger-100 border border-danger-200">{index + 1}</span>
+                <span className="font-medium">{skill}</span>
               </motion.button>
             ))}
           </div>
 
           {prioritizedMissing.length > 0 && (
-            <div className="mt-2 text-xs text-gray-500">
-              Priority rationale shown when opening a skill.
+            <div className="mt-1 text-xs text-gray-500">
+              Ranked by impact for your target role.
             </div>
           )}
         </div>
@@ -210,7 +178,7 @@ const SkillGapsTab = ({ userData }) => {
                     {/* CTA */}
                     <div className="pt-6 border-t border-gray-200">
                       <div className="flex flex-col sm:flex-row gap-3">
-                        <button 
+                        <button
                           onClick={() => setShowLLMAssistant(true)}
                           className="btn-primary flex-1 flex items-center justify-center space-x-2"
                         >

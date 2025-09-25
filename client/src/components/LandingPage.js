@@ -36,27 +36,79 @@ const LandingPage = ({ onComplete }) => {
   const fetchCurrentRoles = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/current-roles`);
-      setCurrentRoles(response.data);
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setCurrentRoles(response.data);
+      } else {
+        setCurrentRoles(getDefaultCurrentRoles());
+      }
     } catch (error) {
       console.error('Error fetching current roles:', error);
+      setCurrentRoles(getDefaultCurrentRoles());
     }
   };
 
   const fetchTargetRoles = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/target-roles`);
-      setTargetRoles(response.data);
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        setTargetRoles(response.data);
+      } else {
+        setTargetRoles(getDefaultTargetRoles());
+      }
     } catch (error) {
       console.error('Error fetching target roles:', error);
+      setTargetRoles(getDefaultTargetRoles());
     }
   };
 
+  const getDefaultCurrentRoles = () => ([
+    'Software Engineer', 'Frontend Developer', 'Backend Developer', 'Full Stack Developer',
+    'Data Scientist', 'Data Analyst', 'DevOps Engineer', 'Cloud Engineer',
+    'Machine Learning Engineer', 'AI Engineer', 'Product Manager', 'UI/UX Designer',
+    'Mobile Developer', 'QA Engineer', 'System Administrator', 'Other'
+  ]);
+
+  const getDefaultTargetRoles = () => ([
+    'Software Engineering', 'Data Science', 'Data Analytics', 'DevOps & Cloud Computing', 'Advanced AI & ML'
+  ]);
+
   const fetchSkills = async (targetRole) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/skills/${targetRole}`);
-      setSkills(response.data);
+      const response = await axios.get(`${API_BASE_URL}/skills/${encodeURIComponent(targetRole)}`);
+      const data = response.data;
+      // Accept both array and category->skills object shapes
+      if (Array.isArray(data)) {
+        setSkills(data.length ? data : getDefaultSkills(targetRole));
+      } else if (data && typeof data === 'object') {
+        try {
+          const flattened = Object.values(data).flat();
+          setSkills(flattened.length ? flattened : getDefaultSkills(targetRole));
+        } catch {
+          setSkills(getDefaultSkills(targetRole));
+        }
+      } else {
+        setSkills(getDefaultSkills(targetRole));
+      }
     } catch (error) {
       console.error('Error fetching skills:', error);
+      setSkills(getDefaultSkills(targetRole));
+    }
+  };
+
+  const getDefaultSkills = (targetRole) => {
+    switch (targetRole) {
+      case 'Software Engineering':
+        return ['JavaScript', 'TypeScript', 'React', 'Node.js', 'Express.js', 'HTML5', 'CSS3', 'SQL', 'MongoDB', 'REST APIs', 'GraphQL', 'Git', 'Docker'];
+      case 'Data Science':
+        return ['Python', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Scikit-learn', 'TensorFlow', 'PyTorch', 'SQL', 'Jupyter'];
+      case 'Data Analytics':
+        return ['SQL', 'Excel', 'Power BI', 'Tableau', 'Looker', 'Python', 'Data Visualization', 'Dashboard Design'];
+      case 'DevOps & Cloud Computing':
+        return ['AWS', 'Azure', 'GCP', 'Docker', 'Kubernetes', 'Terraform', 'CI/CD', 'Jenkins', 'GitHub Actions', 'Monitoring'];
+      case 'Advanced AI & ML':
+        return ['Python', 'Transformers', 'TensorFlow', 'PyTorch', 'Hugging Face', 'RAG', 'Embeddings', 'LLMs', 'MLOps'];
+      default:
+        return [];
     }
   };
 
@@ -95,15 +147,15 @@ const LandingPage = ({ onComplete }) => {
         ...formData,
         customRole: formData.currentRole === 'Other' ? customRole : null
       };
-      
+
       const response = await axios.post(`${API_BASE_URL}/analyze-skills`, submitData);
       const analysisData = response.data;
-      
+
       // Animate match score gradually
       let currentScore = 0;
       const targetScore = analysisData.matchScore;
       const increment = targetScore / 50; // 50 steps for smooth animation
-      
+
       const animateScore = () => {
         if (currentScore < targetScore) {
           currentScore += increment;
@@ -117,7 +169,7 @@ const LandingPage = ({ onComplete }) => {
           }, 1000);
         }
       };
-      
+
       animateScore();
     } catch (error) {
       console.error('Error analyzing skills:', error);
@@ -163,11 +215,10 @@ const LandingPage = ({ onComplete }) => {
                 <button
                   key={role}
                   onClick={() => handleInputChange('currentRole', role)}
-                  className={`p-4 text-left rounded-lg border-2 transition-all duration-200 ${
-                    formData.currentRole === role
-                      ? 'border-primary-500 bg-primary-50 text-primary-700'
-                      : 'border-gray-200 hover:border-gray-300'
-                  }`}
+                  className={`p-4 text-left rounded-lg border-2 transition-all duration-200 ${formData.currentRole === role
+                    ? 'border-primary-500 bg-primary-50 text-primary-700'
+                    : 'border-gray-200 hover:border-gray-300'
+                    }`}
                 >
                   {role}
                 </button>
@@ -222,11 +273,10 @@ const LandingPage = ({ onComplete }) => {
                 <button
                   key={role}
                   onClick={() => handleInputChange('targetRole', role)}
-                  className={`p-4 text-left rounded-lg border-2 transition-all duration-200 ${
-                    formData.targetRole === role
-                      ? 'border-primary-500 bg-primary-50 text-primary-700'
-                      : 'border-gray-200 hover:border-gray-300'
-                  }`}
+                  className={`p-4 text-left rounded-lg border-2 transition-all duration-200 ${formData.targetRole === role
+                    ? 'border-primary-500 bg-primary-50 text-primary-700'
+                    : 'border-gray-200 hover:border-gray-300'
+                    }`}
                 >
                   <div className="font-medium">{role}</div>
                   <div className="text-sm text-gray-500 mt-1">
@@ -248,11 +298,10 @@ const LandingPage = ({ onComplete }) => {
                   <button
                     key={skill}
                     onClick={() => handleSkillToggle(skill)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                      formData.currentSkills.includes(skill)
-                        ? 'bg-primary-600 text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${formData.currentSkills.includes(skill)
+                      ? 'bg-primary-600 text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
                   >
                     {skill}
                   </button>
@@ -283,7 +332,7 @@ const LandingPage = ({ onComplete }) => {
 
   const isStepValid = () => {
     switch (currentStep) {
-      case 1: 
+      case 1:
         return formData.currentRole !== '' && (formData.currentRole !== 'Other' || customRole.trim() !== '');
       case 2: return true; // Always valid as it has a default value
       case 3: return formData.targetRole !== '';
@@ -351,26 +400,23 @@ const LandingPage = ({ onComplete }) => {
               {steps.map((step, index) => (
                 <React.Fragment key={step.id}>
                   <div className="flex items-center">
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                      currentStep >= step.id
-                        ? 'bg-primary-600 text-white'
-                        : 'bg-gray-200 text-gray-500'
-                    }`}>
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${currentStep >= step.id
+                      ? 'bg-primary-600 text-white'
+                      : 'bg-gray-200 text-gray-500'
+                      }`}>
                       {currentStep > step.id ? <Check className="w-6 h-6" /> : step.icon}
                     </div>
                     <div className="ml-3 hidden md:block">
-                      <p className={`text-sm font-medium ${
-                        currentStep >= step.id ? 'text-primary-600' : 'text-gray-500'
-                      }`}>
+                      <p className={`text-sm font-medium ${currentStep >= step.id ? 'text-primary-600' : 'text-gray-500'
+                        }`}>
                         {step.title}
                       </p>
                       <p className="text-xs text-gray-500">{step.description}</p>
                     </div>
                   </div>
                   {index < steps.length - 1 && (
-                    <div className={`w-8 h-0.5 ${
-                      currentStep > step.id ? 'bg-primary-600' : 'bg-gray-200'
-                    }`} />
+                    <div className={`w-8 h-0.5 ${currentStep > step.id ? 'bg-primary-600' : 'bg-gray-200'
+                      }`} />
                   )}
                 </React.Fragment>
               ))}
@@ -394,11 +440,10 @@ const LandingPage = ({ onComplete }) => {
             <button
               onClick={prevStep}
               disabled={currentStep === 1}
-              className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
-                currentStep === 1
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-              }`}
+              className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${currentStep === 1
+                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
             >
               Previous
             </button>
@@ -407,11 +452,10 @@ const LandingPage = ({ onComplete }) => {
               <button
                 onClick={nextStep}
                 disabled={!isStepValid()}
-                className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 ${
-                  isStepValid()
-                    ? 'bg-primary-600 text-white hover:bg-primary-700'
-                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                }`}
+                className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 ${isStepValid()
+                  ? 'bg-primary-600 text-white hover:bg-primary-700'
+                  : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  }`}
               >
                 <span>Next</span>
                 <ChevronRight className="w-5 h-5" />
@@ -420,11 +464,10 @@ const LandingPage = ({ onComplete }) => {
               <button
                 onClick={handleSubmit}
                 disabled={!isStepValid()}
-                className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 ${
-                  isStepValid()
-                    ? 'bg-primary-600 text-white hover:bg-primary-700'
-                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                }`}
+                className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 ${isStepValid()
+                  ? 'bg-primary-600 text-white hover:bg-primary-700'
+                  : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  }`}
               >
                 <span>Get My Roadmap</span>
                 <ChevronRight className="w-5 h-5" />

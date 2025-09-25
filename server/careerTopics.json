@@ -2,81 +2,182 @@
   "Software Engineering": [
     {
       "id": "se-01",
-      "title": "Step 1 : Programming Language Fundamentals",
-      "shortDescription": "Grasp the basics of one language (JS/Java/Python) and core syntax.",
-      "detailedContent": "Start with a single language and build confidence. Learn variables, data types, operators, conditionals, loops, functions/methods, input/output, and basic debugging. Understand how code runs (compiler/interpreter) and practice writing small programs (e.g., FizzBuzz, factorial, string reversals). Focus on clean naming and reading error messages.",
+      "title": "Programming Language Fundamentals",
+      "why": "Every software engineering journey begins with mastering a programming language. This step lays the foundation for all your coding skills, helping you build problem-solving confidence and understand the syntax, logic, and structure that will support everything you do later. The goal is to get comfortable writing programs independently and thinking like a programmer.",
+      "topicsList": [
+        "Variables",
+        "Data types",
+        "Operators",
+        "Loops",
+        "Functions",
+        "Recursion",
+        "Arrays",
+        "Strings",
+        "Debugging"
+      ],
+      "milestone": "Comfortably write 200–300 line programs without external help.",
       "status": "none"
     },
     {
       "id": "se-02",
-      "title": "Step 2 : Data Structures and Algorithms",
-      "shortDescription": "Learn arrays, linked lists, stacks, queues, hash maps, trees, graphs.",
-      "detailedContent": "Master the building blocks for efficient problem solving. Cover arrays and strings, linked lists, stacks and queues, hash maps/sets, trees (BST, traversal), and graphs (BFS/DFS). Learn sorting (quick/merge) and searching (binary search). Practice time/space complexity (Big-O) and common patterns like two pointers, sliding window, recursion, and dynamic programming. Use visualizations and implement from scratch to build intuition.",
+      "title": "Data Structures & Algorithms (Basics)",
+      "why": "To solve real-world problems efficiently, you need to understand how data is organized and manipulated. In this step, you’ll learn the essential building blocks of programming logic, gaining the ability to approach problems systematically and optimize your solutions.",
+      "topicsList": [
+        "Arrays",
+        "Strings",
+        "Linked lists",
+        "Stacks",
+        "Queues",
+        "Hashmaps",
+        "Searching & sorting",
+        "Complexity analysis"
+      ],
+      "milestone": "Able to solve 20–30 basic coding problems and explain time/space complexity.",
       "status": "none"
     },
     {
       "id": "se-03",
-      "title": "Step 3 : Intermediate Problem Solving",
-      "shortDescription": "Apply DS&A to real questions and practice interview-style problems.",
-      "detailedContent": "Bridge theory to practice with curated problems. Solve category-based sets (arrays, strings, hash maps, trees, graphs, DP). For each problem, write: problem restatement, examples, approach, complexity, and test cases. Track mistakes and revisit. Use platforms like LeetCode/CodeStudio. Aim for consistency (30–60 minutes daily) over perfection. Include pair-programming or discussing solutions aloud to build communication skills.",
+      "title": "Intermediate Problem Solving",
+      "why": "This step challenges you to take your problem-solving skills to the next level. You will practice medium-difficulty problems that combine multiple concepts, helping you think critically and develop strategies for solving more complex coding challenges.",
+      "topicsList": [
+        "Sliding window",
+        "Prefix sums",
+        "Binary search variations",
+        "Two pointers"
+      ],
+      "milestone": "Confidently solve 50+ medium-level problems on platforms like LeetCode.",
       "status": "none"
     },
     {
       "id": "se-04",
-      "title": "Step 4 : Master Advanced DSA : Advanced DSA 1 Month",
-      "shortDescription": "Tries, advanced DP, graphs, string matching; push edge-case mastery.",
-      "detailedContent": "Tackle advanced topics: tries (prefix trees), advanced dynamic programming (state compression, paths), and deeper graph problems (topological sort, shortest paths). Strengthen string pattern matching (KMP, Rabin-Karp). Practice math-heavy problems when relevant. Keep a cheat sheet of patterns. Work on time-bound practice rounds to simulate interviews.",
+      "title": "Advanced DSA (1-Month Sprint)",
+      "why": "Now it’s time to tackle the toughest coding challenges. This intensive sprint prepares you for top-tier product company interviews, focusing on advanced patterns, optimization techniques, and data structures that appear in competitive and real-world problem-solving scenarios.",
+      "topicsList": [
+        "Advanced math",
+        "Backtracking",
+        "Tries",
+        "String pattern matching",
+        "Advanced dynamic programming",
+        "Graph theory"
+      ],
+      "milestone": "Interview-ready for top product company coding rounds.",
       "status": "none"
     },
     {
       "id": "se-05",
-      "title": "Step 5 : Learn SQL",
-      "shortDescription": "Understand relational databases, CRUD, joins, indexing, and transactions.",
-      "detailedContent": "Learn the relational model, schema design basics, and key SQL operations: SELECT, INSERT, UPDATE, DELETE. Practice joins (inner/left/right), aggregations (GROUP BY, HAVING), subqueries, views, and transactions (ACID). Understand indexing and when to use it. Do mini-projects like sales analytics or user activity reports to connect SQL to real use cases.",
+      "title": "SQL & Databases",
+      "why": "Data is at the core of almost every application. Learning SQL and databases will allow you to efficiently manage, query, and manipulate structured data, a critical skill for both backend development and data-driven applications.",
+      "topicsList": [
+        "SELECT queries",
+        "Joins",
+        "Aggregations",
+        "Window functions",
+        "Indexes",
+        "Normalization",
+        "Transactions"
+      ],
+      "milestone": "Write optimized SQL queries for real-world datasets.",
       "status": "none"
     },
     {
       "id": "se-06",
-      "title": "Step 6 : Learn Backend",
-      "shortDescription": "Software design principles, backend architecture, testing, deployment.",
-      "detailedContent": "Master essential backend topics. Software Design: SOLID, common design patterns, UML diagrams, schema and API design. Architecture: how the internet works (TCP/UDP/HTTP), MVC, LLD case studies, authentication/authorization, logging, error handling. Tooling: unit testing, ORMs, Git workflows, CI/CD basics, and deployment strategies (containers, cloud). Choose one stack (e.g., Node + Express, Java + Spring Boot) and ship a small API with tests.",
+      "title": "Backend Development",
+      "why": "Backend development teaches you how to design and build the server-side of applications. You’ll understand how the internet works, APIs, databases, and application architecture, enabling you to develop scalable and maintainable systems.",
+      "topicsList": [
+        "Software Design Principles: SOLID, design patterns, UML, schema design, API design",
+        "Backend Development: TCP/UDP/HTTP, MVC, LLD, unit testing, ORM, deployment, Git, Spring Boot/Node.js/Django"
+      ],
+      "milestone": "Deploy your first backend service with APIs.",
       "status": "none"
     },
     {
       "id": "se-07",
-      "title": "Step 7 : Learn Fullstack",
-      "shortDescription": "HTML, CSS, JavaScript, React/Redux; build and deploy end-to-end.",
-      "detailedContent": "Front-end foundations: semantic HTML, modern CSS (Flexbox/Grid), responsive design, and accessibility. JavaScript: ES6+, DOM manipulation, events, async/await. Frameworks: React fundamentals (components, state/props, hooks), basic Redux/RTK. System understanding: how browsers, HTTP, and APIs interact. Build a small full-stack app (auth, CRUD, pagination) and deploy it. Include tests, linting, and meaningful docs.",
+      "title": "Fullstack Development",
+      "why": "Fullstack development expands your backend knowledge to include frontend technologies. You’ll learn to build complete applications end-to-end, integrating UI with backend services while considering best practices, deployment, and performance.",
+      "topicsList": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React",
+        "Redux",
+        "OOP in JS",
+        "Concurrency",
+        "DOM manipulation",
+        "Event handling",
+        "API integration",
+        "Deployment",
+        "Frontend LLD"
+      ],
+      "milestone": "Launch a full-stack project connecting frontend and backend.",
       "status": "none"
     },
     {
       "id": "se-08",
-      "title": "Step 8 : Master High Level Design",
-      "shortDescription": "Design scalable systems: caching, CAP, microservices, case studies.",
-      "detailedContent": "Learn HLD essentials: scalability, reliability, and consistency trade-offs. Cover consistent hashing, caching strategies (client/server-side, CDN, Redis), CAP theorem, and SQL vs NoSQL choices. Study distributed systems components (queues, streams) and do case studies like URL shortener, news feed, chat, or ride sharing. Communicate designs with clear diagrams and capacity planning.",
+      "title": "High-Level Design (HLD)",
+      "why": "As you grow as a software engineer, understanding system-level design is critical. This step teaches you to design scalable, reliable systems for millions of users, preparing you for system design interviews and real-world architecture decisions.",
+      "topicsList": [
+        "Consistent hashing",
+        "Caching",
+        "CAP theorem",
+        "Distributed databases",
+        "Scalability",
+        "Kafka",
+        "Microservices",
+        "Case studies (Twitter, Uber, WhatsApp)"
+      ],
+      "milestone": "Confidently explain and design scalable architectures in interviews.",
       "status": "none"
     },
     {
       "id": "se-09",
-      "title": "Step 9 : Learn Data Engineering",
-      "shortDescription": "Pipelines, big data tooling, advanced SQL, warehousing, orchestration.",
-      "detailedContent": "Understand the data lifecycle: ingestion, processing, storage, and serving. Learn advanced SQL, ETL/ELT, batch vs stream processing, and tools (e.g., Spark, Kafka, Airflow). Explore cloud services (AWS/GCP) and warehousing (BigQuery/Redshift). Build a mini pipeline (extract -> transform -> dashboard). Add logging/monitoring and document SLAs.",
+      "title": "Dive into Data Engineering",
+      "why": "This step focuses on building robust data pipelines and handling large-scale data. You’ll learn tools and techniques to extract, transform, and analyze data efficiently, enabling you to contribute to data-driven products and analytics systems.",
+      "topicsList": [
+        "Data processing systems",
+        "Advanced SQL",
+        "ETL pipelines",
+        "MapReduce",
+        "Spark",
+        "Cloud services",
+        "Data warehousing",
+        "Workflow orchestration",
+        "Monitoring"
+      ],
+      "milestone": "Build a production-level ETL pipeline with dashboards and monitoring.",
       "status": "none"
     },
     {
       "id": "se-10",
-      "title": "Step 10 : Product Management for Engineers",
-      "shortDescription": "Product thinking, analytics, roadmaps, and delivery for engineers.",
-      "detailedContent": "Develop product sense: define user problems, success metrics, and experiment plans. Learn prioritization frameworks (RICE/MoSCoW), analytics (funnels, retention, Mixpanel), and roadmap planning. Do hands-on case studies and collaborate across functions. Apply PM principles to your engineering projects to ship the right things effectively.",
+      "title": "Product Thinking for Engineers",
+      "why": "Great engineers understand the product they are building. In this step, you’ll learn product management concepts, including discovery, roadmap planning, prioritization, and analytics, enabling you to contribute meaningfully beyond writing code.",
+      "topicsList": [
+        "Product discovery",
+        "Roadmaps",
+        "Prioritization",
+        "Analytics",
+        "Case studies",
+        "Delivery management"
+      ],
+      "milestone": "Confidently participate in product discussions and roadmap planning.",
       "status": "none"
     },
     {
       "id": "se-11",
-      "title": "Step 11 : Learn Gen AI for Software Engineers",
-      "shortDescription": "LLMs, RAG, agents; build production-ready AI features.",
-      "detailedContent": "Get oriented with AI/ML and deep learning basics. Learn LLM concepts (tokenization, transformers), embeddings, RAG (retrieval-augmented generation), and evaluation. Explore AI agents for workflows. Build a small GenAI feature (e.g., smart search or summarization) and focus on safety, observability, and cost. Document limitations and monitoring plans.",
+      "title": "Generative AI for Engineers",
+      "why": "AI is transforming software development. This step teaches you how to leverage generative AI technologies, LLMs, RAG, and AI agents to build intelligent, production-ready applications that solve real-world problems.",
+      "topicsList": [
+        "AI/ML basics",
+        "LLMs",
+        "Transformer architecture",
+        "Embeddings",
+        "RAG",
+        "AI agents",
+        "Building production-ready AI apps"
+      ],
+      "milestone": "Ship your first GenAI-powered application.",
       "status": "none"
     }
+
   ],
   "Data Science": [
     {
@@ -103,26 +204,107 @@
       "status": "none"
     },
     {
-        "id": "da-02",
-        "title": "SQ & BI Dashboards",
-        "shortDescription": "Transform data into insights",
-        "detailedContent": "Write complex SQL (joins, windows), build dashboards in Tableau/Power BI, design KPIs and tell data stories with clear visual choices.",
-        "status": "none"
-      }
+      "id": "da-02",
+      "title": "SQ & BI Dashboards",
+      "shortDescription": "Transform data into insights",
+      "detailedContent": "Write complex SQL (joins, windows), build dashboards in Tableau/Power BI, design KPIs and tell data stories with clear visual choices.",
+      "status": "none"
+    }
   ],
   "DevOps & Cloud Computing": [
     {
-      "id": "devops-01",
-      "title": "Cloud Foundations",
-      "shortDescription": "Compute, storage, networking",
-      "detailedContent": "Identity and access management, VPC networking, load balancers, autoscaling, managed databases, cost and security basics across AWS/Azure/GCP.",
+      "id": "dc-01",
+      "title": "Programming Foundations",
+      "why": "Strong coding skills enable automation, efficient problem solving, and integration of tools used throughout DevOps.",
+      "topicsList": [
+        "Python syntax, data types, loops, functions, file I/O",
+        "Basic algorithms and complexity analysis",
+        "Small scripting tasks such as log parsing or API calls"
+      ],
+      "milestone": "Build a command-line utility and explain its logic and time complexity.",
       "status": "none"
     },
     {
-      "id": "devops-02",
-      "title": "Containers & Kubernetes",
-      "shortDescription": "Packaging and orchestration",
-      "detailedContent": "Docker images, registries, Kubernetes primitives (Pods, Deployments, Services, Ingress), Helm charts, observability, rolling/blue-green deployments.",
+      "id": "dc-02",
+      "title": "Linux, Operating Systems, and Networking",
+      "why": "Most infrastructure runs on Linux; understanding the OS and networks is critical for configuration and troubleshooting.",
+      "topicsList": [
+        "Linux commands, file permissions, process management, shell scripting",
+        "OS concepts: memory, scheduling, threads",
+        "Networking fundamentals: TCP/IP, DNS, HTTP",
+        "Database basics: schema design, replication, backups"
+      ],
+      "milestone": "Securely access a remote server, diagnose a network issue, and restore a database from backup.",
+      "status": "none"
+    },
+    {
+      "id": "dc-03",
+      "title": "DevOps Toolchain",
+      "why": "Automation and orchestration ensure consistent deployments and reliable operations.",
+      "topicsList": [
+        "Docker containerization",
+        "Kubernetes orchestration: pods, services, networking, persistent storage",
+        "Version control with Git and GitHub",
+        "CI/CD pipelines using Jenkins or GitHub Actions",
+        "Configuration management with Ansible",
+        "Observability with Prometheus and Grafana"
+      ],
+      "milestone": "Push code to a repository and watch an automated pipeline build, test, and deploy to a running Kubernetes cluster.",
+      "status": "none"
+    },
+    {
+      "id": "dc-04",
+      "title": "Cloud Computing (AWS Focus)",
+      "why": "Cloud platforms provide scalable infrastructure and managed services for modern applications.",
+      "topicsList": [
+        "AWS IAM roles and security",
+        "Compute and storage: EC2, S3, EBS",
+        "Networking: VPCs, subnets, routing, load balancers, auto-scaling",
+        "Serverless computing: AWS Lambda",
+        "Infrastructure as Code: CloudFormation",
+        "Monitoring: CloudWatch, CloudTrail"
+      ],
+      "milestone": "Deploy a production-ready web service on AWS with automated scaling, logging, and monitoring.",
+      "status": "none"
+    },
+    {
+      "id": "dc-05",
+      "title": "System Design and Advanced Algorithms",
+      "why": "Designing distributed systems ensures scalability, reliability, and cost efficiency.",
+      "topicsList": [
+        "Caching strategies, consistent hashing, CAP theorem",
+        "SQL vs NoSQL trade-offs",
+        "Messaging systems: Kafka, Zookeeper",
+        "Microservices architecture",
+        "Advanced DSA for optimization problems"
+      ],
+      "milestone": "Present a high-level design for a large-scale service (e.g., social media feed) and defend the architectural choices.",
+      "status": "none"
+    },
+    {
+      "id": "dc-06",
+      "title": "MLOps and AI Integration",
+      "why": "Many organizations deploy machine-learning models that require the same operational rigor as traditional services.",
+      "topicsList": [
+        "API development with Flask or FastAPI",
+        "Containerized model deployment with Docker/Kubernetes",
+        "CI/CD for model retraining and deployment",
+        "Model tracking with MLflow",
+        "LLM concepts: embeddings, retrieval-augmented generation, AI agents"
+      ],
+      "milestone": "Operate a production ML or LLM service with automated updates and monitoring.",
+      "status": "none"
+    },
+    {
+      "id": "dc-07",
+      "title": "Capstone Projects and Portfolio",
+      "why": "Practical, production-grade projects demonstrate readiness for professional roles.",
+      "topicsList": [
+        "Infrastructure automation with Terraform and Ansible",
+        "Multi-service Kubernetes deployment integrated with AWS services",
+        "Full observability and incident-response workflows"
+      ],
+      "milestone": "Publish a complete end-to-end project showcasing DevOps automation, cloud deployment, and monitoring to prospective employers.",
       "status": "none"
     }
   ],

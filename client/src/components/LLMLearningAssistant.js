@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
-const LLMLearningAssistant = ({ skill, targetRole, userExperience, onClose }) => {
+const LLMLearningAssistant = ({ skill, targetRole, userExperience, onClose, initialUserQuestion, quickQuestions = [] }) => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +21,11 @@ const LLMLearningAssistant = ({ skill, targetRole, userExperience, onClose }) =>
         timestamp: new Date()
       }
     ]);
-  }, [skill, targetRole]);
+    // Prefill prompt if provided
+    if (initialUserQuestion) {
+      setInputMessage(initialUserQuestion);
+    }
+  }, [skill, targetRole, initialUserQuestion]);
 
   useEffect(() => {
     scrollToBottom();
@@ -84,12 +88,10 @@ const LLMLearningAssistant = ({ skill, targetRole, userExperience, onClose }) =>
     }
   };
 
-  const quickQuestions = [
+  const derivedQuick = quickQuestions.length ? quickQuestions : [
     `What is ${skill}?`,
-    `How do I learn ${skill}?`,
-    `What are the best practices for ${skill}?`,
-    `Can you suggest projects using ${skill}?`,
-    `What are common mistakes with ${skill}?`
+    `How do I prepare for interviews about ${skill}?`,
+    `What are best practices for ${skill}?`
   ];
 
   const handleQuickQuestion = (question) => {
@@ -132,7 +134,7 @@ const LLMLearningAssistant = ({ skill, targetRole, userExperience, onClose }) =>
         <div className="p-4 bg-gray-50 border-b border-gray-200">
           <p className="text-sm font-medium text-gray-700 mb-2">Quick questions:</p>
           <div className="flex flex-wrap gap-2">
-            {quickQuestions.map((question, index) => (
+            {derivedQuick.map((question, index) => (
               <button
                 key={index}
                 onClick={() => handleQuickQuestion(question)}
@@ -154,22 +156,20 @@ const LLMLearningAssistant = ({ skill, targetRole, userExperience, onClose }) =>
               className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div className={`flex space-x-2 max-w-[80%] ${message.type === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                  message.type === 'user' ? 'bg-primary-600' : 'bg-gray-100'
-                }`}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${message.type === 'user' ? 'bg-primary-600' : 'bg-gray-100'
+                  }`}>
                   {message.type === 'user' ? (
                     <User className="w-4 h-4 text-white" />
                   ) : (
                     <Bot className="w-4 h-4 text-gray-600" />
                   )}
                 </div>
-                <div className={`rounded-lg p-3 ${
-                  message.type === 'user' 
-                    ? 'bg-primary-600 text-white' 
-                    : 'bg-gray-100 text-gray-900'
-                }`}>
+                <div className={`rounded-lg p-3 ${message.type === 'user'
+                  ? 'bg-primary-600 text-white'
+                  : 'bg-gray-100 text-gray-900'
+                  }`}>
                   <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-                  
+
                   {/* Bot suggestions */}
                   {message.type === 'bot' && message.suggestions && (
                     <div className="mt-3 space-y-2">
@@ -199,7 +199,7 @@ const LLMLearningAssistant = ({ skill, targetRole, userExperience, onClose }) =>
               </div>
             </motion.div>
           ))}
-          
+
           {isLoading && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -219,7 +219,7 @@ const LLMLearningAssistant = ({ skill, targetRole, userExperience, onClose }) =>
               </div>
             </motion.div>
           )}
-          
+
           <div ref={messagesEndRef} />
         </div>
 

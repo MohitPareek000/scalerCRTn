@@ -27,10 +27,10 @@ const ResultsPage = ({ userData }) => {
   }
 
   const tabs = [
-    { id: 'skill-gaps', label: 'Skill Gaps', icon: '🎯' },
-    { id: 'interview-prep', label: 'Interview Prep', icon: '💼' },
-    { id: 'projects', label: 'Projects', icon: '🚀' },
-    { id: 'career-path', label: 'Career Path', icon: '🛤️' }
+    { id: 'skill-gaps', label: 'Skill Gaps' },
+    { id: 'career-path', label: 'Career Path' },
+    { id: 'interview-prep', label: 'Interview Prep' },
+    { id: 'projects', label: 'Projects' }
   ];
 
   const renderTabContent = () => {
@@ -77,7 +77,7 @@ const ResultsPage = ({ userData }) => {
         </div>
       </div>
 
-      {/* Match Score Banner */}
+      {/* Match Score Banner (Skill Coverage equals Career Match Score) */}
       <div className="bg-gradient-to-r from-primary-600 to-primary-700 text-white">
         <div className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-center space-x-6">
@@ -112,13 +112,11 @@ const ResultsPage = ({ userData }) => {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-md font-medium transition-all duration-200 ${
-                activeTab === tab.id
-                  ? 'bg-white text-primary-600 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
-              }`}
+              className={`flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-md font-medium transition-all duration-200 ${activeTab === tab.id
+                ? 'bg-white text-primary-600 shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
+                }`}
             >
-              <span className="text-lg">{tab.icon}</span>
               <span>{tab.label}</span>
             </button>
           ))}

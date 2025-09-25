@@ -38,4 +38,5 @@ out/
 
 # Misc
 *.local
+test-openai.js
 

@@ -8,8 +8,11 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Initialize OpenAI
+if (!process.env.OPENAI_API_KEY) {
+  console.warn('Warning: OPENAI_API_KEY is not set. LLM features will not work until the key is provided via environment variables.');
+}
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || 'sk-1234efgh5678ijkl1234efgh5678ijkl1234efgh'
+  apiKey: process.env.OPENAI_API_KEY
 });
 
 
@@ -364,23 +367,23 @@ app.get('/api/projects/:targetRole', (req, res) => {
 
 app.post('/api/analyze-skills', async (req, res) => {
   const { currentRole, targetRole, currentSkills, yearsExperience, customRole } = req.body;
-  
+
   try {
     // Get skills specific to the target role
     const targetRoleSkills = skillTaxonomy[targetRole] ? Object.values(skillTaxonomy[targetRole]).flat() : [];
-    
+
     // Filter existing skills that are relevant to target role
     const existingSkills = currentSkills.filter(skill => targetRoleSkills.includes(skill));
-    
+
     // Find missing skills specific to target role
     const missingSkills = targetRoleSkills.filter(skill => !currentSkills.includes(skill));
-    
+
     // Calculate match score based on experience and skill overlap
     const baseScore = Math.min(20 + (yearsExperience * 8), 70); // Base score from experience
     const skillCoverage = targetRoleSkills.length > 0 ? (existingSkills.length / targetRoleSkills.length) : 0;
     const skillBonus = skillCoverage * 30; // Skill bonus up to 30 points
     const matchScore = Math.min(Math.round(baseScore + skillBonus), 95);
-    
+
     // Prioritize skills for the target role
     const prioritizedMissing = prioritizeSkills(missingSkills, targetRole);
     const prioritizedExisting = prioritizeSkills(existingSkills, targetRole);
@@ -388,13 +391,13 @@ app.post('/api/analyze-skills', async (req, res) => {
     // Generate AI-powered recommendations for top missing skills
     const topMissingSkills = prioritizedMissing.slice(0, 5).map(s => s.skill);
     const aiRecommendations = await generateAIRecommendations(topMissingSkills, targetRole, currentRole, yearsExperience);
-    
+
     // Combine AI recommendations with structured data
     const recommendations = topMissingSkills.map((skill, index) => {
-      const skillCategory = Object.keys(skillTaxonomy[targetRole] || {}).find(category => 
+      const skillCategory = Object.keys(skillTaxonomy[targetRole] || {}).find(category =>
         skillTaxonomy[targetRole][category].includes(skill)
       );
-      
+
       return {
         skill,
         category: skillCategory,
@@ -404,7 +407,7 @@ app.post('/api/analyze-skills', async (req, res) => {
         difficulty: getSkillDifficulty(skill, targetRole)
       };
     });
-    
+
     res.json({
       matchScore,
       existingSkills: prioritizedExisting.map(s => s.skill),
@@ -424,7 +427,7 @@ app.post('/api/analyze-skills', async (req, res) => {
     const skillCoverage = targetRoleSkills.length > 0 ? (existingSkills.length / targetRoleSkills.length) : 0;
     const skillBonus = skillCoverage * 30;
     const matchScore = Math.min(Math.round(baseScore + skillBonus), 95);
-    
+
     const recommendations = missingSkills.slice(0, 5).map(skill => ({
       skill,
       definition: `${skill} is a fundamental skill in ${targetRole}.`,
@@ -432,7 +435,7 @@ app.post('/api/analyze-skills', async (req, res) => {
       starterTasks: generateStarterTasks(skill, targetRole),
       difficulty: getSkillDifficulty(skill, targetRole)
     }));
-    
+
     res.json({
       matchScore,
       existingSkills,
@@ -490,7 +493,7 @@ function generateStarterTasks(skill, targetRole) {
       `Read research papers and implement ${skill} from scratch`
     ]
   };
-  
+
   return taskTemplates[targetRole] || [
     `Learn ${skill} through online courses and tutorials`,
     `Practice ${skill} with hands-on projects`,
@@ -502,7 +505,7 @@ function getSkillDifficulty(skill, targetRole) {
   // Simple difficulty assessment based on skill complexity
   const advancedSkills = ['Kubernetes', 'TensorFlow', 'PyTorch', 'Microservices', 'System Design'];
   const intermediateSkills = ['Docker', 'React', 'Node.js', 'Machine Learning', 'Data Visualization'];
-  
+
   if (advancedSkills.some(s => skill.includes(s))) return 'Advanced';
   if (intermediateSkills.some(s => skill.includes(s))) return 'Intermediate';
   return 'Beginner';
@@ -510,12 +513,12 @@ function getSkillDifficulty(skill, targetRole) {
 
 app.post('/api/skill-details', (req, res) => {
   const { skill, targetRole, userExperience } = req.body;
-  
+
   // Enhanced skill details with role-specific information
-  const skillCategory = Object.keys(skillTaxonomy[targetRole] || {}).find(category => 
+  const skillCategory = Object.keys(skillTaxonomy[targetRole] || {}).find(category =>
     skillTaxonomy[targetRole] && skillTaxonomy[targetRole][category].includes(skill)
   );
-  
+
   res.json({
     skill,
     category: skillCategory,
@@ -530,11 +533,11 @@ app.post('/api/skill-details', (req, res) => {
 // New endpoint for LLM-powered learning assistance
 app.post('/api/llm-learning-assistant', async (req, res) => {
   const { skill, targetRole, userQuestion, conversationHistory = [] } = req.body;
-  
+
   try {
     // Use OpenAI API for real responses
     const llmResponse = await generateOpenAIResponse(skill, targetRole, userQuestion, conversationHistory);
-    
+
     res.json({
       response: llmResponse,
       suggestions: generateLearningSuggestions(skill, targetRole, userQuestion),
@@ -542,7 +545,7 @@ app.post('/api/llm-learning-assistant', async (req, res) => {
     });
   } catch (error) {
     console.error('OpenAI Error:', error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: 'Failed to generate learning assistance',
       response: generateFallbackResponse(skill, userQuestion)
     });
@@ -657,13 +660,13 @@ function generateFallbackResponse(skill, userQuestion) {
 function getEstimatedLearningTime(skill, userExperience) {
   const difficulty = getSkillDifficulty(skill, 'Software Engineering');
   const experienceMultiplier = userExperience > 5 ? 0.7 : userExperience > 2 ? 0.9 : 1.0;
-  
+
   const baseTime = {
     'Beginner': 2,
     'Intermediate': 4,
     'Advanced': 8
   };
-  
+
   return Math.ceil(baseTime[difficulty] * experienceMultiplier);
 }
 
@@ -758,7 +761,7 @@ app.get('/api/career-topics/:targetRole', (req, res) => {
 // Serve static files in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
-  
+
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
   });

@@ -51,7 +51,7 @@ const ResultsPage = ({ userData }) => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
+      <div className="bg-white/90 backdrop-blur border-b sticky top-0 z-30">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -77,33 +77,48 @@ const ResultsPage = ({ userData }) => {
         </div>
       </div>
 
-      {/* Match Score Banner (Skill Coverage equals Career Match Score) */}
-      <div className="bg-gradient-to-r from-primary-600 to-primary-700 text-white">
-        <div className="container mx-auto px-4 py-8">
-          <div className="flex items-center justify-center space-x-6">
-            <div className="text-center">
-              <div className="text-4xl font-bold mb-2">
-                {userData.analysis?.matchScore || 0}%
+      {/* Hero Banner aligned with Scaler-style visual */}
+      <section className="bg-gradient-to-r from-primary-600 to-primary-700 text-white">
+        <div className="container mx-auto px-4 py-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            {/* Score cluster */}
+            <div className="md:col-span-2">
+              <div className="flex flex-wrap items-center gap-8">
+                <div className="text-center">
+                  <div className="text-5xl font-extrabold tracking-tight">{userData.analysis?.matchScore || 0}%</div>
+                  <div className="text-primary-100 mt-1">Career Match Score</div>
+                </div>
+                <div className="w-px h-16 bg-white/30 hidden md:block" />
+                <div className="text-center">
+                  <div className="text-3xl font-bold">{userData.analysis?.existingSkills?.length || 0}</div>
+                  <div className="text-primary-100 mt-1">Skills You Have</div>
+                </div>
+                <div className="w-px h-16 bg-white/30 hidden md:block" />
+                <div className="text-center">
+                  <div className="text-3xl font-bold">{userData.analysis?.missingSkills?.length || 0}</div>
+                  <div className="text-primary-100 mt-1">Skills to Learn</div>
+                </div>
               </div>
-              <div className="text-primary-100">Career Match Score</div>
             </div>
-            <div className="hidden md:block w-px h-16 bg-primary-400"></div>
-            <div className="text-center">
-              <div className="text-2xl font-semibold mb-1">
-                {userData.analysis?.existingSkills?.length || 0}
+            {/* Social proof */}
+            <div className="md:col-span-1">
+              <div className="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/20">
+                <div className="text-sm text-primary-50">Trusted by professionals</div>
+                <div className="text-2xl font-bold mt-1">6,02,579+ Working Professionals</div>
+                <div className="text-primary-100">transformed their career using this service from Scaler</div>
+                <a
+                  href="https://www.scaler.com/ai-mock-interview"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block mt-4 px-4 py-2 rounded-md bg-white text-primary-700 font-semibold hover:bg-primary-50"
+                >
+                  Explore AI Mock Interviews
+                </a>
               </div>
-              <div className="text-primary-100">Skills You Have</div>
-            </div>
-            <div className="hidden md:block w-px h-16 bg-primary-400"></div>
-            <div className="text-center">
-              <div className="text-2xl font-semibold mb-1">
-                {userData.analysis?.missingSkills?.length || 0}
-              </div>
-              <div className="text-primary-100">Skills to Learn</div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Tabs */}
       <div className="container mx-auto px-4 py-6">

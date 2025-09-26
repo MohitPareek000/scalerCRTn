@@ -66,9 +66,9 @@ const InterviewPrepTab = ({ userData }) => {
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
           Explore opportunities at top companies and prepare for your interviews with our comprehensive guides.
         </p>
-        <div className="mt-3 inline-block px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800 border border-yellow-200">
+        {/* <div className="mt-3 inline-block px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800 border border-yellow-200">
           We will be showing Interview Experience
-        </div>
+        </div> */}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

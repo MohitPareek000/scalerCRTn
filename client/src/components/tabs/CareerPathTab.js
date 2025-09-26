@@ -1,55 +1,14 @@
 import React, { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCareerPath, CareerPathProvider } from '../../context/CareerPathContext';
-import { Filter, X, BookOpen } from 'lucide-react';
+import { X, BookOpen } from 'lucide-react';
 import LLMLearningAssistant from '../LLMLearningAssistant';
 
-function StatusBadge({ status }) {
-  const map = {
-    none: 'bg-gray-100 text-gray-700',
-    in_progress: 'bg-yellow-100 text-yellow-800',
-    done: 'bg-green-100 text-green-800',
-    skip: 'bg-gray-200 text-gray-700'
-  };
-  const label = {
-    none: 'Not set',
-    in_progress: 'In Progress',
-    done: 'Done',
-    skip: 'Skip'
-  }[status] || 'Not set';
-  return <span className={`px-2 py-1 rounded-full text-xs font-medium ${map[status] || map.none}`}>{label}</span>;
-}
+// Tracking UI removed per requirements
 
-function ProgressBar({ percent }) {
-  return (
-    <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-      <motion.div
-        className="bg-gradient-to-r from-primary-500 to-primary-600 h-3 rounded-full shadow-sm"
-        initial={{ width: 0 }}
-        animate={{ width: `${percent}%` }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      />
-    </div>
-  );
-}
+// Progress bar removed as step tracking is no longer displayed
 
-function TopicModal({ topic, onClose, onSetStatus, onOpenAI }) {
-  const [buttonStates, setButtonStates] = useState({
-    inProgress: topic.status === 'in_progress',
-    done: topic.status === 'done'
-  });
-
-  const handleStatusChange = (status) => {
-    // Set visual feedback
-    if (status === 'in_progress') {
-      setButtonStates({ inProgress: true, done: false });
-    } else if (status === 'done') {
-      setButtonStates({ inProgress: false, done: true });
-    }
-
-    // Call the original function
-    onSetStatus(status);
-  };
+function TopicModal({ topic, onClose, onOpenAI }) {
 
   return (
     <div className="fixed inset-0 z-50">
@@ -117,30 +76,7 @@ function TopicModal({ topic, onClose, onSetStatus, onOpenAI }) {
             </button>
           </div>
         </div>
-        <div className="p-6 border-t">
-          <div className="grid grid-cols-2 gap-3">
-            <button
-              onClick={() => handleStatusChange('in_progress')}
-              className={`px-4 py-3 rounded-lg border transition-all duration-300 font-medium active:scale-95 transform flex items-center justify-center space-x-2 ${buttonStates.inProgress
-                ? 'bg-yellow-500 text-white border-yellow-500 shadow-lg'
-                : 'bg-yellow-500/10 text-yellow-800 border-yellow-200 hover:bg-yellow-500/20 hover:border-yellow-300'
-                }`}
-            >
-              {buttonStates.inProgress && <span className="text-lg">✓</span>}
-              <span>In Progress</span>
-            </button>
-            <button
-              onClick={() => handleStatusChange('done')}
-              className={`px-4 py-3 rounded-lg border transition-all duration-300 font-medium active:scale-95 transform flex items-center justify-center space-x-2 ${buttonStates.done
-                ? 'bg-green-500 text-white border-green-500 shadow-lg'
-                : 'bg-green-500/10 text-green-800 border-green-200 hover:bg-green-500/20 hover:border-green-300'
-                }`}
-            >
-              {buttonStates.done && <span className="text-lg">✓</span>}
-              <span>Done</span>
-            </button>
-          </div>
-        </div>
+        {/* Status controls removed */}
       </motion.div>
     </div>
   );
@@ -175,57 +111,36 @@ function generateQuickQuestions(topic) {
 }
 
 function CareerPathInner({ targetRole }) {
-  const { topics, isLoading, error, setTopicStatus, stats } = useCareerPath();
-  const [filter, setFilter] = useState('all');
+  const { topics, isLoading, error } = useCareerPath();
   const [active, setActive] = useState(null);
   const [aiTopic, setAiTopic] = useState(null);
-
-  const filtered = useMemo(() => {
-    if (filter === 'all') return topics;
-    return topics.filter(t => t.status === filter);
-  }, [topics, filter]);
 
   if (isLoading) return <div className="py-12 text-center text-gray-600">Loading topics...</div>;
   if (error) return <div className="py-12 text-center text-red-600">Failed to load topics.</div>;
 
   return (
     <div className="space-y-6">
-      {/* Header + Progress */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">Career Path</h2>
-          <p className="text-gray-600">Track your roadmap topics and mark progress.</p>
-          <div className="mt-2 flex items-center space-x-4 text-sm text-gray-500">
-            <span className="flex items-center space-x-1">
-              <span className="w-2 h-2 bg-primary-500 rounded-full"></span>
-              <span>{topics.length} steps to achieve your target role</span>
-            </span>
-          </div>
+          <p className="text-gray-600">Your step-by-step roadmap for the selected role.</p>
         </div>
-        <div className="min-w-[240px]">
-          <div className="flex items-center justify-between mb-2 text-sm text-gray-600">
-            <span>{stats.done} done</span>
-            <span>{stats.percentDone}%</span>
+        <div className="mt-2 sm:mt-0">
+          <div className="px-4 py-2 bg-white rounded-xl border shadow-sm flex items-center gap-3">
+            <div className="w-2.5 h-2.5 rounded-full bg-primary-500" />
+            <div className="text-sm text-gray-700"><span className="font-semibold text-gray-900">{topics.length}</span> steps to achieve your target role</div>
           </div>
-          <ProgressBar percent={stats.percentDone} />
         </div>
       </div>
 
-      {/* Filters */}
-      <div className="flex flex-wrap items-center gap-2">
-        <span className="text-sm text-gray-600 flex items-center gap-1"><Filter className="w-4 h-4" /> Filter:</span>
-        {['all', 'in_progress', 'done'].map(opt => (
-          <button key={opt} onClick={() => setFilter(opt)} className={`px-3 py-1 rounded-full text-sm border ${filter === opt ? 'bg-primary-600 text-white border-primary-600' : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-50'}`}>
-            {opt.replace('_', ' ')}
-          </button>
-        ))}
-      </div>
+      {/* Filters removed */}
 
       {/* Topic stepper */}
       <div className="relative">
         <div className="absolute left-4 top-0 bottom-0 w-px bg-gray-200" aria-hidden="true" />
         <div className="space-y-4">
-          {filtered.map((t, idx) => (
+          {topics.map((t, idx) => (
             <div key={t.id} className="relative pl-12">
               <div className="absolute left-2 top-3 w-4 h-4 rounded-full bg-white border-2 border-primary-600" aria-hidden="true" />
               <motion.div
@@ -240,7 +155,6 @@ function CareerPathInner({ targetRole }) {
                     <h3 className="font-semibold text-gray-900">{t.title}</h3>
                     <p className="text-sm text-gray-600 mt-1">{t.shortDescription}</p>
                   </div>
-                  <StatusBadge status={t.status} />
                 </div>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <button onClick={() => setActive(t)} className="btn-primary inline-flex items-center gap-2">
@@ -258,7 +172,6 @@ function CareerPathInner({ targetRole }) {
           <TopicModal
             topic={active}
             onClose={() => setActive(null)}
-            onSetStatus={(status) => { setTopicStatus(active.id, status); setActive(prev => prev ? { ...prev, status } : prev); }}
             onOpenAI={() => setAiTopic(active)}
           />
         )}

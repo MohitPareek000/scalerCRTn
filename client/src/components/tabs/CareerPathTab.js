@@ -22,13 +22,35 @@ function StatusBadge({ status }) {
 
 function ProgressBar({ percent }) {
   return (
-    <div className="w-full bg-gray-200 rounded-full h-2">
-      <div className="bg-primary-600 h-2 rounded-full" style={{ width: `${percent}%` }} />
+    <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+      <motion.div
+        className="bg-gradient-to-r from-primary-500 to-primary-600 h-3 rounded-full shadow-sm"
+        initial={{ width: 0 }}
+        animate={{ width: `${percent}%` }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      />
     </div>
   );
 }
 
 function TopicModal({ topic, onClose, onSetStatus, onOpenAI }) {
+  const [buttonStates, setButtonStates] = useState({
+    inProgress: topic.status === 'in_progress',
+    done: topic.status === 'done'
+  });
+
+  const handleStatusChange = (status) => {
+    // Set visual feedback
+    if (status === 'in_progress') {
+      setButtonStates({ inProgress: true, done: false });
+    } else if (status === 'done') {
+      setButtonStates({ inProgress: false, done: true });
+    }
+
+    // Call the original function
+    onSetStatus(status);
+  };
+
   return (
     <div className="fixed inset-0 z-50">
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
@@ -53,7 +75,7 @@ function TopicModal({ topic, onClose, onSetStatus, onOpenAI }) {
               <span className="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center">
                 <span className="text-xs font-semibold text-primary-600">1</span>
               </span>
-              <span>Why to learn</span>
+              <span>Why to learn?</span>
             </h3>
             <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{topic.why || topic.detailedContent}</p>
           </div>
@@ -63,13 +85,15 @@ function TopicModal({ topic, onClose, onSetStatus, onOpenAI }) {
                 <span className="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center">
                   <span className="text-xs font-semibold text-primary-600">2</span>
                 </span>
-                <span>What to learn ?</span>
+                <span>What to learn?</span>
               </h3>
-              <ul className="list-disc pl-5 space-y-1 text-gray-700 text-sm">
+              <div className="flex flex-wrap gap-2">
                 {topic.topicsList.map((it, i) => (
-                  <li key={i}>{it}</li>
+                  <span key={i} className="px-3 py-1 bg-blue-50 text-blue-700 text-sm rounded-full border border-blue-200">
+                    {it}
+                  </span>
                 ))}
-              </ul>
+              </div>
             </div>
           )}
           {topic.milestone && (
@@ -94,15 +118,60 @@ function TopicModal({ topic, onClose, onSetStatus, onOpenAI }) {
           </div>
         </div>
         <div className="p-6 border-t">
-          <div className="grid grid-cols-3 gap-2">
-            <button onClick={() => onSetStatus('in_progress')} className="px-3 py-2 rounded bg-yellow-500/10 text-yellow-800 hover:bg-yellow-500/20">In Progress</button>
-            <button onClick={() => onSetStatus('done')} className="px-3 py-2 rounded bg-green-500/10 text-green-800 hover:bg-green-500/20">Done</button>
-            <button onClick={() => onSetStatus('skip')} className="px-3 py-2 rounded bg-gray-200 text-gray-800 hover:bg-gray-300">Skip</button>
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              onClick={() => handleStatusChange('in_progress')}
+              className={`px-4 py-3 rounded-lg border transition-all duration-300 font-medium active:scale-95 transform flex items-center justify-center space-x-2 ${buttonStates.inProgress
+                ? 'bg-yellow-500 text-white border-yellow-500 shadow-lg'
+                : 'bg-yellow-500/10 text-yellow-800 border-yellow-200 hover:bg-yellow-500/20 hover:border-yellow-300'
+                }`}
+            >
+              {buttonStates.inProgress && <span className="text-lg">✓</span>}
+              <span>In Progress</span>
+            </button>
+            <button
+              onClick={() => handleStatusChange('done')}
+              className={`px-4 py-3 rounded-lg border transition-all duration-300 font-medium active:scale-95 transform flex items-center justify-center space-x-2 ${buttonStates.done
+                ? 'bg-green-500 text-white border-green-500 shadow-lg'
+                : 'bg-green-500/10 text-green-800 border-green-200 hover:bg-green-500/20 hover:border-green-300'
+                }`}
+            >
+              {buttonStates.done && <span className="text-lg">✓</span>}
+              <span>Done</span>
+            </button>
           </div>
         </div>
       </motion.div>
     </div>
   );
+}
+
+function generateAIPrompt(topic) {
+  const stepName = topic.title;
+  const whatToLearn = Array.isArray(topic.topicsList) ? topic.topicsList : [];
+
+  let prompt = `What is ${stepName}? `;
+
+  if (whatToLearn.length > 0) {
+    const explainPoints = whatToLearn.map(point => `Explain ${point}`).join(', ');
+    prompt += explainPoints;
+  }
+
+  return prompt;
+}
+
+function generateQuickQuestions(topic) {
+  const stepName = topic.title;
+  const whatToLearn = Array.isArray(topic.topicsList) ? topic.topicsList : [];
+
+  const questions = [`What is ${stepName}?`];
+
+  if (whatToLearn.length > 0) {
+    const explainQuestions = whatToLearn.map(point => `Explain ${point}`);
+    questions.push(...explainQuestions);
+  }
+
+  return questions;
 }
 
 function CareerPathInner({ targetRole }) {
@@ -126,6 +195,12 @@ function CareerPathInner({ targetRole }) {
         <div>
           <h2 className="text-2xl font-bold text-gray-900">Career Path</h2>
           <p className="text-gray-600">Track your roadmap topics and mark progress.</p>
+          <div className="mt-2 flex items-center space-x-4 text-sm text-gray-500">
+            <span className="flex items-center space-x-1">
+              <span className="w-2 h-2 bg-primary-500 rounded-full"></span>
+              <span>{topics.length} steps to achieve your target role</span>
+            </span>
+          </div>
         </div>
         <div className="min-w-[240px]">
           <div className="flex items-center justify-between mb-2 text-sm text-gray-600">
@@ -139,7 +214,7 @@ function CareerPathInner({ targetRole }) {
       {/* Filters */}
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-sm text-gray-600 flex items-center gap-1"><Filter className="w-4 h-4" /> Filter:</span>
-        {['all', 'in_progress', 'done', 'skip', 'none'].map(opt => (
+        {['all', 'in_progress', 'done'].map(opt => (
           <button key={opt} onClick={() => setFilter(opt)} className={`px-3 py-1 rounded-full text-sm border ${filter === opt ? 'bg-primary-600 text-white border-primary-600' : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-50'}`}>
             {opt.replace('_', ' ')}
           </button>
@@ -197,6 +272,8 @@ function CareerPathInner({ targetRole }) {
             targetRole={targetRole}
             userExperience={0}
             onClose={() => setAiTopic(null)}
+            initialUserQuestion={generateAIPrompt(aiTopic)}
+            quickQuestions={generateQuickQuestions(aiTopic)}
           />
         )}
       </AnimatePresence>

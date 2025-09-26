@@ -105,7 +105,7 @@ const ResultsPage = ({ userData }) => {
               <div className="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/20">
                 <div className="text-sm text-primary-50">Trusted by professionals</div>
                 <div className="text-2xl font-bold mt-1">6,02,579+ Working Professionals</div>
-                <div className="text-primary-100">transformed their career using this service from Scaler</div>
+                <div className="text-primary-100">transformed their career using scaler's career roadmap tool</div>
                 <a
                   href="https://www.scaler.com/ai-mock-interview"
                   target="_blank"

@@ -17,7 +17,7 @@ const SkillGapsTab = ({ userData }) => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/skill-details`, {
+      const response = await axios.post(`${API_BASE_URL}/skill-info/${encodeURIComponent(skill)}`, {
         skill,
         targetRole: userData.targetRole,
         userExperience: userData.yearsExperience

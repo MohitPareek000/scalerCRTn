@@ -3,14 +3,41 @@
     "buildCommand": "npm run vercel-build",
     "outputDirectory": "client/build",
     "installCommand": "npm install",
+    "functions": {
+        "api/analyze-skills.js": {
+            "maxDuration": 30
+        },
+        "api/skill-info/[skill].js": {
+            "maxDuration": 30
+        },
+        "api/llm-assistance.js": {
+            "maxDuration": 30
+        }
+    },
     "rewrites": [
         {
             "source": "/api/career-topics/(.*)",
-            "destination": "/api/career-topics"
+            "destination": "/api/career-topics/[targetRole]"
         },
         {
             "source": "/api/projects/(.*)",
-            "destination": "/api/projects"
+            "destination": "/api/projects/[targetRole]"
+        },
+        {
+            "source": "/api/suggested-skills/(.*)",
+            "destination": "/api/suggested-skills/[targetRole]"
+        },
+        {
+            "source": "/api/skill-info/(.*)",
+            "destination": "/api/skill-info/[skill]"
+        },
+        {
+            "source": "/api/skills/(.*)",
+            "destination": "/api/skills/[targetRole]"
+        },
+        {
+            "source": "/api/career-topics-debug",
+            "destination": "/api/career-topics-debug"
         },
         {
             "source": "/(.*)",

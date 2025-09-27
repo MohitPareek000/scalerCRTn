@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, Code, Star, X, FileCode, Link as LinkIcon, ChevronDown, ChevronUp } from 'lucide-react';
 import axios from 'axios';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5000/api');
 
 const ProjectsTab = ({ userData }) => {
   const [projects, setProjects] = useState([]);
@@ -289,7 +289,7 @@ const ProjectsTab = ({ userData }) => {
                 <div className="p-6 pt-0">
                   <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-indigo-100 rounded-xl p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div className="flex items-start gap-3">
-                     
+
                       <div>
                         <div className="text-sm font-semibold text-gray-900">Have Any Career Questions?</div>
                         <div className="text-sm text-gray-600">Discuss your tech upskilling path with our career counsellors on call.</div>
@@ -360,7 +360,7 @@ function getProjectSteps(project) {
     ];
   }
 
-  
+
   if (/(micro[-\s]?services?|msa)/i.test(project.title)) {
     return [
       { title: 'Define scope & domains', subtitle: 'Bounded contexts', description: 'Identify services from business domains; map dependencies and data ownership boundaries.' },
@@ -409,7 +409,7 @@ function getProjectSteps(project) {
       { title: 'Operations & runbooks', subtitle: 'On-call ready', description: 'Produce dashboards, incident runbooks, access review procedures, and regular drills.' }
     ];
   }
-// Project 1 of DevOps and Cloud Computing
+  // Project 1 of DevOps and Cloud Computing
   if (/(infrastructure\s*as\s*code|iac|terraform)/i.test(project.title)) {
     return [
       { title: 'Define scope', subtitle: 'Targets and regions', description: 'Choose AWS services to provision (VPC, subnets, EC2, RDS, S3). Pick regions and naming standards.' },
@@ -428,8 +428,8 @@ function getProjectSteps(project) {
     ];
   }
 
-   // 🟡 Intermediate — CI/CD Pipeline
-   if (/(ci\/?cd|pipeline|jenkins|gitlab\s*ci)/i.test(project.title)) {
+  // 🟡 Intermediate — CI/CD Pipeline
+  if (/(ci\/?cd|pipeline|jenkins|gitlab\s*ci)/i.test(project.title)) {
     return [
       { title: 'Objectives', subtitle: 'Quality gates & environments', description: 'Define triggers, stages, environments, and success criteria (coverage, lint, DAST/SAST).' },
       { title: 'Repo readiness', subtitle: 'Branching & versioning', description: 'Adopt trunk or GitFlow. Decide on semantic versioning and tagging conventions.' },

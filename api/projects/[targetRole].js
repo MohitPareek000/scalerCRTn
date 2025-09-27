@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     console.log('🔍 GET /api/projects called for:', targetRole);
 
     try {
-        // Projects data from server/index.js
+        // EXACT projects data from server/index.js
         const projects = {
             'Software Engineering': [
                 {
@@ -69,25 +69,101 @@ export default async function handler(req, res) {
                     estimatedTime: '2-3 weeks',
                     description: 'Analyze customer data to identify distinct segments using clustering algorithms.',
                     rubric: '#'
-                }
-            ],
-            'DevOps & Cloud Computing': [
+                },
                 {
                     id: 6,
-                    title: 'CI/CD Pipeline Setup',
-                    tier: 'Beginner',
-                    skills: ['Jenkins', 'Docker', 'Git', 'Bash Scripting', 'AWS'],
-                    estimatedTime: '2-3 weeks',
-                    description: 'Set up a complete CI/CD pipeline using Jenkins, Docker, and cloud services for automated deployment.',
+                    title: 'Predictive Model for Sales',
+                    tier: 'Intermediate',
+                    skills: ['Python', 'TensorFlow', 'Pandas', 'Feature Engineering', 'Model Evaluation'],
+                    estimatedTime: '4-5 weeks',
+                    description: 'Build a machine learning model to predict sales based on historical data and external factors.',
                     rubric: '#'
                 },
                 {
                     id: 7,
-                    title: 'Kubernetes Cluster Management',
+                    title: 'Deep Learning Image Classifier',
+                    tier: 'Advanced',
+                    skills: ['Python', 'TensorFlow', 'Keras', 'CNN', 'Computer Vision'],
+                    estimatedTime: '6-8 weeks',
+                    description: 'Develop a deep learning model for image classification using convolutional neural networks.',
+                    rubric: '#'
+                }
+            ],
+            'Data Analytics': [
+                {
+                    id: 8,
+                    title: 'Business Intelligence Dashboard',
+                    tier: 'Beginner',
+                    skills: ['Tableau', 'Power BI', 'SQL', 'Data Visualization', 'Dashboard Design'],
+                    estimatedTime: '2-3 weeks',
+                    description: 'Create interactive dashboards to visualize business metrics and KPIs.',
+                    rubric: '#'
+                },
+                {
+                    id: 9,
+                    title: 'A/B Testing Analysis',
                     tier: 'Intermediate',
-                    skills: ['Kubernetes', 'Docker', 'Helm', 'Prometheus', 'Grafana'],
+                    skills: ['Python', 'Statistical Analysis', 'Hypothesis Testing', 'Pandas', 'Matplotlib'],
+                    estimatedTime: '3-4 weeks',
+                    description: 'Design and analyze A/B tests to optimize business metrics and user experience.',
+                    rubric: '#'
+                },
+                {
+                    id: 10,
+                    title: 'Real-time Analytics Pipeline',
+                    tier: 'Advanced',
+                    skills: ['Python', 'Apache Kafka', 'Apache Spark', 'Redis', 'Stream Processing'],
+                    estimatedTime: '6-8 weeks',
+                    description: 'Build a real-time data pipeline for processing and analyzing streaming data.',
+                    rubric: '#'
+                }
+            ],
+            'DevOps & Cloud Computing': [
+                {
+                    id: 11,
+                    title: 'Infrastructure as Code',
+                    tier: 'Beginner',
+                    skills: ['Terraform', 'AWS', 'Docker', 'Git', 'YAML'],
+                    estimatedTime: '2-3 weeks',
+                    description: 'Automate cloud infrastructure provisioning using Terraform and best practices.',
+                    rubric: '#'
+                },
+                {
+                    id: 12,
+                    title: 'CI/CD Pipeline',
+                    tier: 'Intermediate',
+                    skills: ['Jenkins', 'Docker', 'Kubernetes', 'GitLab CI', 'Automated Testing'],
+                    estimatedTime: '3-4 weeks',
+                    description: 'Set up a complete CI/CD pipeline with automated testing, building, and deployment.',
+                    rubric: '#'
+                },
+                {
+                    id: 13,
+                    title: 'Multi-Cloud Kubernetes Cluster',
+                    tier: 'Advanced',
+                    skills: ['Kubernetes', 'AWS', 'Azure', 'Terraform', 'Helm', 'Monitoring'],
+                    estimatedTime: '6-8 weeks',
+                    description: 'Deploy and manage a multi-cloud Kubernetes cluster with monitoring and security.',
+                    rubric: '#'
+                }
+            ],
+            'Advanced AI & ML': [
+                {
+                    id: 14,
+                    title: 'NLP Chatbot',
+                    tier: 'Beginner',
+                    skills: ['Python', 'NLTK', 'spaCy', 'Transformers', 'Natural Language Processing'],
+                    estimatedTime: '3-4 weeks',
+                    description: 'Build an intelligent chatbot using natural language processing and machine learning.',
+                    rubric: '#'
+                },
+                {
+                    id: 15,
+                    title: 'Computer Vision Object Detection',
+                    tier: 'Intermediate',
+                    skills: ['Python', 'OpenCV', 'YOLO', 'TensorFlow', 'Computer Vision'],
                     estimatedTime: '4-5 weeks',
-                    description: 'Deploy and manage a Kubernetes cluster with monitoring, logging, and scaling capabilities.',
+                    description: 'Develop a real-time object detection system using computer vision techniques.',
                     rubric: '#'
                 }
             ]

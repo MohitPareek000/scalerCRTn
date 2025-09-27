@@ -48,7 +48,6 @@ const SkillGapsTab = ({ userData }) => {
 
   const existingSkills = userData.analysis?.existingSkills || [];
   const missingSkills = userData.analysis?.missingSkills || [];
-  const prioritizedMissing = userData.analysis?.prioritizedMissing || [];
 
   const tiers = React.useMemo(() => {
     const prioritizedMissing = userData.analysis?.prioritizedMissing || [];

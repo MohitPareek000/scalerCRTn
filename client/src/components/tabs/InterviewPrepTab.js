@@ -14,10 +14,6 @@ const InterviewPrepTab = ({ userData }) => {
   const [askAICompany, setAskAICompany] = useState(null);
   const [questionIndexByCompany, setQuestionIndexByCompany] = useState({});
 
-  useEffect(() => {
-    fetchCompanies();
-  }, [fetchCompanies]);
-
   const fetchCompanies = useCallback(async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/companies`);
@@ -35,6 +31,10 @@ const InterviewPrepTab = ({ userData }) => {
       setIsLoading(false);
     }
   }, [userData?.targetRole]);
+
+  useEffect(() => {
+    fetchCompanies();
+  }, [fetchCompanies]);
 
   const toggleCard = (idx) => {
     // Only allow one card to be expanded at a time

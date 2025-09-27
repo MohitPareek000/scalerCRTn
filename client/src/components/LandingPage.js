@@ -62,17 +62,25 @@ const LandingPage = ({ onComplete }) => {
   ]);
 
   const fetchSkills = useCallback(async (targetRole) => {
+    console.log('🔍 Fetching skills for target role:', targetRole);
+    console.log('API_BASE_URL:', API_BASE_URL);
     try {
       // Prefer curated suggestions (All High + 3 Medium + 3 Low) for SE and DevOps
       const curatedUrl = `${API_BASE_URL}/suggested-skills/${encodeURIComponent(targetRole)}`;
+      console.log('Trying curated URL:', curatedUrl);
       const curatedRes = await axios.get(curatedUrl);
+      console.log('Curated response:', curatedRes.data);
       if (Array.isArray(curatedRes.data) && curatedRes.data.length) {
+        console.log('Using curated skills:', curatedRes.data);
         setSkills(curatedRes.data);
         return;
       }
 
       // Fallback to full skills list
-      const response = await axios.get(`${API_BASE_URL}/skills/${encodeURIComponent(targetRole)}`);
+      const fallbackUrl = `${API_BASE_URL}/skills/${encodeURIComponent(targetRole)}`;
+      console.log('Trying fallback URL:', fallbackUrl);
+      const response = await axios.get(fallbackUrl);
+      console.log('Fallback response:', response.data);
       const data = response.data;
       if (Array.isArray(data)) {
         setSkills(data.length ? data : getDefaultSkills(targetRole));
@@ -87,7 +95,14 @@ const LandingPage = ({ onComplete }) => {
         setSkills(getDefaultSkills(targetRole));
       }
     } catch (error) {
-      console.error('Error fetching skills:', error);
+      console.error('❌ Error fetching skills:', error);
+      console.error('Error details:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+        url: error.config?.url
+      });
+      console.log('Using default skills for:', targetRole);
       setSkills(getDefaultSkills(targetRole));
     }
   }, []);
@@ -149,6 +164,9 @@ const LandingPage = ({ onComplete }) => {
   };
 
   const handleSubmit = async () => {
+    console.log('🚀 Starting form submission...');
+    console.log('API_BASE_URL:', API_BASE_URL);
+    console.log('Form data:', formData);
     setIsLoading(true);
     try {
       const submitData = {
@@ -156,7 +174,10 @@ const LandingPage = ({ onComplete }) => {
         customRole: formData.currentRole === 'Other' ? customRole : null
       };
 
+      console.log('Submitting to:', `${API_BASE_URL}/analyze-skills`);
+      console.log('Submit data:', submitData);
       const response = await axios.post(`${API_BASE_URL}/analyze-skills`, submitData);
+      console.log('Response received:', response.data);
       const analysisData = response.data;
 
       // Animate match score gradually
@@ -180,8 +201,16 @@ const LandingPage = ({ onComplete }) => {
 
       animateScore();
     } catch (error) {
-      console.error('Error analyzing skills:', error);
+      console.error('❌ Error analyzing skills:', error);
+      console.error('Error details:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+        url: error.config?.url
+      });
       setIsLoading(false);
+      // Show user-friendly error message
+      alert('Failed to analyze skills. Please check your connection and try again.');
     }
   };
 

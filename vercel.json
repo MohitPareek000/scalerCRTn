@@ -9,9 +9,6 @@
         },
         "api/skill-info/[skill].js": {
             "maxDuration": 30
-        },
-        "api/llm-learning-assistant.js": {
-            "maxDuration": 30
         }
     },
     "rewrites": [

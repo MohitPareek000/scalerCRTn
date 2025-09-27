@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ChevronRight, Check, User, Target, Code } from 'lucide-react';
@@ -22,18 +22,7 @@ const LandingPage = ({ onComplete }) => {
   const [matchScore, setMatchScore] = useState(0);
   const [customRole, setCustomRole] = useState('');
 
-  useEffect(() => {
-    fetchCurrentRoles();
-    fetchTargetRoles();
-  }, [fetchCurrentRoles, fetchTargetRoles]);
-
-  useEffect(() => {
-    if (formData.targetRole) {
-      fetchSkills(formData.targetRole);
-    }
-  }, [formData.targetRole, fetchSkills]);
-
-  const fetchCurrentRoles = async () => {
+  const fetchCurrentRoles = useCallback(async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/current-roles`);
       if (Array.isArray(response.data) && response.data.length > 0) {
@@ -45,9 +34,9 @@ const LandingPage = ({ onComplete }) => {
       console.error('Error fetching current roles:', error);
       setCurrentRoles(getDefaultCurrentRoles());
     }
-  };
+  }, []);
 
-  const fetchTargetRoles = async () => {
+  const fetchTargetRoles = useCallback(async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/target-roles`);
       if (Array.isArray(response.data) && response.data.length > 0) {
@@ -59,7 +48,7 @@ const LandingPage = ({ onComplete }) => {
       console.error('Error fetching target roles:', error);
       setTargetRoles(getDefaultTargetRoles());
     }
-  };
+  }, []);
 
   const getDefaultCurrentRoles = () => ([
     'Software Engineer', 'Frontend Developer', 'Backend Developer', 'Full Stack Developer',
@@ -72,7 +61,7 @@ const LandingPage = ({ onComplete }) => {
     'Software Engineering', 'Data Science', 'Data Analytics', 'DevOps & Cloud Computing', 'Advanced AI & ML'
   ]);
 
-  const fetchSkills = async (targetRole) => {
+  const fetchSkills = useCallback(async (targetRole) => {
     try {
       // Prefer curated suggestions (All High + 3 Medium + 3 Low) for SE and DevOps
       const curatedUrl = `${API_BASE_URL}/suggested-skills/${encodeURIComponent(targetRole)}`;
@@ -101,7 +90,7 @@ const LandingPage = ({ onComplete }) => {
       console.error('Error fetching skills:', error);
       setSkills(getDefaultSkills(targetRole));
     }
-  };
+  }, []);
 
   const getDefaultSkills = (targetRole) => {
     switch (targetRole) {
@@ -119,6 +108,17 @@ const LandingPage = ({ onComplete }) => {
         return [];
     }
   };
+
+  useEffect(() => {
+    fetchCurrentRoles();
+    fetchTargetRoles();
+  }, [fetchCurrentRoles, fetchTargetRoles]);
+
+  useEffect(() => {
+    if (formData.targetRole) {
+      fetchSkills(formData.targetRole);
+    }
+  }, [formData.targetRole, fetchSkills]);
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, FileText, Users, Clock, ChevronDown, ChevronUp } from 'lucide-react';
 import LLMLearningAssistant from '../LLMLearningAssistant';
@@ -18,7 +18,7 @@ const InterviewPrepTab = ({ userData }) => {
     fetchCompanies();
   }, [fetchCompanies]);
 
-  const fetchCompanies = async () => {
+  const fetchCompanies = useCallback(async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/companies`);
       const all = response.data || [];
@@ -34,7 +34,7 @@ const InterviewPrepTab = ({ userData }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [userData?.targetRole]);
 
   const toggleCard = (idx) => {
     // Only allow one card to be expanded at a time

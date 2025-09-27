@@ -51,6 +51,7 @@ const SkillGapsTab = ({ userData }) => {
   const prioritizedMissing = userData.analysis?.prioritizedMissing || [];
 
   const tiers = React.useMemo(() => {
+    const prioritizedMissing = userData.analysis?.prioritizedMissing || [];
     if (!prioritizedMissing.length) return null;
     const high = [];
     const medium = [];
@@ -71,7 +72,7 @@ const SkillGapsTab = ({ userData }) => {
         low: low.length
       }
     };
-  }, [prioritizedMissing]);
+  }, [userData.analysis?.prioritizedMissing]);
 
   return (
     <div className="space-y-8">

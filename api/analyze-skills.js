@@ -53,7 +53,7 @@ function getExplicitPriorities(targetRole) {
     return explicitPriorities[targetRole] || null;
 }
 
-function prioritizeSkills(targetRoleSkills, currentSkills) {
+function prioritizeSkills(targetRoleSkills, currentSkills, targetRole) {
     const priorities = getExplicitPriorities(targetRole);
     if (!priorities) return [];
 
@@ -132,7 +132,7 @@ export default async function handler(req, res) {
         const missingSkills = targetRoleSkills.filter(skill => !currentSkills.includes(skill));
 
         // Get prioritized missing skills
-        const prioritizedMissing = prioritizeSkills(targetRoleSkills, currentSkills);
+        const prioritizedMissing = prioritizeSkills(targetRoleSkills, currentSkills, targetRole);
 
         // Calculate match score
         const matchScore = Math.round((existingSkills.length / targetRoleSkills.length) * 100);

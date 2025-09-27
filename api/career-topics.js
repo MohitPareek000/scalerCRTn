@@ -15,7 +15,10 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { targetRole } = req.query;
+    // Extract targetRole from the URL path
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    const pathParts = url.pathname.split('/');
+    const targetRole = pathParts[pathParts.length - 1];
 
     console.log('🔍 GET /api/career-topics called for:', targetRole);
 
@@ -201,38 +204,6 @@ export default async function handler(req, res) {
                     status: 'none'
                 }
             ],
-            'Data Science': [
-                {
-                    id: 'ds-01',
-                    title: 'Python for Data Science',
-                    shortDescription: 'NumPy, Pandas, visualization',
-                    detailedContent: 'Load and clean data with Pandas, compute with NumPy, visualize with Matplotlib/Seaborn, notebooks best practices and storytelling.',
-                    status: 'none'
-                },
-                {
-                    id: 'ds-02',
-                    title: 'ML Fundamentals',
-                    shortDescription: 'Modeling and evaluation',
-                    detailedContent: 'Supervised vs unsupervised learning, feature engineering, model selection, cross-validation, metrics (precision/recall/ROC-AUC), bias-variance tradeoff.',
-                    status: 'none'
-                }
-            ],
-            'Data Analytics': [
-                {
-                    id: 'da-01',
-                    title: 'SQL & BI Dashboards',
-                    shortDescription: 'Transform data into insights',
-                    detailedContent: 'Write complex SQL (joins, windows), build dashboards in Tableau/Power BI, design KPIs and tell data stories with clear visual choices.',
-                    status: 'none'
-                },
-                {
-                    id: 'da-02',
-                    title: 'SQ & BI Dashboards',
-                    shortDescription: 'Transform data into insights',
-                    detailedContent: 'Write complex SQL (joins, windows), build dashboards in Tableau/Power BI, design KPIs and tell data stories with clear visual choices.',
-                    status: 'none'
-                }
-            ],
             'DevOps & Cloud Computing': [
                 {
                     id: 'dc-01',
@@ -327,22 +298,6 @@ export default async function handler(req, res) {
                         'Full observability and incident-response workflows'
                     ],
                     milestone: 'Publish a complete end-to-end project showcasing DevOps automation, cloud deployment, and monitoring to prospective employers.',
-                    status: 'none'
-                }
-            ],
-            'Advanced AI & ML': [
-                {
-                    id: 'aiml-01',
-                    title: 'Deep Learning Basics',
-                    shortDescription: 'Neural nets and training',
-                    detailedContent: 'Architectures (MLP, CNN, RNN), activation functions, loss, optimizers, regularization, overfitting control, training workflows with PyTorch/TensorFlow.',
-                    status: 'none'
-                },
-                {
-                    id: 'aiml-02',
-                    title: 'LLMs & Prompting',
-                    shortDescription: 'Use and fine-tune LLMs',
-                    detailedContent: 'Prompt engineering, embeddings, retrieval augmented generation, fine-tuning basics, evaluation and safety considerations.',
                     status: 'none'
                 }
             ]

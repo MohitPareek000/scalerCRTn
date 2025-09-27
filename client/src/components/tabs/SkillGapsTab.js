@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, BookOpen, ExternalLink, CheckCircle, MessageCircle } from 'lucide-react';
+import { X, BookOpen, CheckCircle, MessageCircle } from 'lucide-react';
 import axios from 'axios';
 import LLMLearningAssistant from '../LLMLearningAssistant';
 
@@ -46,7 +46,6 @@ const SkillGapsTab = ({ userData }) => {
     setSkillDetails(null);
   };
 
-  const coveragePercent = userData.analysis?.skillCoverage || 0;
   const existingSkills = userData.analysis?.existingSkills || [];
   const missingSkills = userData.analysis?.missingSkills || [];
   const prioritizedMissing = userData.analysis?.prioritizedMissing || [];

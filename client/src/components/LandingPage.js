@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Check, User, Briefcase, Target, Code } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ChevronRight, Check, User, Target, Code } from 'lucide-react';
 import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5000/api');
@@ -25,13 +25,13 @@ const LandingPage = ({ onComplete }) => {
   useEffect(() => {
     fetchCurrentRoles();
     fetchTargetRoles();
-  }, []);
+  }, [fetchCurrentRoles, fetchTargetRoles]);
 
   useEffect(() => {
     if (formData.targetRole) {
       fetchSkills(formData.targetRole);
     }
-  }, [formData.targetRole]);
+  }, [formData.targetRole, fetchSkills]);
 
   const fetchCurrentRoles = async () => {
     try {

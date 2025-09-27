@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, TrendingUp } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import SkillGapsTab from './tabs/SkillGapsTab';
 import InterviewPrepTab from './tabs/InterviewPrepTab';
 import ProjectsTab from './tabs/ProjectsTab';

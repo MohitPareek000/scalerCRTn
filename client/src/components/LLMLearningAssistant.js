@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Bot, User, Loader, MessageCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Send, Bot, User, Loader } from 'lucide-react';
 import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5000/api');

@@ -36,8 +36,8 @@ const InterviewPrepTab = ({ userData }) => {
     }
   };
 
-  const toggleCard = (companyId) => {
-    setExpandedCard(expandedCard === companyId ? null : companyId);
+  const toggleCard = (idx) => {
+    setExpandedCard(expandedCard === idx ? null : idx);
   };
 
   const getSourceBadgeColor = (source) => {
@@ -72,155 +72,144 @@ const InterviewPrepTab = ({ userData }) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {companies.map((company, index) => (
-          <motion.div
-            key={company.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-            className="card hover:shadow-lg cursor-pointer"
-            onClick={() => toggleCard(company.id)}
-          >
-            {/* Company Header */}
-            <div className="flex items-center space-x-4 mb-4">
-              <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                <img
-                  src={company.logo}
-                  alt={`${company.name} logo`}
-                  className="w-8 h-8 object-contain"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'block';
-                  }}
-                />
-                <div className="w-8 h-8 bg-gray-300 rounded flex items-center justify-center text-gray-600 font-semibold text-sm" style={{ display: 'none' }}>
-                  {company.name.charAt(0)}
+        {companies.map((company, index) => {
+          const cardKey = index; // ensure stable, unique per render
+          return (
+            <motion.div
+              key={cardKey}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              className="card hover:shadow-lg cursor-pointer"
+            >
+              {/* Company Header */}
+              <button type="button" className="w-full flex items-center space-x-4 mb-4 text-left" onClick={() => toggleCard(index)}>
+                <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                  <img
+                    src={company.logo}
+                    alt={`${company.name} logo`}
+                    className="w-8 h-8 object-contain"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'block';
+                    }}
+                  />
+                  <div className="w-8 h-8 bg-gray-300 rounded flex items-center justify-center text-gray-600 font-semibold text-sm" style={{ display: 'none' }}>
+                    {company.name.charAt(0)}
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-900">{company.name}</h3>
+                  <p className="text-sm text-gray-600">{company.role}</p>
+                </div>
+                <div className="flex items-center">
+                  {expandedCard === index ? (
+                    <ChevronUp className="w-5 h-5 text-gray-400" />
+                  ) : (
+                    <ChevronDown className="w-5 h-5 text-gray-400" />
+                  )}
+                </div>
+              </button>
+
+              {/* Company Info */}
+              <div className="space-y-3 mb-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    {company.salaryBand && (
+                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">Average Salary: {company.salaryBand}</span>
+                    )}
+                  </div>
+                  <span className="text-xs text-gray-500">
+                    {company.interviewProcess.length} rounds
+                  </span>
                 </div>
               </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-gray-900">{company.name}</h3>
-                <p className="text-sm text-gray-600">{company.role}</p>
-              </div>
-              <div className="flex items-center space-x-1">
-                {expandedCard === company.id ? (
-                  <ChevronUp className="w-5 h-5 text-gray-400" />
-                ) : (
-                  <ChevronDown className="w-5 h-5 text-gray-400" />
-                )}
-              </div>
-            </div>
 
-            {/* Company Info */}
-            <div className="space-y-3 mb-4">
-              {company.salaryBand && (
-                <div className="text-sm text-gray-600">
-                  <span>{company.salaryBand}</span>
-                </div>
-              )}
-              <div className="flex items-center justify-between">
-                <span className={`px-2 py-1 rounded-full text-xs font-medium ${getSourceBadgeColor(company.source)}`}>
-                  {company.source}
-                </span>
-                <span className="text-xs text-gray-500">
-                  {company.interviewProcess.length} stages
-                </span>
-              </div>
-            </div>
-
-            {/* Expanded Content */}
-            <AnimatePresence>
-              {expandedCard === company.id && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="border-t border-gray-200 pt-4 mt-4"
-                >
-                  {/* Interview Process */}
-                  <div className="mb-6">
-                    <h4 className="font-semibold text-gray-900 mb-3 flex items-center space-x-2">
-                      <Clock className="w-4 h-4" />
-                      <span>Interview Process</span>
-                    </h4>
-                    <div className="space-y-2">
-                      {company.interviewProcess.map((stage, stageIndex) => (
-                        <div key={stageIndex} className="flex items-center space-x-3">
-                          <div className="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
-                            <span className="text-xs font-semibold text-primary-600">
-                              {stageIndex + 1}
-                            </span>
+              {/* Expanded Content */}
+              <AnimatePresence>
+                {expandedCard === index && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="border-t border-gray-200 pt-4 mt-4"
+                  >
+                    {/* Interview Process */}
+                    <div className="mb-6">
+                      <h4 className="font-semibold text-gray-900 mb-3 flex items-center space-x-2">
+                        <Clock className="w-4 h-4" />
+                        <span>Interview Process</span>
+                      </h4>
+                      <div className="space-y-2">
+                        {company.interviewProcess.map((stage, stageIndex) => (
+                          <div key={stageIndex} className="flex items-center space-x-3">
+                            <div className="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
+                              <span className="text-xs font-semibold text-primary-600">
+                                {stageIndex + 1}
+                              </span>
+                            </div>
+                            <span className="text-sm text-gray-600">{stage}</span>
                           </div>
-                          <span className="text-sm text-gray-600">{stage}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Common Questions */}
-                  <div className="mb-6">
-                    <div className="mb-3 flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <Users className="w-4 h-4" />
-                        <h4 className="font-semibold text-gray-900">Most Asked Questions</h4>
+                        ))}
                       </div>
-                      <button onClick={(e) => {
-                        e.stopPropagation();
-                        // Rotate prompt per company
-                        const list = company.commonQuestions || [];
-                        if (!list.length) { setAskAICompany(company); return; }
-                        setQuestionIndexByCompany(prev => {
-                          const next = ((prev[company.id] ?? -1) + 1) % list.length;
-                          return { ...prev, [company.id]: next };
-                        });
-                        setAskAICompany({ ...company });
-                      }} className="btn-primary inline-flex items-center gap-2 text-sm">
-                        <FileText className="w-4 h-4" />
-                        <span>Explore Answers</span>
-                      </button>
                     </div>
-                    <div className="space-y-2">
-                      {company.commonQuestions.map((question, qIndex) => (
-                        <div key={qIndex} className="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
-                          {question}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
 
-                  {/* Action Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-2">
-                    <button onClick={(e) => { e.stopPropagation(); window.open('https://www.scaler.com/ai-mock-interview', '_blank'); }} className="btn-primary flex-1 flex items-center justify-center space-x-2">
-                      <ExternalLink className="w-4 h-4" />
-                      <span>Start AI Mock Interview</span>
-                    </button>
-                    {/* Interview Experience button removed */}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        ))}
+                    {/* Common Questions */}
+                    <div className="mb-6">
+                      <div className="mb-3 flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          <Users className="w-4 h-4" />
+                          <h4 className="font-semibold text-gray-900">Most Asked Questions</h4>
+                        </div>
+                        <button onClick={(e) => {
+                          e.stopPropagation();
+                          // Rotate prompt per company
+                          const list = company.commonQuestions || [];
+                          if (!list.length) { setAskAICompany(company); return; }
+                          setQuestionIndexByCompany(prev => {
+                            const next = ((prev[company.id] ?? -1) + 1) % list.length;
+                            return { ...prev, [company.id]: next };
+                          });
+                          setAskAICompany({ ...company });
+                        }} className="btn-primary inline-flex items-center gap-2 text-sm">
+                          <FileText className="w-4 h-4" />
+                          <span>Explore Answers</span>
+                        </button>
+                      </div>
+                      <div className="space-y-2">
+                        {company.commonQuestions.map((question, qIndex) => (
+                          <div key={qIndex} className="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
+                            {question}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <button onClick={(e) => { e.stopPropagation(); window.open('https://www.scaler.com/ai-mock-interview', '_blank'); }} className="btn-primary flex-1 flex items-center justify-center space-x-2">
+                        <ExternalLink className="w-4 h-4" />
+                        <span>Explore AI Mock Interview</span>
+                      </button>
+                      {/* Interview Experience button removed */}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          );
+        })}
       </div>
 
-      {/* Additional Resources */}
-      <div className="mt-12 bg-gradient-to-r from-primary-50 to-blue-50 rounded-xl p-8">
-        <div className="text-center">
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">
-            Ready to Ace Your Interview?
-          </h3>
-          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-            Practice with our AI-powered mock interviews and get personalized feedback to improve your performance.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="btn-primary px-8 py-3 text-lg">
-              Start Practice Session
-            </button>
-            <button className="btn-secondary px-8 py-3 text-lg">
-              View All Resources
-            </button>
-          </div>
-        </div>
+      {/* Additional Resources CTA simplified */}
+      <div className="mt-12 bg-gradient-to-r from-primary-50 to-blue-50 rounded-xl p-8 text-center">
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Ace Your Interview?</h3>
+        <p className="text-gray-600 mb-6 max-w-2xl mx-auto">Practice with our AI-powered mock interviews and get personalized feedback to improve your performance.</p>
+        <button onClick={() => window.open('https://www.scaler.com/ai-mock-interview', '_blank')} className="btn-primary px-8 py-3 text-lg inline-flex items-center gap-2">
+          <ExternalLink className="w-5 h-5" />
+          Explore AI Mock Interview
+        </button>
       </div>
 
       {/* Interview Experience Modal */}

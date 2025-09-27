@@ -137,7 +137,7 @@ const LandingPage = ({ onComplete }) => {
   };
 
   const nextStep = () => {
-    if (currentStep < 4) {
+    if (currentStep < 3) {
       setCurrentStep(prev => prev + 1);
     }
   };
@@ -192,20 +192,20 @@ const LandingPage = ({ onComplete }) => {
       icon: <User className="w-6 h-6" />,
       description: 'Tell us about your current position'
     },
+    // {
+    //   id: 2,
+    //   title: 'Experience',
+    //   icon: <Briefcase className="w-6 h-6" />,
+    //   description: 'How many years of experience do you have?'
+    // },
     {
       id: 2,
-      title: 'Experience',
-      icon: <Briefcase className="w-6 h-6" />,
-      description: 'How many years of experience do you have?'
-    },
-    {
-      id: 3,
       title: 'Target Role',
       icon: <Target className="w-6 h-6" />,
       description: 'What role are you aiming for?'
     },
     {
-      id: 4,
+      id: 3,
       title: 'Current Skills',
       icon: <Code className="w-6 h-6" />,
       description: 'Select your current technical skills'
@@ -222,7 +222,7 @@ const LandingPage = ({ onComplete }) => {
               {currentRoles.map(role => (
                 <button
                   key={role}
-                  onClick={() => handleInputChange('currentRole', role)}
+                  onClick={() => { handleInputChange('currentRole', role); setTimeout(() => nextStep(), 0); }}
                   className={`p-4 text-left rounded-lg border-2 transition-all duration-200 ${formData.currentRole === role
                     ? 'border-primary-500 bg-primary-50 text-primary-700'
                     : 'border-gray-200 hover:border-gray-300'
@@ -249,30 +249,30 @@ const LandingPage = ({ onComplete }) => {
           </div>
         );
 
-      case 2:
-        return (
-          <div className="space-y-6">
-            <h3 className="text-xl font-semibold text-gray-900">
-              Years of Experience: {formData.yearsExperience}
-            </h3>
-            <div className="px-4">
-              <input
-                type="range"
-                min="0"
-                max="20"
-                value={formData.yearsExperience}
-                onChange={(e) => handleInputChange('yearsExperience', parseInt(e.target.value))}
-                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-              />
-              <div className="flex justify-between text-sm text-gray-500 mt-2">
-                <span>0 years</span>
-                <span>20+ years</span>
-              </div>
-            </div>
-          </div>
-        );
+      // case 2:
+      //   return (
+      //     <div className="space-y-6">
+      //       <h3 className="text-xl font-semibold text-gray-900">
+      //         Years of Experience: {formData.yearsExperience}
+      //       </h3>
+      //       <div className="px-4">
+      //         <input
+      //           type="range"
+      //           min="0"
+      //           max="20"
+      //           value={formData.yearsExperience}
+      //           onChange={(e) => handleInputChange('yearsExperience', parseInt(e.target.value))}
+      //           className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+      //         />
+      //         <div className="flex justify-between text-sm text-gray-500 mt-2">
+      //           <span>0 years</span>
+      //           <span>20+ years</span>
+      //         </div>
+      //       </div>
+      //     </div>
+      //   );
 
-      case 3:
+      case 2:
         return (
           <div className="space-y-6">
             <h3 className="text-xl font-semibold text-gray-900">What's your target role?</h3>
@@ -280,7 +280,7 @@ const LandingPage = ({ onComplete }) => {
               {targetRoles.map(role => (
                 <button
                   key={role}
-                  onClick={() => handleInputChange('targetRole', role)}
+                  onClick={() => { handleInputChange('targetRole', role); setTimeout(() => nextStep(), 0); }}
                   className={`p-4 text-left rounded-lg border-2 transition-all duration-200 ${formData.targetRole === role
                     ? 'border-primary-500 bg-primary-50 text-primary-700'
                     : 'border-gray-200 hover:border-gray-300'
@@ -296,7 +296,7 @@ const LandingPage = ({ onComplete }) => {
           </div>
         );
 
-      case 4:
+      case 3:
         return (
           <div className="space-y-6">
             <h3 className="text-xl font-semibold text-gray-900">Select your current skills</h3>
@@ -456,7 +456,7 @@ const LandingPage = ({ onComplete }) => {
               Previous
             </button>
 
-            {currentStep < 4 ? (
+            {currentStep < 3 ? (
               <button
                 onClick={nextStep}
                 disabled={!isStepValid()}

@@ -51,7 +51,7 @@ const ResultsPage = ({ userData }) => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white/90 backdrop-blur border-b sticky top-0 z-30">
+      <div className="bg-white border-b">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -63,16 +63,15 @@ const ResultsPage = ({ userData }) => {
                 <ArrowLeft className="w-6 h-6 text-gray-600" />
               </button>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Your Career Roadmap</h1>
-                <p className="text-gray-600">
-                  {userData.currentRole} → {userData.targetRole}
-                </p>
+                <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">Your Career Roadmap</h1>
+                <div className="mt-2 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 text-sm text-gray-800">
+                  <span className="font-medium">{userData.currentRole}</span>
+                  <span className="opacity-60">→</span>
+                  <span className="font-semibold text-primary-700">{userData.targetRole}</span>
+                </div>
               </div>
             </div>
-            <div className="flex items-center space-x-2 text-sm text-gray-500">
-              <TrendingUp className="w-4 h-4" />
-              <span>{userData.yearsExperience} years experience</span>
-            </div>
+            <div className="hidden md:flex items-center space-x-2 text-sm text-gray-500"></div>
           </div>
         </div>
       </div>
@@ -121,15 +120,15 @@ const ResultsPage = ({ userData }) => {
       </section>
 
       {/* Tabs */}
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex space-x-1 mb-8 bg-gray-100 p-1 rounded-lg">
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex space-x-1 mb-8 bg-white p-1 rounded-xl border shadow-sm">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-md font-medium transition-all duration-200 ${activeTab === tab.id
-                ? 'bg-white text-primary-600 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-primary-600 text-white shadow'
+                : 'text-gray-700 hover:text-gray-900'
                 }`}
             >
               <span>{tab.label}</span>

@@ -37,7 +37,16 @@ const InterviewPrepTab = ({ userData }) => {
   };
 
   const toggleCard = (idx) => {
-    setExpandedCard(expandedCard === idx ? null : idx);
+    // Only allow one card to be expanded at a time
+    console.log('Toggling card:', idx, 'Current expanded:', expandedCard);
+
+    // Force close all other cards first, then toggle the clicked one
+    if (expandedCard !== null && expandedCard !== idx) {
+      setExpandedCard(null);
+      setTimeout(() => setExpandedCard(idx), 50);
+    } else {
+      setExpandedCard(expandedCard === idx ? null : idx);
+    }
   };
 
   const getSourceBadgeColor = (source) => {
@@ -73,17 +82,28 @@ const InterviewPrepTab = ({ userData }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {companies.map((company, index) => {
-          const cardKey = index; // ensure stable, unique per render
+          const uniqueId = `company-${company.id || company.name || index}`;
+          const isExpanded = expandedCard === index;
+          console.log(`Card ${index} (${company.name}): isExpanded=${isExpanded}, expandedCard=${expandedCard}`);
+
           return (
             <motion.div
-              key={cardKey}
+              key={uniqueId}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="card hover:shadow-lg cursor-pointer"
+              className="card hover:shadow-lg"
             >
               {/* Company Header */}
-              <button type="button" className="w-full flex items-center space-x-4 mb-4 text-left" onClick={() => toggleCard(index)}>
+              <button
+                type="button"
+                className="w-full flex items-center space-x-4 mb-4 text-left"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  toggleCard(index);
+                }}
+              >
                 <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
                   <img
                     src={company.logo}
@@ -103,7 +123,7 @@ const InterviewPrepTab = ({ userData }) => {
                   <p className="text-sm text-gray-600">{company.role}</p>
                 </div>
                 <div className="flex items-center">
-                  {expandedCard === index ? (
+                  {isExpanded ? (
                     <ChevronUp className="w-5 h-5 text-gray-400" />
                   ) : (
                     <ChevronDown className="w-5 h-5 text-gray-400" />
@@ -127,7 +147,7 @@ const InterviewPrepTab = ({ userData }) => {
 
               {/* Expanded Content */}
               <AnimatePresence>
-                {expandedCard === index && (
+                {isExpanded && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}

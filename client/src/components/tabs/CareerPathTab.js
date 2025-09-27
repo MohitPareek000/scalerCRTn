@@ -28,7 +28,7 @@ function TopicModal({ topic, onClose, onOpenAI }) {
             <X className="w-5 h-5 text-gray-600" />
           </button>
         </div>
-        <div className="p-6 space-y-6 overflow-y-auto h-[calc(100%-64px-140px)]">
+        <div className="p-6 space-y-6 overflow-y-auto h-[calc(100%-64px-140px)] scrollbar-hide">
           <div>
             <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center space-x-2">
               <span className="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center">

@@ -7,15 +7,19 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd server && npm run dev",
     "client": "cd client && npm start",
-    "build": "cd client && npm run build",
-    "install-all": "npm install && cd server && npm install && cd ../client && npm install"
+    "build": "node vercel-build.js",
+    "install-all": "npm install && cd server && npm install && cd ../client && npm install",
+    "vercel-build": "node vercel-build.js"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
   },
-  "keywords": ["career", "roadmap", "react", "nodejs"],
+  "keywords": [
+    "career",
+    "roadmap",
+    "react",
+    "nodejs"
+  ],
   "author": "",
   "license": "MIT"
 }
-
-

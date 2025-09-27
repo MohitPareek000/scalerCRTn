@@ -101,6 +101,11 @@ export default async function handler(req, res) {
 
     console.log('🔍 POST /api/analyze-skills called');
     console.log('🔍 Request body:', req.body);
+    console.log('🔍 Environment check:', {
+        nodeEnv: process.env.NODE_ENV,
+        vercel: process.env.VERCEL,
+        openaiKey: process.env.OPENAI_API_KEY ? 'Set' : 'Not Set'
+    });
 
     const { currentRole, targetRole, currentSkills, yearsExperience, customRole } = req.body;
 

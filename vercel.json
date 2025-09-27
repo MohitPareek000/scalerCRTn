@@ -1,24 +1,19 @@
 {
-    "version": 2,
-    "buildCommand": "npm run vercel-build",
-    "outputDirectory": "client/build",
-    "installCommand": "npm install",
-    "functions": {
-        "server/index.js": {
-            "runtime": "nodejs18.x"
-        }
+  "version": 2,
+  "buildCommand": "npm run vercel-build",
+  "outputDirectory": "client/build",
+  "installCommand": "npm install",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/server/index.js"
     },
-    "rewrites": [
-        {
-            "source": "/api/(.*)",
-            "destination": "/server/index.js"
-        },
-        {
-            "source": "/(.*)",
-            "destination": "/index.html"
-        }
-    ],
-    "env": {
-        "NODE_ENV": "production"
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
 }

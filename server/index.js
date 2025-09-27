@@ -446,14 +446,27 @@ app.get('/api/target-roles', (req, res) => {
   res.json(targetRoles);
 });
 
+// Test endpoint for debugging
+app.get('/api/test', (req, res) => {
+  res.json({ 
+    message: 'API is working!', 
+    environment: process.env.NODE_ENV,
+    vercel: process.env.VERCEL,
+    timestamp: new Date().toISOString() 
+  });
+});
+
 // Return all priority skills for roles with explicit priorities, otherwise use taxonomy
 app.get('/api/suggested-skills/:targetRole', (req, res) => {
   const { targetRole } = req.params;
+  console.log('🔍 API: Getting suggested skills for:', targetRole);
   const priorities = getExplicitPriorities(targetRole);
+  console.log('🔍 API: Priorities found:', priorities);
 
   if (priorities && Object.keys(priorities).length > 0) {
     // For roles with explicit priorities, return all priority skills
     const allPrioritySkills = Object.keys(priorities);
+    console.log('🔍 API: Returning priority skills:', allPrioritySkills);
     return res.json(allPrioritySkills);
   }
 
@@ -1685,8 +1698,8 @@ app.get('/api/career-topics/:targetRole', (req, res) => {
   res.json(topics);
 });
 
-// Serve static files in production
-if (process.env.NODE_ENV === 'production') {
+// Serve static files in production (only for local development)
+if (process.env.NODE_ENV === 'production' && !process.env.VERCEL) {
   app.use(express.static(path.join(__dirname, '../client/build')));
 
   app.get('*', (req, res) => {
@@ -1694,6 +1707,11 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// For Vercel, export the app instead of listening
+if (process.env.VERCEL) {
+  module.exports = app;
+} else {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}

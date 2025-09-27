@@ -25,73 +25,19 @@ const skillTaxonomy = {
 // Priority mappings for Software Engineering
 const explicitPriorities = {
     'Software Engineering': {
-        // High Priority
-        'Programming Languages (C++, C, Java, Python)': 'High',
-        'Data structures': 'High',
-        'Algorithms': 'High',
-        'Object-oriented design': 'High',
-        'Version control (Git)': 'High',
-        'Debugging': 'High',
-        'Testing': 'High',
-        'Problem solving': 'High',
-        'Critical thinking': 'High',
-
-        // Medium Priority
-        'Databases (SQL/NoSQL)': 'Medium',
-        'Operating systems': 'Medium',
-        'Networking': 'Medium',
-        'Continuous integration': 'Medium',
-        'System design': 'Medium',
-        'Distributed systems': 'Medium',
-        'API design': 'Medium',
-        'Scripting': 'Medium',
-
-        // Low Priority
-        'Containerization (Docker)': 'Low',
-        'Kubernetes': 'Low',
-        'Cloud platforms (AWS/Azure/GCP)': 'Low',
-        'Microservices': 'Low',
-        'Caching': 'Low',
-        'Load balancing': 'Low',
-        'Discrete mathematics': 'Low',
-        'Probability': 'Low',
-        'Statistics': 'Low',
-        'Mobile development': 'Low',
-        'Machine learning basics': 'Low',
-        'Data engineering': 'Low',
-        'UI/UX awareness': 'Low'
-    },
-    'DevOps & Cloud Computing': {
-        // High Priority
-        'Linux/Unix administration': 'High',
-        'Scripting (Bash/Python)': 'High',
-        'Version control (Git)': 'High',
-        'CI/CD': 'High',
-        'Containerization (Docker)': 'High',
-        'Cloud platforms (AWS/Azure/GCP)': 'High',
-        'Networking basics': 'High',
-        'Security fundamentals': 'High',
-        'Monitoring and logging (Grafana/ELK)': 'High',
-
-        // Medium Priority
-        'Kubernetes': 'Medium',
-        'Load balancing': 'Medium',
-        'High availability design': 'Medium',
-        'Build automation tools (Jenkins/GitLab CI)': 'Medium',
-        'System troubleshooting': 'Medium',
-        'Agile/Scrum': 'Medium',
-        'Serverless architecture': 'Medium',
-        'Cloud databases (SQL/NoSQL)': 'Medium',
-        'Compliance (GDPR, HIPAA)': 'Medium',
-
-        // Low Priority
-        'Service mesh (Istio/Linkerd)': 'Low',
-        'Edge computing': 'Low',
-        'Hybrid cloud strategies': 'Low',
-        'Multi-cloud federation': 'Low',
-        'Advanced scripting (Go/Ruby/Perl)': 'Low',
-        'AI/ML for operations': 'Low',
-        'Quantum cloud services': 'Low'
+        'High': [
+            'Programming Languages', 'Data structures', 'Algorithms', 'Object-oriented design',
+            'Version control (Git)', 'Debugging', 'Testing', 'Problem solving', 'Critical thinking'
+        ],
+        'Medium': [
+            'Databases (SQL/NoSQL)', 'Operating systems', 'Networking', 'Continuous integration',
+            'System design', 'Distributed systems', 'API design', 'Scripting'
+        ],
+        'Low': [
+            'Containerization (Docker)', 'Kubernetes', 'Cloud platforms (AWS/Azure/GCP)',
+            'Microservices', 'Caching', 'Load balancing', 'Discrete mathematics', 'Probability',
+            'Statistics', 'Mobile development', 'Machine learning basics', 'Data engineering', 'UI/UX awareness'
+        ]
     }
 };
 

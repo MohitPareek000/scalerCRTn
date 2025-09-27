@@ -10,7 +10,7 @@
         "api/skill-info/[skill].js": {
             "maxDuration": 30
         },
-        "api/llm-assistance.js": {
+        "api/llm-learning-assistant.js": {
             "maxDuration": 30
         }
     },

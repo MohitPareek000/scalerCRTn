@@ -448,11 +448,11 @@ app.get('/api/target-roles', (req, res) => {
 
 // Test endpoint for debugging
 app.get('/api/test', (req, res) => {
-  res.json({ 
-    message: 'API is working!', 
+  res.json({
+    message: 'API is working!',
     environment: process.env.NODE_ENV,
     vercel: process.env.VERCEL,
-    timestamp: new Date().toISOString() 
+    timestamp: new Date().toISOString()
   });
 });
 
@@ -503,6 +503,9 @@ app.get('/api/projects/:targetRole', (req, res) => {
 });
 
 app.post('/api/analyze-skills', async (req, res) => {
+  console.log('🔍 POST /api/analyze-skills called');
+  console.log('🔍 Request method:', req.method);
+  console.log('🔍 Request body:', req.body);
   const { currentRole, targetRole, currentSkills, yearsExperience, customRole } = req.body;
 
   try {
@@ -1715,3 +1718,6 @@ if (process.env.VERCEL) {
     console.log(`Server running on port ${PORT}`);
   });
 }
+
+// Also export for Vercel compatibility
+module.exports = app;

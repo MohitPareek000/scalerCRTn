@@ -12,10 +12,16 @@
         {
             "source": "/api/(.*)",
             "destination": "/server/index.js"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/api/(.*)",
+            "dest": "/server/index.js"
         },
         {
-            "source": "/(.*)",
-            "destination": "/index.html"
+            "src": "/(.*)",
+            "dest": "/index.html"
         }
     ],
     "env": {

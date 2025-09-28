@@ -1701,8 +1701,8 @@ app.get('/api/career-topics/:targetRole', (req, res) => {
   res.json(topics);
 });
 
-// Serve static files in production (only for local development)
-if (process.env.NODE_ENV === 'production' && !process.env.VERCEL) {
+// Serve static files in production
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 
   app.get('*', (req, res) => {

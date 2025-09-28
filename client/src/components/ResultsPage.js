@@ -50,69 +50,166 @@ const ResultsPage = ({ userData }) => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b">
+      {/* Hero Banner - starts from top */}
+      <section className="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white relative">
+        {/* Navigation */}
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => window.location.href = '/'}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+                className="p-2 hover:bg-white/10 rounded-lg transition-colors duration-200"
                 aria-label="Go back"
               >
-                <ArrowLeft className="w-6 h-6 text-gray-600" />
+                <ArrowLeft className="w-6 h-6 text-white" />
               </button>
               <div>
-                <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">Your Career Roadmap</h1>
-                <div className="mt-2 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 text-sm text-gray-800">
-                  <span className="font-medium">{userData.currentRole}</span>
-                  <span className="opacity-60">→</span>
-                  <span className="font-semibold text-primary-700">{userData.targetRole}</span>
+                <h1 className="text-2xl font-bold text-white">Your Career Roadmap</h1>
+                <div className="mt-1 text-sm text-primary-100">
+                  {userData.currentRole} → {userData.targetRole}
                 </div>
               </div>
             </div>
-            <div className="hidden md:flex items-center space-x-2 text-sm text-gray-500"></div>
           </div>
         </div>
-      </div>
 
-      {/* Hero Banner aligned with Scaler-style visual */}
-      <section className="bg-gradient-to-r from-primary-600 to-primary-700 text-white">
-        <div className="container mx-auto px-4 py-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-            {/* Score cluster */}
-            <div className="md:col-span-2">
-              <div className="flex flex-wrap items-center gap-8">
-                <div className="text-center">
-                  <div className="text-5xl font-extrabold tracking-tight">{userData.analysis?.matchScore || 0}%</div>
-                  <div className="text-primary-100 mt-1">Career Match Score</div>
+        {/* Main Content */}
+        <div className="container mx-auto px-4 pb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            {/* Key Metrics - Left Side */}
+            <div className="lg:col-span-1">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 mt-12">
+                <div className="text-center bg-white rounded-xl p-4 sm:p-6 border border-gray-200 shadow-lg">
+                  <div className="text-3xl sm:text-4xl font-bold text-primary-700 mb-2">{userData.analysis?.matchScore || 0}%</div>
+                  <div className="text-primary-600 text-xs sm:text-sm font-semibold">Career Match Score</div>
                 </div>
-                <div className="w-px h-16 bg-white/30 hidden md:block" />
-                <div className="text-center">
-                  <div className="text-3xl font-bold">{userData.analysis?.existingSkills?.length || 0}</div>
-                  <div className="text-primary-100 mt-1">Skills You Have</div>
+                <div className="text-center bg-white rounded-xl p-4 sm:p-6 border border-gray-200 shadow-lg">
+                  <div className="text-3xl sm:text-4xl font-bold text-primary-700 mb-2">{userData.analysis?.existingSkills?.length || 0}</div>
+                  <div className="text-primary-600 text-xs sm:text-sm font-semibold">Skills You Have</div>
                 </div>
-                <div className="w-px h-16 bg-white/30 hidden md:block" />
-                <div className="text-center">
-                  <div className="text-3xl font-bold">{userData.analysis?.missingSkills?.length || 0}</div>
-                  <div className="text-primary-100 mt-1">Skills to Learn</div>
+                <div className="text-center bg-white rounded-xl p-4 sm:p-6 border border-gray-200 shadow-lg">
+                  <div className="text-3xl sm:text-4xl font-bold text-primary-700 mb-2">{userData.analysis?.missingSkills?.length || 0}</div>
+                  <div className="text-primary-600 text-xs sm:text-sm font-semibold">Skills to Learn</div>
                 </div>
               </div>
+
+              {/* Section Overview */}
+              <div className="bg-white/10 rounded-lg p-2 border border-white/20 backdrop-blur-sm">
+                <div className="text-center mb-2">
+                  <p className="text-primary-100 text-xs">Follow this path to transition from {userData.currentRole} to {userData.targetRole}</p>
+                </div>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+                  <button
+                    onClick={() => setActiveTab('skill-gaps')}
+                    className="text-center hover:bg-white/10 rounded-lg p-1 transition-all duration-200 cursor-pointer flex-1 max-w-28"
+                  >
+                    <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center mb-0.5 mx-auto">
+                      <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      </svg>
+                    </div>
+                    <div className="text-white text-xs font-medium mb-0.5">Skill Gaps</div>
+                    <div className="text-primary-100 text-xs">Identify missing skills & prioritize learning</div>
+                  </button>
+
+                  <div className="hidden sm:block">
+                    <svg className="w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+
+                  <button
+                    onClick={() => setActiveTab('career-path')}
+                    className="text-center hover:bg-white/10 rounded-lg p-1 transition-all duration-200 cursor-pointer flex-1 max-w-28"
+                  >
+                    <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center mb-0.5 mx-auto">
+                      <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <div className="text-white text-xs font-medium mb-0.5">Career Path</div>
+                    <div className="text-primary-100 text-xs">Step-by-step learning roadmap</div>
+                  </button>
+
+                  <div className="hidden sm:block">
+                    <svg className="w-3 h-3 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+
+                  <button
+                    onClick={() => setActiveTab('interview-prep')}
+                    className="text-center hover:bg-white/10 rounded-lg p-1 transition-all duration-200 cursor-pointer flex-1 max-w-28"
+                  >
+                    <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center mb-0.5 mx-auto">
+                      <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                      </svg>
+                    </div>
+                    <div className="text-white text-xs font-medium mb-0.5">Interview Prep</div>
+                    <div className="text-primary-100 text-xs">Company insights & interview tips</div>
+                  </button>
+
+                  <div className="hidden sm:block">
+                    <svg className="w-3 h-3 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+
+                  <button
+                    onClick={() => setActiveTab('projects')}
+                    className="text-center hover:bg-white/10 rounded-lg p-1 transition-all duration-200 cursor-pointer flex-1 max-w-28"
+                  >
+                    <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center mb-0.5 mx-auto">
+                      <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                      </svg>
+                    </div>
+                    <div className="text-white text-xs font-medium mb-0.5">Projects</div>
+                    <div className="text-primary-100 text-xs">Build portfolio & showcase skills</div>
+                  </button>
+                </div>
+              </div>
+
             </div>
-            {/* Social proof */}
-            <div className="md:col-span-1">
-              <div className="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/20">
-                <div className="text-sm text-primary-50">Trusted by professionals</div>
-                <div className="text-2xl font-bold mt-1">6,02,579+ Working Professionals</div>
-                <div className="text-primary-100">transformed their career using scaler's career roadmap tool</div>
-                <a
-                  href="https://www.scaler.com/ai-mock-interview"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-block mt-4 px-4 py-2 rounded-md bg-white text-primary-700 font-semibold hover:bg-primary-50"
-                >
-                  Explore AI Mock Interviews
-                </a>
+            {/* Career Questions CTA */}
+            <div className="lg:col-span-1">
+              <div className="bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-xl rounded-lg p-4 border border-white/30 shadow-lg max-w-sm mx-auto">
+                <div className="text-center mb-3">
+                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2">Need Guidance?</h3>
+                </div>
+
+                <div className="bg-white/15 rounded-lg p-3 mb-3 border border-white/25">
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-white mb-1">100+</div>
+                    <div className="text-sm font-semibold text-white">Certified Tech Counsellors</div>
+                    <div className="text-xs text-primary-100">Ready to help you succeed</div>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <button className="w-full px-3 py-2 rounded-lg bg-white text-primary-700 font-semibold hover:bg-primary-50 hover:scale-105 transform transition-all duration-200 shadow-md text-sm">
+                    Request a Callback
+                  </button>
+
+                  <div className="text-center">
+                    <div className="flex items-center justify-center space-x-3 text-xs text-primary-100">
+                      <div className="flex items-center">
+                        <div className="w-2 h-2 bg-green-400 rounded-full mr-1"></div>
+                        <span>Free Consultation</span>
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-2 h-2 bg-blue-400 rounded-full mr-1"></div>
+                        <span>Expert Guidance</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

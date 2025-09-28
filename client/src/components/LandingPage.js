@@ -426,9 +426,43 @@ const LandingPage = ({ onComplete }) => {
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
               Career Roadmap Tool
             </h1>
-            <p className="text-xl text-gray-600">
-              Discover your path to your dream role in just 4 simple steps
+            <p className="text-xl text-gray-600 mb-8">
+              Discover your path to your dream role in just 3 simple steps
             </p>
+
+            {/* Social Proof */}
+            <div className="bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl p-6 mb-8 border border-blue-200 shadow-lg">
+              <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8">
+                <div className="flex items-center space-x-3">
+                  <div className="flex -space-x-2">
+                    <div className="w-8 h-8 bg-blue-500 rounded-full border-2 border-white flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">A</span>
+                    </div>
+                    <div className="w-8 h-8 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">B</span>
+                    </div>
+                    <div className="w-8 h-8 bg-purple-500 rounded-full border-2 border-white flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">C</span>
+                    </div>
+                    <div className="w-8 h-8 bg-orange-500 rounded-full border-2 border-white flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">+</span>
+                    </div>
+                  </div>
+                  <div className="text-left">
+                    <p className="text-sm font-medium text-gray-700">Trusted by professionals</p>
+                  </div>
+                </div>
+                <div className="hidden md:block w-px h-12 bg-gray-200"></div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-gray-900">
+                    <span className="text-blue-600">6,02,579+ Working Professionals</span>
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    transformed their career using <span className="font-semibold">Scaler's career roadmap tool</span>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Progress Steps */}

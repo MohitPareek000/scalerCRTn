@@ -17,7 +17,7 @@ const SkillGapsTab = ({ userData }) => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/skill-info/${encodeURIComponent(skill)}`, {
+      const response = await axios.post(`${API_BASE_URL}/skill-details`, {
         skill,
         targetRole: userData.targetRole,
         userExperience: userData.yearsExperience
@@ -185,7 +185,7 @@ const SkillGapsTab = ({ userData }) => {
                 </div>
               )}
 
-              <div className="mt-1 text-xs text-gray-500">Ranked by impact for your target role.</div>
+
             </div>
           ) : (
             <div className="flex flex-wrap gap-2">

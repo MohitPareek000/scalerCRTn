@@ -131,8 +131,8 @@ const companies = [
     id: 1,
     name: 'Google',
     logo: 'https://logo.clearbit.com/google.com',
-    role: 'Senior Software Engineer',
-    salaryBand: '₹20L - ₹70L',
+    role: 'Software Engineer',
+    salaryBand: '₹32L - ₹54L',
     source: 'LinkedIn',
     interviewProcess: [
       'Phone Screen (45 min)',
@@ -145,14 +145,14 @@ const companies = [
       'Explain your approach to designing a scalable system',
       'How would you optimize a slow database query?',
       'Describe a challenging technical problem you solved',
-      'How do you stay updated with new technologies?'
+      'Implement an LRU cache with O(1) get and put operations'
     ]
   },
   {
     id: 2,
     name: 'Microsoft',
     logo: 'https://logo.clearbit.com/microsoft.com',
-    role: 'Software Engineer II',
+    role: 'Software Engineer I',
     salaryBand: 'Upto ₹45L',
     source: 'Company Website',
     interviewProcess: [
@@ -163,8 +163,9 @@ const companies = [
     ],
     commonQuestions: [
       'Walk me through your most complex project',
-      'How do you handle code reviews?',
-      'Explain the difference between SQL and NoSQL',
+      'Reverse a linked list in place and analyze time and space complexity',
+      'Design a URL shortening service with scalable storage and redirects',
+      'Find the intersection point of two singly linked lists',
       'Describe your experience with cloud platforms'
     ]
   },
@@ -182,7 +183,7 @@ const companies = [
       'Bar Raiser Interview'
     ],
     commonQuestions: [
-      'Tell me about a time you disagreed with your manager',
+      'Find the intersection point of two singly linked lists',
       'How do you prioritize tasks when everything is urgent?',
       'Explain the CAP theorem',
       'Describe your experience with microservices'
@@ -218,7 +219,7 @@ const companies = [
     name: 'Accenture',
     logo: 'https://logo.clearbit.com/accenture.com',
     role: 'DevOps Engineer',
-    salaryBand: '₹5L – ₹10.4L',
+    salaryBand: '₹5L – ₹12L',
     source: 'Glassdoor / Levels.fyi / Indeed',
     interviewProcess: [
       'HR / recruiter screening',
@@ -240,7 +241,7 @@ const companies = [
     name: 'Cisco',
     logo: 'https://logo.clearbit.com/cisco.com',
     role: 'Senior DevOps Engineer',
-    salaryBand: '₹9L - ₹48.7L+',
+    salaryBand: '₹18.9L - ₹34.8L',
     source: 'Glassdoor / Indeed / Levels.fyi',
     interviewProcess: [
       'HR / recruiter screening',
@@ -263,7 +264,7 @@ const companies = [
     name: 'Oracle',
     logo: 'https://logo.clearbit.com/oracle.com',
     role: 'DevOps Engineer',
-    salaryBand: '₹7L – ₹38.8L',
+    salaryBand: '₹11L – ₹20L',
     source: 'Glassdoor / Indeed / Levels.fyi',
     interviewProcess: [
       'HR / recruiter screening',

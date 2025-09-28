@@ -190,9 +190,13 @@ const ProjectsTab = ({ userData }) => {
       {/* Start Project Side Modal */}
       <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-50">
+          <div
+            className="fixed inset-0 z-50"
+            style={{ top: 0, left: 0, right: 0, bottom: 0 }}
+          >
             <motion.div
               className="absolute inset-0 bg-black/50"
+              style={{ top: 0, left: 0, right: 0, bottom: 0 }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}

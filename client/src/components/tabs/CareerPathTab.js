@@ -11,14 +11,21 @@ import LLMLearningAssistant from '../LLMLearningAssistant';
 function TopicModal({ topic, onClose, onOpenAI }) {
 
   return (
-    <div className="fixed inset-0 z-50">
-      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
+    <div
+      className="fixed inset-0 z-50"
+      style={{ top: 0, left: 0, right: 0, bottom: 0 }}
+    >
+      <div
+        className="absolute inset-0 bg-black/50"
+        style={{ top: 0, left: 0, right: 0, bottom: 0 }}
+        onClick={onClose}
+      />
       <motion.div
         initial={{ x: '100%' }}
         animate={{ x: 0 }}
         exit={{ x: '100%' }}
         transition={{ type: 'tween', duration: 0.25 }}
-        className="absolute right-0 top-0 h-full w-full max-w-xl bg-white shadow-xl"
+        className="absolute right-0 top-0 h-screen w-full max-w-xl bg-white shadow-xl flex flex-col"
         role="dialog"
         aria-modal="true"
       >
@@ -28,7 +35,7 @@ function TopicModal({ topic, onClose, onOpenAI }) {
             <X className="w-5 h-5 text-gray-600" />
           </button>
         </div>
-        <div className="p-6 space-y-6 overflow-y-auto h-[calc(100%-64px-140px)] scrollbar-hide">
+        <div className="p-6 space-y-6 overflow-y-auto flex-1 scrollbar-hide">
           <div>
             <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center space-x-2">
               <span className="w-6 h-6 bg-primary-100 rounded-full flex items-center justify-center">
@@ -67,16 +74,29 @@ function TopicModal({ topic, onClose, onOpenAI }) {
             </div>
           )}
           <div>
-            <h3 className="text-sm font-semibold text-gray-700 mb-2">Need a quick summary?</h3>
+            <h3 className="text-sm font-semibold text-gray-700 mb-2">Want to know more?</h3>
             <button
               onClick={onOpenAI}
               className="btn-primary inline-flex items-center gap-2"
             >
-              <BookOpen className="w-4 h-4" /> Summarize with AI
+              <BookOpen className="w-4 h-4" /> Ask AI
             </button>
           </div>
+
         </div>
-        {/* Status controls removed */}
+
+        {/* Alumni Connection Section - Fixed at Bottom */}
+        <div className="p-3 sm:p-6 border-t border-gray-200 bg-gray-50">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-3 sm:p-4 border border-blue-100">
+            <div className="text-center">
+              <h3 className="text-xs sm:text-sm font-semibold text-gray-800 mb-1 sm:mb-2">Want to connect with someone you think matches your profile?</h3>
+              <p className="text-xs text-gray-600 mb-2 sm:mb-3">Let us help you find and connect with the right person</p>
+              <button className="w-full px-3 sm:px-4 py-2 sm:py-2 bg-primary-600 text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors duration-200">
+                Request 1-1 Alumni Session
+              </button>
+            </div>
+          </div>
+        </div>
       </motion.div>
     </div>
   );
@@ -124,7 +144,7 @@ function CareerPathInner({ targetRole }) {
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">Career Path</h2>
-          <p className="text-gray-600">Your step-by-step roadmap for the selected role.</p>
+          <p className="text-gray-600">Your step-by-step roadmap for {targetRole}.</p>
         </div>
         <div className="mt-2 sm:mt-0">
           <div className="px-4 py-2 bg-white rounded-xl border shadow-sm flex items-center gap-3">
@@ -153,7 +173,13 @@ function CareerPathInner({ targetRole }) {
                   <div>
                     <div className="text-xs text-gray-500 mb-1">Step {idx + 1}</div>
                     <h3 className="font-semibold text-gray-900">{t.title}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{t.shortDescription}</p>
+                    <p className="text-sm text-gray-600 mt-1 lg:line-clamp-1">
+                      {(() => {
+                        const text = t.shortDescription || t.why;
+                        const firstPeriod = text.indexOf('.');
+                        return firstPeriod !== -1 ? text.substring(0, firstPeriod + 1) : text;
+                      })()}
+                    </p>
                   </div>
                 </div>
                 <div className="mt-4 flex flex-wrap gap-2">

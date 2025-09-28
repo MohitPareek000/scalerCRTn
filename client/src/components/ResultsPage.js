@@ -27,10 +27,10 @@ const ResultsPage = ({ userData }) => {
   }
 
   const tabs = [
-    { id: 'skill-gaps', label: 'Skill Gaps' },
-    { id: 'career-path', label: 'Career Path' },
-    { id: 'interview-prep', label: 'Interview Prep' },
-    { id: 'projects', label: 'Projects' }
+    { id: 'skill-gaps', label: 'Skill Gaps', description: 'Identify missing skills & prioritize learning' },
+    { id: 'career-path', label: 'Career Path', description: 'Step-by-step learning roadmap' },
+    { id: 'interview-prep', label: 'Interview Prep', description: 'Company insights & interview tips' },
+    { id: 'projects', label: 'Projects', description: 'Build portfolio & showcase skills' }
   ];
 
   const renderTabContent = () => {
@@ -51,7 +51,7 @@ const ResultsPage = ({ userData }) => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Banner - starts from top */}
-      <section className="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white relative">
+      <section className="bg-primary-600 text-white relative">
         {/* Navigation */}
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
@@ -75,10 +75,10 @@ const ResultsPage = ({ userData }) => {
 
         {/* Main Content */}
         <div className="container mx-auto px-4 pb-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
             {/* Key Metrics - Left Side */}
             <div className="lg:col-span-1">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 mt-12">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 mt-8 sm:mt-12">
                 <div className="text-center bg-white rounded-xl p-4 sm:p-6 border border-gray-200 shadow-lg">
                   <div className="text-3xl sm:text-4xl font-bold text-primary-700 mb-2">{userData.analysis?.matchScore || 0}%</div>
                   <div className="text-primary-600 text-xs sm:text-sm font-semibold">Career Match Score</div>
@@ -93,15 +93,19 @@ const ResultsPage = ({ userData }) => {
                 </div>
               </div>
 
+              {/* Section Overview Header */}
+              <div className="flex items-center my-6">
+                <div className="flex-1 h-px bg-white/30"></div>
+                <span className="px-4 text-white/80 text-sm font-medium">Your Career Roadmap Includes</span>
+                <div className="flex-1 h-px bg-white/30"></div>
+              </div>
+
               {/* Section Overview */}
               <div className="bg-white/10 rounded-lg p-2 border border-white/20 backdrop-blur-sm">
-                <div className="text-center mb-2">
-                  <p className="text-primary-100 text-xs">Follow this path to transition from {userData.currentRole} to {userData.targetRole}</p>
-                </div>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+                <div className="grid grid-cols-2 sm:flex sm:flex-row items-center justify-center gap-2 sm:gap-2">
                   <button
                     onClick={() => setActiveTab('skill-gaps')}
-                    className="text-center hover:bg-white/10 rounded-lg p-1 transition-all duration-200 cursor-pointer flex-1 max-w-28"
+                    className="text-center hover:bg-white/10 rounded-lg p-1 transition-all duration-200 cursor-pointer w-full sm:flex-1 sm:max-w-28"
                   >
                     <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center mb-0.5 mx-auto">
                       <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -120,7 +124,7 @@ const ResultsPage = ({ userData }) => {
 
                   <button
                     onClick={() => setActiveTab('career-path')}
-                    className="text-center hover:bg-white/10 rounded-lg p-1 transition-all duration-200 cursor-pointer flex-1 max-w-28"
+                    className="text-center hover:bg-white/10 rounded-lg p-1 transition-all duration-200 cursor-pointer w-full sm:flex-1 sm:max-w-28"
                   >
                     <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center mb-0.5 mx-auto">
                       <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,7 +143,7 @@ const ResultsPage = ({ userData }) => {
 
                   <button
                     onClick={() => setActiveTab('interview-prep')}
-                    className="text-center hover:bg-white/10 rounded-lg p-1 transition-all duration-200 cursor-pointer flex-1 max-w-28"
+                    className="text-center hover:bg-white/10 rounded-lg p-1 transition-all duration-200 cursor-pointer w-full sm:flex-1 sm:max-w-28"
                   >
                     <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center mb-0.5 mx-auto">
                       <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -158,7 +162,7 @@ const ResultsPage = ({ userData }) => {
 
                   <button
                     onClick={() => setActiveTab('projects')}
-                    className="text-center hover:bg-white/10 rounded-lg p-1 transition-all duration-200 cursor-pointer flex-1 max-w-28"
+                    className="text-center hover:bg-white/10 rounded-lg p-1 transition-all duration-200 cursor-pointer w-full sm:flex-1 sm:max-w-28"
                   >
                     <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center mb-0.5 mx-auto">
                       <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -174,9 +178,9 @@ const ResultsPage = ({ userData }) => {
             </div>
             {/* Career Questions CTA */}
             <div className="lg:col-span-1">
-              <div className="bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-xl rounded-lg p-4 border border-white/30 shadow-lg max-w-sm mx-auto">
-                <div className="text-center mb-3">
-                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2">
+              <div className="bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-xl rounded-lg p-5 border border-white/30 shadow-lg max-w-md mx-auto mt-8 lg:mt-12">
+                <div className="text-center mb-4">
+                  <div className="w-9 h-9 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
@@ -184,7 +188,7 @@ const ResultsPage = ({ userData }) => {
                   <h3 className="text-lg font-bold text-white mb-2">Need Guidance?</h3>
                 </div>
 
-                <div className="bg-white/15 rounded-lg p-3 mb-3 border border-white/25">
+                <div className="bg-white/15 rounded-lg p-4 mb-4 border border-white/25">
                   <div className="text-center">
                     <div className="text-xl font-bold text-white mb-1">100+</div>
                     <div className="text-sm font-semibold text-white">Certified Tech Counsellors</div>
@@ -192,8 +196,8 @@ const ResultsPage = ({ userData }) => {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <button className="w-full px-3 py-2 rounded-lg bg-white text-primary-700 font-semibold hover:bg-primary-50 hover:scale-105 transform transition-all duration-200 shadow-md text-sm">
+                <div className="space-y-3">
+                  <button className="w-full px-4 py-2.5 rounded-lg bg-white text-primary-700 font-semibold hover:bg-primary-50 hover:scale-105 transform transition-all duration-200 shadow-md text-sm">
                     Request a Callback
                   </button>
 
@@ -218,17 +222,17 @@ const ResultsPage = ({ userData }) => {
 
       {/* Tabs */}
       <div className="container mx-auto px-4 py-8">
-        <div className="flex space-x-1 mb-8 bg-white p-1 rounded-xl border shadow-sm">
+        <div className="flex flex-col sm:flex-row space-y-1 sm:space-y-0 sm:space-x-1 mb-8 bg-white p-1 rounded-xl border shadow-sm">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-md font-medium transition-all duration-200 ${activeTab === tab.id
+              className={`flex-1 flex flex-col sm:flex-col items-center justify-center space-y-1 py-3 px-4 rounded-md font-medium transition-all duration-200 ${activeTab === tab.id
                 ? 'bg-primary-600 text-white shadow'
                 : 'text-gray-700 hover:text-gray-900'
                 }`}
             >
-              <span>{tab.label}</span>
+              <span className="text-sm font-semibold">{tab.label}</span>
             </button>
           ))}
         </div>

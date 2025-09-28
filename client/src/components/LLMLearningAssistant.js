@@ -99,15 +99,18 @@ const LLMLearningAssistant = ({ skill, targetRole, userExperience, onClose, init
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div
+      className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4"
+      style={{ top: 0, left: 0, right: 0, bottom: 0 }}
+    >
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
-        className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] flex flex-col"
+        className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] flex flex-col"
       >
         {/* Header */}
-        <div className="p-6 border-b border-gray-200">
+        <div className="p-4 sm:p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
@@ -224,8 +227,8 @@ const LLMLearningAssistant = ({ skill, targetRole, userExperience, onClose, init
         </div>
 
         {/* Input */}
-        <div className="p-6 border-t border-gray-200">
-          <div className="flex space-x-3">
+        <div className="p-4 sm:p-6 border-t border-gray-200">
+          <div className="flex flex-col sm:flex-row gap-3">
             <input
               type="text"
               value={inputMessage}
@@ -238,7 +241,7 @@ const LLMLearningAssistant = ({ skill, targetRole, userExperience, onClose, init
             <button
               onClick={handleSendMessage}
               disabled={!inputMessage.trim() || isLoading}
-              className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 flex items-center space-x-2"
+              className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center space-x-2 w-full sm:w-auto"
             >
               <Send className="w-4 h-4" />
               <span>Send</span>

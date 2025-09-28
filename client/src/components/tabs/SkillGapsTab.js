@@ -106,7 +106,7 @@ const SkillGapsTab = ({ userData }) => {
             <BookOpen className="w-6 h-6 text-danger-500" />
             <span>Skills to Learn</span>
           </h3>
-          <p className="text-sm text-gray-600">Click on the Skill to Learn More</p>
+          <p className="text-sm text-gray-600">Click on the Skill to Know More</p>
 
           {tiers ? (
             <div className="space-y-4">
@@ -217,6 +217,7 @@ const SkillGapsTab = ({ userData }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+            style={{ top: 0, left: 0, right: 0, bottom: 0 }}
             onClick={closeSidePanel}
           >
             <motion.div

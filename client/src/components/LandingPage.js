@@ -195,6 +195,8 @@ const LandingPage = ({ onComplete }) => {
           setTimeout(() => {
             onComplete({ ...submitData, analysis: analysisData });
             navigate('/results');
+            // Scroll to top of the page
+            window.scrollTo({ top: 0, behavior: 'smooth' });
           }, 1000);
         }
       };
@@ -247,12 +249,12 @@ const LandingPage = ({ onComplete }) => {
         return (
           <div className="space-y-6">
             <h3 className="text-xl font-semibold text-gray-900">What's your current role?</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {currentRoles.map(role => (
                 <button
                   key={role}
                   onClick={() => { handleInputChange('currentRole', role); setTimeout(() => nextStep(), 0); }}
-                  className={`p-4 text-left rounded-lg border-2 transition-all duration-200 ${formData.currentRole === role
+                  className={`p-3 sm:p-4 text-left rounded-lg border-2 transition-all duration-200 text-sm sm:text-base ${formData.currentRole === role
                     ? 'border-primary-500 bg-primary-50 text-primary-700'
                     : 'border-gray-200 hover:border-gray-300'
                     }`}
@@ -305,12 +307,12 @@ const LandingPage = ({ onComplete }) => {
         return (
           <div className="space-y-6">
             <h3 className="text-xl font-semibold text-gray-900">What's your target role?</h3>
-            <div className="grid grid-cols-1 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {targetRoles.map(role => (
                 <button
                   key={role}
                   onClick={() => { handleInputChange('targetRole', role); setTimeout(() => nextStep(), 0); }}
-                  className={`p-4 text-left rounded-lg border-2 transition-all duration-200 ${formData.targetRole === role
+                  className={`p-3 sm:p-4 text-left rounded-lg border-2 transition-all duration-200 text-sm sm:text-base ${formData.targetRole === role
                     ? 'border-primary-500 bg-primary-50 text-primary-700'
                     : 'border-gray-200 hover:border-gray-300'
                     }`}
@@ -329,13 +331,13 @@ const LandingPage = ({ onComplete }) => {
         return (
           <div className="space-y-6">
             <h3 className="text-xl font-semibold text-gray-900">Select your current skills</h3>
-            <div className="max-h-96 overflow-y-auto">
+            <div className="max-h-80 sm:max-h-96 overflow-y-auto">
               <div className="flex flex-wrap gap-2">
                 {skills.map(skill => (
                   <button
                     key={skill}
                     onClick={() => handleSkillToggle(skill)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${formData.currentSkills.includes(skill)
+                    className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 ${formData.currentSkills.includes(skill)
                       ? 'bg-primary-600 text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                       }`}
@@ -411,7 +413,15 @@ const LandingPage = ({ onComplete }) => {
             </div>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Analyzing your profile...</h2>
-          <p className="text-gray-600">We're calculating your career match score</p>
+          <p className="text-gray-600 mb-6">We're calculating your career match score</p>
+
+          {/* Simple Tech Facts */}
+          <div className="max-w-lg mx-auto text-center">
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">Did you know?</h3>
+            <p className="text-gray-700 text-sm leading-relaxed">
+              The first computer bug was an actual bug! In 1947, Grace Hopper found a moth trapped in a Harvard Mark II computer, coining the term "debugging" that developers use today.
+            </p>
+          </div>
         </div>
       </div>
     );
@@ -423,15 +433,15 @@ const LandingPage = ({ onComplete }) => {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-4">
               Career Roadmap Tool
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-lg sm:text-xl text-gray-600 mb-8">
               Discover your path to your dream role in just 3 simple steps
             </p>
 
             {/* Social Proof */}
-            <div className="bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl p-6 mb-8 border border-blue-200 shadow-lg">
+            <div className="bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl p-4 sm:p-6 mb-8 border border-blue-200 shadow-lg">
               <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8">
                 <div className="flex items-center space-x-3">
                   <div className="flex -space-x-2">
@@ -501,7 +511,7 @@ const LandingPage = ({ onComplete }) => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
-            className="bg-white rounded-2xl shadow-lg p-8 mb-8"
+            className="bg-white rounded-2xl shadow-lg p-4 sm:p-8 mb-8"
           >
             {renderStepContent()}
           </motion.div>

@@ -10,10 +10,6 @@ export default function Navbar() {
                     <span className="sr-only">Scaler</span>
                 </Link>
                 <nav className="hidden md:flex items-center gap-6 text-sm text-gray-600">
-                    <button className="hover:text-gray-900">AI Interviews</button>
-                    <button className="hover:text-gray-900">How it Works</button>
-                    <button className="hover:text-gray-900">Testimonials</button>
-                    <button className="hover:text-gray-900">FAQs</button>
                 </nav>
                 <div className="flex items-center gap-3">
                     <a

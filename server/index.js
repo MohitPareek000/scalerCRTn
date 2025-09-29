@@ -123,7 +123,7 @@ const currentRoles = [
 ];
 
 const targetRoles = [
-  'Software Engineering', 'Data Science', 'Data Analytics', 'DevOps & Cloud Computing', 'Advanced AI & ML'
+  'Software Engineering', 'DevOps & Cloud Computing'
 ];
 
 const companies = [
@@ -464,20 +464,23 @@ app.get('/api/suggested-skills/:targetRole', (req, res) => {
   const priorities = getExplicitPriorities(targetRole);
   console.log('🔍 API: Priorities found:', priorities);
 
+  let skills = [];
+
   if (priorities && Object.keys(priorities).length > 0) {
     // For roles with explicit priorities, return all priority skills
-    const allPrioritySkills = Object.keys(priorities);
-    console.log('🔍 API: Returning priority skills:', allPrioritySkills);
-    return res.json(allPrioritySkills);
+    skills = Object.keys(priorities);
+    console.log('🔍 API: Returning priority skills:', skills);
+  } else if (skillTaxonomy[targetRole]) {
+    // Fallback to taxonomy for roles without explicit priorities
+    skills = Object.values(skillTaxonomy[targetRole]).flat();
+  } else {
+    return res.status(404).json({ error: 'No skills found for this role' });
   }
 
-  // Fallback to taxonomy for roles without explicit priorities
-  if (skillTaxonomy[targetRole]) {
-    const allSkills = Object.values(skillTaxonomy[targetRole]).flat();
-    return res.json(allSkills);
-  }
-
-  return res.status(404).json({ error: 'No skills found for this role' });
+  // Add "None" option at the top
+  const skillsWithNone = ['None', ...skills];
+  console.log('🔍 API: Returning skills with None option:', skillsWithNone);
+  return res.json(skillsWithNone);
 });
 
 app.get('/api/skills/:targetRole', (req, res) => {

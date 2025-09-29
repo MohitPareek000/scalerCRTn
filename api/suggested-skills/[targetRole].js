@@ -23,48 +23,55 @@ export default async function handler(req, res) {
         const priorities = getExplicitPriorities(targetRole);
         console.log('🔍 API: Priorities found:', priorities);
 
+        let skills = [];
+
         if (Object.keys(priorities).length > 0) {
             // Return prioritized skills (High + 3 Medium + 3 Low)
             const highPrioritySkills = Object.keys(priorities).filter(skill => priorities[skill] === 'High');
             const mediumPrioritySkills = Object.keys(priorities).filter(skill => priorities[skill] === 'Medium').slice(0, 3);
             const lowPrioritySkills = Object.keys(priorities).filter(skill => priorities[skill] === 'Low').slice(0, 3);
 
-            const allPrioritySkills = [...highPrioritySkills, ...mediumPrioritySkills, ...lowPrioritySkills];
-            console.log('🔍 API: Returning priority skills:', allPrioritySkills);
-            return res.json(allPrioritySkills);
+            skills = [...highPrioritySkills, ...mediumPrioritySkills, ...lowPrioritySkills];
+            console.log('🔍 API: Returning priority skills:', skills);
         }
 
         // Fallback to taxonomy for roles without explicit priorities
-        const skillTaxonomy = {
-            'Software Engineering': {
-                'Programming Languages': [
-                    'JavaScript', 'TypeScript', 'Python', 'Java', 'C#', 'Go', 'C++', 'C'
-                ],
-                'Computer Science Fundamentals': [
-                    'Data structures', 'Algorithms', 'Object-oriented design', 'Discrete mathematics', 'Logic', 'Probability', 'Statistics', 'Operating systems', 'Networking', 'Problem solving', 'Critical thinking'
-                ],
-                'Databases': [
-                    'Databases (SQL/NoSQL)', 'SQL', 'PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'Database Design'
-                ],
-                'DevOps & Cloud': [
-                    'Version control (Git)', 'Testing', 'Debugging', 'Profiling', 'Deployment', 'Containerization (Docker)', 'Kubernetes', 'Cloud platforms (AWS/Azure/GCP)', 'Automation', 'Scripting'
-                ],
-                'System Design': [
-                    'System design', 'Distributed systems', 'Microservices', 'Caching', 'Load balancing', 'API design'
-                ],
-                'Engineering Practices': [
-                    'Agile/Scrum', 'Code review', 'Documentation', 'Communication', 'Teamwork'
-                ]
-            }
-        };
+        if (skills.length === 0) {
+            const skillTaxonomy = {
+                'Software Engineering': {
+                    'Programming Languages': [
+                        'JavaScript', 'TypeScript', 'Python', 'Java', 'C#', 'Go', 'C++', 'C'
+                    ],
+                    'Computer Science Fundamentals': [
+                        'Data structures', 'Algorithms', 'Object-oriented design', 'Discrete mathematics', 'Logic', 'Probability', 'Statistics', 'Operating systems', 'Networking', 'Problem solving', 'Critical thinking'
+                    ],
+                    'Databases': [
+                        'Databases (SQL/NoSQL)', 'SQL', 'PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'Database Design'
+                    ],
+                    'DevOps & Cloud': [
+                        'Version control (Git)', 'Testing', 'Debugging', 'Profiling', 'Deployment', 'Containerization (Docker)', 'Kubernetes', 'Cloud platforms (AWS/Azure/GCP)', 'Automation', 'Scripting'
+                    ],
+                    'System Design': [
+                        'System design', 'Distributed systems', 'Microservices', 'Caching', 'Load balancing', 'API design'
+                    ],
+                    'Engineering Practices': [
+                        'Agile/Scrum', 'Code review', 'Documentation', 'Communication', 'Teamwork'
+                    ]
+                }
+            };
 
-        if (skillTaxonomy[targetRole]) {
-            const allSkills = Object.values(skillTaxonomy[targetRole]).flat();
-            console.log('🔍 API: Returning taxonomy skills:', allSkills);
-            return res.json(allSkills);
+            if (skillTaxonomy[targetRole]) {
+                skills = Object.values(skillTaxonomy[targetRole]).flat();
+                console.log('🔍 API: Returning taxonomy skills:', skills);
+            } else {
+                return res.status(404).json({ error: 'No skills found for this role' });
+            }
         }
 
-        return res.status(404).json({ error: 'No skills found for this role' });
+        // Add "None" option at the top
+        const skillsWithNone = ['None', ...skills];
+        console.log('🔍 API: Returning skills with None option:', skillsWithNone);
+        return res.json(skillsWithNone);
 
     } catch (error) {
         console.error('❌ Error in suggested-skills:', error);

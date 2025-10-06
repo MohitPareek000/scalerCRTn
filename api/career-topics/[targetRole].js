@@ -333,16 +333,102 @@ export default async function handler(req, res) {
             'Advanced AI & ML': [
                 {
                     id: 'aiml-01',
-                    title: 'Deep Learning Basics',
-                    shortDescription: 'Neural nets and training',
-                    detailedContent: 'Architectures (MLP, CNN, RNN), activation functions, loss, optimizers, regularization, overfitting control, training workflows with PyTorch/TensorFlow.',
+                    title: 'Master Data Foundations',
+                    why: 'All AI systems rely on accurate, well-structured data. Understanding how to clean, explore, and visualize data lets you detect errors early, choose the right features, and communicate findings. Strong probability knowledge builds the intuition to judge model outputs and uncertainty.',
+                    topicsList: [
+                        'NumPy', 'Pandas', 'DataFrames', 'EDA', 'Visualization basics', 'Probability fundamentals'
+                    ],
+                    milestone: 'Complete a full EDA project on a public dataset and explain key probability concepts in a notebook or presentation.',
                     status: 'none'
                 },
                 {
                     id: 'aiml-02',
-                    title: 'LLMs & Prompting',
-                    shortDescription: 'Use and fine-tune LLMs',
-                    detailedContent: 'Prompt engineering, embeddings, retrieval augmented generation, fine-tuning basics, evaluation and safety considerations.',
+                    title: 'Supervised ML Basics',
+                    why: 'Regression and classification form the backbone of ML. Mastering these teaches you how algorithms learn from labeled data, evaluate performance, and generalize to unseen cases.',
+                    topicsList: [
+                        'Linear regression', 'Logistic regression', 'Evaluation metrics', 'scikit-learn pipelines', 'KNN', 'Decision trees', 'Bagging', 'Boosting', 'Naive Bayes'
+                    ],
+                    milestone: 'Deliver a price-prediction or spam-classification model with a reproducible scikit-learn pipeline.',
+                    status: 'none'
+                },
+                {
+                    id: 'aiml-03',
+                    title: 'Unsupervised Learning & Time Series',
+                    why: 'Unsupervised methods help discover natural groupings and detect anomalies; time-series techniques enable forecasting and anomaly detection; recommenders personalize products.',
+                    topicsList: [
+                        'Clustering', 'Gaussian Mixture Models', 'Anomaly detection', 'PCA', 'Time-series decomposition', 'Forecasting', 'Collaborative recommenders', 'Content-based recommenders'
+                    ],
+                    milestone: 'Build a customer-segmentation project and a basic recommender or sales-forecast model.',
+                    status: 'none'
+                },
+                {
+                    id: 'aiml-04',
+                    title: 'Neural Networks Fundamentals',
+                    why: 'Understand layers, activations, optimization and hyperparameters to debug models instead of treating them as black boxes.',
+                    topicsList: [
+                        'Feed-forward networks', 'Activation functions', 'Loss functions', 'Optimizers', 'Weight initialization', 'Regularization'
+                    ],
+                    milestone: 'Implement a small neural network from scratch and match results using PyTorch or TensorFlow.',
+                    status: 'none'
+                },
+                {
+                    id: 'aiml-05',
+                    title: 'Computer Vision',
+                    why: 'Vision models power applications from medical imaging to autonomous driving. CNNs and transfer learning extract spatial features efficiently.',
+                    topicsList: [
+                        'OpenCV', 'CNN architectures', 'Transfer learning', 'Segmentation', 'Face detection/recognition'
+                    ],
+                    milestone: 'Deploy an image-classification or object-detection model.',
+                    status: 'none'
+                },
+                {
+                    id: 'aiml-06',
+                    title: 'Natural Language Processing',
+                    why: 'NLP techniques enable chatbots, search engines, and summarizers by teaching machines to understand and generate language.',
+                    topicsList: [
+                        'Text preprocessing (NLTK/spaCy)', 'Sentiment analysis', 'Topic modeling', 'RNN/LSTM/GRU', 'Attention mechanisms', 'Transformers'
+                    ],
+                    milestone: 'Release a sentiment-analysis API or a question-answer bot.',
+                    status: 'none'
+                },
+                {
+                    id: 'aiml-07',
+                    title: 'Generative AI & LLM Fundamentals',
+                    why: 'Learn prompt engineering, vector databases, and RAG to build custom chatbots, summarizers, and AI search systems.',
+                    topicsList: [
+                        'LLM fundamentals', 'Prompt engineering & security', 'Embeddings', 'Vector databases', 'RAG architectures'
+                    ],
+                    milestone: 'Build a RAG-based chatbot using an open-source LLM and a vector database.',
+                    status: 'none'
+                },
+                {
+                    id: 'aiml-08',
+                    title: 'AI Agents & Fine-Tuning',
+                    why: 'Move beyond static models: plan, reason, and act autonomously; adapt models to domain data and deploy efficiently.',
+                    topicsList: [
+                        'Agentic frameworks (Agents, MCPs, Google A2A)', 'Dataset engineering', 'Fine-tuning', 'Model quantization', 'Inference optimization'
+                    ],
+                    milestone: 'Fine-tune a small LLM on custom data and integrate it into an autonomous agent pipeline.',
+                    status: 'none'
+                },
+                {
+                    id: 'aiml-09',
+                    title: 'MLOps & LLMOps',
+                    why: 'Version, test, monitor, and deploy at scale. Cost control and governance ensure reliable and compliant production systems.',
+                    topicsList: [
+                        'ML lifecycle', 'CI/CD', 'Docker', 'MLflow', 'Feature stores', 'AWS SageMaker', 'LLM serving', 'Monitoring', 'Cost management', 'Ethics'
+                    ],
+                    milestone: 'Containerize and deploy a trained model with automated monitoring and logging.',
+                    status: 'none'
+                },
+                {
+                    id: 'aiml-10',
+                    title: 'Advanced ML Theory & DSA',
+                    why: 'Deep math enables innovation beyond libraries; strong algorithms ensure efficient large-scale solutions.',
+                    topicsList: [
+                        'Probability & statistics', 'Optimization theory', 'Statistical learning', 'Backpropagation math', 'Transformer internals', 'Arrays', 'Strings', 'Trees', 'Graphs', 'Dynamic programming'
+                    ],
+                    milestone: 'Derive and implement an algorithm from first principles and solve medium-to-hard coding problems consistently.',
                     status: 'none'
                 }
             ]

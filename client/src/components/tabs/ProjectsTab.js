@@ -473,6 +473,36 @@ function getProjectSteps(project) {
     ];
   }
 
+  if (/(moderation|content)/i.test(project.title)) {
+    return [
+      { title: 'Project setup', subtitle: 'Python environment', description: 'Create a monorepo or single repo with Python 3.10+, setup virtualenv/conda, configure linting (black, flake8) and pre-commit hooks.' },
+      { title: 'Data ingestion', subtitle: 'Video & audio samples', description: 'Collect or simulate datasets containing both safe and unsafe video/audio clips; handle storage and labeling.' },
+      { title: 'Pre-processing', subtitle: 'Frames + audio', description: 'Use OpenCV to extract frames and segment audio; apply resizing, normalization, and spectrogram/MFCC feature extraction.' },
+      { title: 'Model selection', subtitle: 'Vision + audio models', description: 'Train or fine-tune CNN/Transformer for images and RNN/Transformer for audio transcripts using PyTorch/TensorFlow.' },
+      { title: 'Scoring & thresholding', subtitle: 'Risk assessment', description: 'Combine outputs from vision and audio models, implement weighted scoring and configurable thresholds for moderation.' },
+      { title: 'Human review loop', subtitle: 'Escalation pipeline', description: 'Create a workflow for ambiguous cases to be sent to human moderators with audit trail.' },
+      { title: 'API service', subtitle: 'FastAPI/Flask deployment', description: 'Expose REST endpoints for content submission and moderation decisions with async processing.' },
+      { title: 'MLOps', subtitle: 'CI/CD & monitoring', description: 'Containerize with Docker, set up automated model deployment, logging, and performance monitoring.' },
+      { title: 'Security & compliance', subtitle: 'Data governance', description: 'Ensure secure upload, encrypted storage, and GDPR/CCPA compliance for sensitive content.' },
+      { title: 'Testing & validation', subtitle: 'Accuracy and load', description: 'Write unit/integration tests, evaluate precision/recall, and perform load testing on the API.' },
+      { title: 'Deployment', subtitle: 'Cloud ready', description: 'Deploy on AWS/GCP/Azure with auto-scaling, set up alerts, and provide documentation for API consumers.' }
+    ];
+  }
+  if (/(music|recognition|alexa)/i.test(project.title)) {
+    return [
+      { title: 'Project setup', subtitle: 'Python + DSP stack', description: 'Prepare environment with Python, Librosa, NumPy, and PyTorch/TensorFlow; configure linting and CI.' },
+      { title: 'Data acquisition', subtitle: 'Song + hum dataset', description: 'Gather audio clips of songs and corresponding humming samples; ensure balanced and diverse dataset.' },
+      { title: 'Pre-processing', subtitle: 'Feature extraction', description: 'Use Librosa to compute MFCCs, chroma features, and normalize audio lengths for consistent model input.' },
+      { title: 'Model design', subtitle: 'Embedding network', description: 'Train a CNN/RNN model to generate embeddings for query and song database; optimize for similarity search.' },
+      { title: 'Indexing', subtitle: 'Approximate nearest neighbors', description: 'Build a Faiss or Annoy index of song embeddings to enable fast top-K retrieval.' },
+      { title: 'Query pipeline', subtitle: 'Real-time inference', description: 'Implement endpoint to accept humming input, extract features, generate embedding, and search the index.' },
+      { title: 'Recommendation engine', subtitle: 'Similar tracks', description: 'Use retrieved embeddings to recommend related songs and playlists.' },
+      { title: 'Evaluation', subtitle: 'Accuracy & latency', description: 'Measure retrieval precision/recall, tune hyperparameters, and benchmark query response times.' },
+      { title: 'API & UI', subtitle: 'User interaction', description: 'Expose a FastAPI/Flask endpoint and optional React frontend for submitting audio queries and displaying results.' },
+      { title: 'Deployment', subtitle: 'Cloud service', description: 'Containerize and deploy the recognition system with GPU support and autoscaling for peak loads.' }
+    ];
+} 
+
   // Generic fallback
   return [
     { title: 'Initialize repository', subtitle: 'Setup project', description: 'Scaffold application, install dependencies, and configure formatting and linting.' },

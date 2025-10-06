@@ -12,7 +12,7 @@ export default function handler(req, res) {
     }
 
     const targetRoles = [
-        'Software Engineering', 'DevOps & Cloud Computing'
+        'Software Engineering', 'DevOps & Cloud Computing', 'Advanced AI & ML'
     ];
 
     console.log('🔍 API: Returning target roles:', targetRoles);

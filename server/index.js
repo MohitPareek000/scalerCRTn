@@ -123,7 +123,7 @@ const currentRoles = [
 ];
 
 const targetRoles = [
-  'Software Engineering', 'DevOps & Cloud Computing'
+  'Software Engineering', 'DevOps & Cloud Computing', 'Advanced AI & ML'
 ];
 
 const companies = [
@@ -146,6 +146,91 @@ const companies = [
       'How would you optimize a slow database query?',
       'Describe a challenging technical problem you solved',
       'Implement an LRU cache with O(1) get and put operations'
+    ]
+  },
+  // Advanced AI & ML specific companies
+  {
+    id: 101,
+    name: 'OpenAI',
+    logo: 'https://logo.clearbit.com/openai.com',
+    role: 'Machine Learning Engineer',
+    salaryBand: '₹45L - ₹80L+',
+    source: 'Company Website',
+    targetRole: 'Advanced AI & ML',
+    interviewProcess: [
+      'Recruiter Screen (30 min)',
+      'Technical ML Interview (60 min)',
+      'Research/Applied ML Deep Dive (60 min)',
+      'System/ML System Design (60 min)',
+      'Values/Team Fit (45 min)'
+    ],
+    commonQuestions: [
+      'Explain bias-variance tradeoff with examples and mitigation strategies',
+      'Design a recommendation system for long-tail content discovery',
+      'Implement a training loop with early stopping and learning rate scheduling',
+      'How would you evaluate a classifier on imbalanced data? Propose metrics and techniques',
+      'Walk through building a RAG pipeline with vector DBs and safety filters'
+    ]
+  },
+  {
+    id: 102,
+    name: 'NVIDIA',
+    logo: 'https://logo.clearbit.com/nvidia.com',
+    role: 'Deep Learning Engineer',
+    salaryBand: '₹50L - ₹90L+',
+    source: 'LinkedIn',
+    targetRole: 'Advanced AI & ML',
+    interviewProcess: [
+      'Technical Screen (45 min)',
+      'Deep Learning Concepts (60 min)',
+      'Optimization/Performance (60 min)',
+      'Coding (60 min)'
+    ],
+    commonQuestions: [
+      'Compare SGD, Adam, and RMSProp; when would you choose each?',
+      'Optimize CNN inference latency on edge devices',
+      'Explain mixed-precision training and its trade-offs',
+      'Derive backprop for a simple two-layer network'
+    ]
+  },
+  {
+    id: 103,
+    name: 'DeepMind',
+    logo: 'https://logo.clearbit.com/tech.google',
+    role: 'Research Scientist (AI)',
+    salaryBand: '₹60L - ₹1Cr+',
+    source: 'Careers Page',
+    targetRole: 'Advanced AI & ML',
+    interviewProcess: [
+      'Research Screen (45 min)',
+      'Paper Discussion (60 min)',
+      'ML Theory (60 min)',
+      'Coding/Algorithms (60 min)'
+    ],
+    commonQuestions: [
+      'Discuss a recent paper and propose an extension',
+      'Prove convergence characteristics for a simple optimizer',
+      'Design an RL experiment with proper evaluation and ablations'
+    ]
+  },
+  {
+    id: 104,
+    name: 'Anthropic',
+    logo: 'https://logo.clearbit.com/anthropic.com',
+    role: 'AI Engineer (LLMs)',
+    salaryBand: '₹55L - ₹95L+',
+    source: 'Company Website',
+    targetRole: 'Advanced AI & ML',
+    interviewProcess: [
+      'Recruiter Screen (30 min)',
+      'LLM Engineering Interview (60 min)',
+      'Safety & Evaluation (60 min)',
+      'System Design (LLM) (60 min)'
+    ],
+    commonQuestions: [
+      'Design an evaluation harness for hallucinations and factuality',
+      'Implement a retrieval pipeline with reranking and caching',
+      'Discuss prompt injection and mitigation techniques'
     ]
   },
   {
@@ -410,29 +495,36 @@ const projects = {
   'Advanced AI & ML': [
     {
       id: 14,
-      title: 'NLP Chatbot',
-      tier: 'Beginner',
-      skills: ['Python', 'NLTK', 'spaCy', 'Transformers', 'Natural Language Processing'],
-      estimatedTime: '3-4 weeks',
-      description: 'Build an intelligent chatbot using natural language processing and machine learning.',
+      title: 'AI-Powered Inappropriate Content Moderation System',
+      tier: 'Advanced',
+      skills: [
+        'Python',
+        'PyTorch/TensorFlow',
+        'CNN/RNN/Transformers',
+        'OpenCV',
+        'Audio/Video preprocessing',
+        'Content safety heuristics',
+        'MLOps'
+      ],
+      estimatedTime: '6-8 weeks',
+      description: 'Build a multi-modal moderation system that detects and blocks inappropriate/violent content in videos by analyzing frames (vision models) and audio (NLP/ASR). Include score thresholding, human-in-the-loop review, audit logging, and a deployable API service.',
       rubric: '#'
     },
     {
       id: 15,
-      title: 'Computer Vision Object Detection',
+      title: 'Alexa-Inspired Music Recognition with ML',
       tier: 'Intermediate',
-      skills: ['Python', 'OpenCV', 'YOLO', 'TensorFlow', 'Computer Vision'],
-      estimatedTime: '4-5 weeks',
-      description: 'Develop a real-time object detection system using computer vision techniques.',
-      rubric: '#'
-    },
-    {
-      id: 16,
-      title: 'Large Language Model Fine-tuning',
-      tier: 'Advanced',
-      skills: ['Python', 'Transformers', 'PyTorch', 'Hugging Face', 'Model Fine-tuning'],
-      estimatedTime: '6-8 weeks',
-      description: 'Fine-tune a large language model for specific domain tasks and deploy it.',
+      skills: [
+        'Python',
+        'Librosa',
+        'DSP',
+        'MFCCs',
+        'CNN/RNN',
+        'Similarity search (Faiss/Annoy)',
+        'Recommendation systems'
+      ],
+      estimatedTime: '4-6 weeks',
+      description: 'Create a humming-to-song recognition system. Extract audio features (e.g., MFCCs), train a model to match queries against a song embedding index, and return top-K matches with recommendations for similar tracks.',
       rubric: '#'
     }
   ]
@@ -1613,6 +1705,75 @@ function getExplicitPriorities(targetRole) {
       'Advanced scripting (Go/Ruby/Perl)': 'Low',
       'AI/ML for operations': 'Low',
       'Quantum cloud services': 'Low'
+    },
+    'Advanced AI & ML': {
+      // High Priority
+      'NumPy': 'High',
+      'Pandas': 'High',
+      'Probability': 'High',
+      'Statistics': 'High',
+      'Exploratory Data Analysis (EDA)': 'High',
+      'Visualization basics': 'High',
+      'Linear regression': 'High',
+      'Logistic regression': 'High',
+      'Evaluation metrics': 'High',
+      'scikit-learn pipelines': 'High',
+
+      // Medium Priority
+      'KNN': 'Medium',
+      'Decision trees': 'Medium',
+      'Bagging': 'Medium',
+      'Boosting': 'Medium',
+      'Naive Bayes': 'Medium',
+      'Clustering': 'Medium',
+      'Gaussian Mixture Models': 'Medium',
+      'Anomaly detection': 'Medium',
+      'PCA': 'Medium',
+      'Time-series forecasting': 'Medium',
+      'Recommender systems': 'Medium',
+      'Feed-forward networks': 'Medium',
+      'Activation functions': 'Medium',
+      'Loss functions': 'Medium',
+      'Optimizers': 'Medium',
+      'Regularization': 'Medium',
+      'OpenCV': 'Medium',
+      'CNN architectures': 'Medium',
+      'Transfer learning': 'Medium',
+      'Segmentation': 'Medium',
+      'Text preprocessing': 'Medium',
+      'Sentiment analysis': 'Medium',
+      'Topic modeling': 'Medium',
+      'RNN/LSTM/GRU': 'Medium',
+      'Attention mechanisms': 'Medium',
+      'Transformers': 'Medium',
+      'LLM fundamentals': 'Medium',
+      'Prompt engineering': 'Medium',
+      'Embeddings': 'Medium',
+      'Vector databases': 'Medium',
+      'RAG architectures': 'Medium',
+      'Agentic frameworks': 'Medium',
+      'Dataset engineering': 'Medium',
+      'Fine-tuning': 'Medium',
+      'Model quantization': 'Medium',
+      'Inference optimization': 'Medium',
+      'ML lifecycle': 'Medium',
+      'MLflow': 'Medium',
+      'Feature stores': 'Medium',
+      'LLM serving': 'Medium',
+      'Monitoring': 'Medium',
+      'Cost management': 'Medium',
+
+      // Low Priority
+      'AWS SageMaker': 'Low',
+      'Docker': 'Low',
+      'CI/CD for ML': 'Low',
+      'Ethics & governance': 'Low',
+      'Optimization theory': 'Low',
+      'Statistical learning': 'Low',
+      'Backpropagation math': 'Low',
+      'Transformer internals': 'Low',
+      'Data structures': 'Low',
+      'Algorithms': 'Low'
     }
   };
 

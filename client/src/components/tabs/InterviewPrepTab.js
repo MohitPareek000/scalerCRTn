@@ -18,10 +18,11 @@ const InterviewPrepTab = ({ userData }) => {
     try {
       const response = await axios.get(`${API_BASE_URL}/companies`);
       const all = response.data || [];
-      // Filter by target role when provided
-      if (userData?.targetRole === 'DevOps & Cloud Computing') {
-        const filtered = all.filter(c => c.targetRole === 'DevOps & Cloud Computing');
-        setCompanies(filtered.length ? filtered : all);
+      // Filter by target role when provided (supports multiple roles)
+      if (userData?.targetRole) {
+        const filtered = all.filter(c => c.targetRole === userData.targetRole);
+        // If no targeted companies, fallback to generic ones (no targetRole field)
+        setCompanies(filtered.length ? filtered : all.filter(c => !c.targetRole));
       } else {
         setCompanies(all.filter(c => !c.targetRole));
       }

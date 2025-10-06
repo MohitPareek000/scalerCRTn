@@ -153,22 +153,39 @@ export default async function handler(req, res) {
             'Advanced AI & ML': [
                 {
                     id: 14,
-                    title: 'NLP Chatbot',
-                    tier: 'Beginner',
-                    skills: ['Python', 'NLTK', 'spaCy', 'Transformers', 'Natural Language Processing'],
-                    estimatedTime: '3-4 weeks',
-                    description: 'Build an intelligent chatbot using natural language processing and machine learning.',
+                    title: 'AI-Powered Inappropriate Content Moderation System',
+                    tier: 'Advanced',
+                    skills: [
+                      'Python',
+                      'PyTorch/TensorFlow',
+                      'CNN/RNN/Transformers',
+                      'OpenCV',
+                      'Audio/Video preprocessing',
+                      'Content safety heuristics',
+                      'MLOps'
+                    ],
+                    estimatedTime: '6-8 weeks',
+                    description: 'Build a multi-modal moderation system that detects and blocks inappropriate/violent content in videos by analyzing frames (vision models) and audio (NLP/ASR). Include score thresholding, human-in-the-loop review, audit logging, and a deployable API service.',
                     rubric: '#'
-                },
-                {
+                  },
+                  {
                     id: 15,
-                    title: 'Computer Vision Object Detection',
+                    title: 'Alexa-Inspired Music Recognition with ML',
                     tier: 'Intermediate',
-                    skills: ['Python', 'OpenCV', 'YOLO', 'TensorFlow', 'Computer Vision'],
-                    estimatedTime: '4-5 weeks',
-                    description: 'Develop a real-time object detection system using computer vision techniques.',
-                    rubric: '#'
-                }
+                    skills: [
+                      'Python',
+                      'Librosa',
+                      'DSP',
+                      'MFCCs',
+                      'CNN/RNN',
+                      'Similarity search (Faiss/Annoy)',
+                      'Recommendation systems'
+      ],
+      estimatedTime: '4-6 weeks',
+      description: 'Create a humming-to-song recognition system. Extract audio features (e.g., MFCCs), train a model to match queries against a song embedding index, and return top-K matches with recommendations for similar tracks.',
+      rubric: '#'
+    }
+               
             ]
         };
 
